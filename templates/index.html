@@ -1,0 +1,42 @@
+{% include "base.html" %}
+{% block title %}My Top Movies{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="heading">My Top Movies</h1>
+  <p class="description">These are my all-time favourite movies.</p>
+
+    <div class="container add" style="margin-bottom:20px;">
+    <a href="{{ url_for('add_movie') }}" class="button">Add Movie</a>
+    </div>
+    {% for me in movies %}
+<div id="card-size" class="card" style="width: 400px; height:600px">
+  <div class="front" style="background-image: url({{ me['img_url'] }});">
+      <p class="large">{{ me['rating'] }}</p>
+  </div>
+  <div class="back">
+    <div>
+      <div class="title">{{ me['title'] }} <span class="release_date">{{ me['year'] }}</span></div>
+      <div class="rating">
+        <label>{{ me['rating'] }}</label>
+        <i class="fas fa-star star"></i>
+      </div>
+      <p class="review">{{ me['review'] }}</p>
+      <p class="overview">{{ me['description'] }}</p>
+
+      <a href="{{ url_for('edit', id=me.id) }}" class="button">Update</a>
+      <a href="{{ url_for('delete', id=me.id) }}" class="button delete-button">Delete</a><br><br>
+      <a href="{{ url_for('recommend', movie=me.title) }}" class="button">Recommend</a>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
+
+<div class="container text-center add" style="margin-bottom:20px;">
+<a href="{{ url_for('add_movie') }}" class="button">Add Movie</a>
+</div>
+</div>
+
+{% endblock %}
