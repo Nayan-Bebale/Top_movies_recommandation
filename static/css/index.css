@@ -1,0 +1,244 @@
+/*
+Template Name: Planet
+File: Layout CSS
+Author: TemplatesOnWeb
+Author URI: https://www.templateonweb.com/
+Licence: <a href="https://www.templateonweb.com/license">Website Template Licence</a>
+*/
+/*********************center_home****************/
+.carousel-caption{
+text-align:left;
+background-color: rgba(0, 0, 0, 0.7);
+padding:150px 150px;
+bottom:0;
+left:0;
+width:100%;
+height:100%;
+color:#fff;
+ }
+.carousel-caption p{
+width:45%;
+ }
+.carousel-indicators{
+bottom:0; 
+ }
+
+/*********************center_home_end****************/
+
+/*********************trend****************/
+#trend{
+border-top:2px solid #de1002;
+}
+#trend .carousel-indicators{
+bottom:-50px; 
+ }
+.trend_2im2{
+padding-top:70px; 
+ }
+ 
+#upcome .carousel-indicators{
+bottom:-50px; 
+ }
+#upcome .trend_2im2{
+padding-top:90px; 
+ }
+
+/*********************trend_end****************/
+
+/*********************popular****************/
+.popular_1 .nav-tabs .nav-link{
+color:#fff;
+border:none;
+display:block;
+margin-left:8px;
+margin-right:8px;
+padding:0;
+text-transform:uppercase;
+border-radius:0;
+background:none;
+border-bottom:2px solid transparent;
+padding-bottom:8px;
+ }
+.popular_1 .nav-tabs .nav-link:hover{
+color:#fff;
+border-bottom:2px solid #de1002; 
+ }
+.popular_1 .nav-tabs .nav-link.active{
+color:#fff; 
+border-bottom:2px solid #de1002;
+ }
+ 
+#choice .trend_2im2{
+padding:130px 15px 0px 15px!important; 
+background-color: rgba(0, 0, 0, 0.7);
+height:100%;
+ }
+#choice .carousel-indicators{
+bottom:-50px; 
+ }
+/*********************popular_end****************/
+
+/*********************play****************/
+.play_m{
+background-color: rgba(0, 0, 0, 0.8);
+padding-top:50px;
+padding-bottom:50px; 
+ }
+#play {
+background-image: url(../img/30.jpg);
+background-position: center;
+}
+.play1r{
+height:450px;
+overflow-y:scroll; 
+ }
+
+/*********************play_end****************/
+
+/*********************stream****************/
+#stream .trend_2im2{
+padding:50px 15px 0px 15px!important; 
+background-color: rgba(0, 0, 0, 0.8);
+height:100%;
+ }
+#stream .carousel-indicators{
+bottom:-50px; 
+ }
+#stream{
+border-top:2px solid #de1002;
+}
+/*********************stream_end****************/
+
+
+@media screen and (max-width : 767px){
+.center_home .carousel-caption{
+padding:10px;
+text-align:center; 
+ }
+.center_home .carousel-caption p{
+width:100%;
+text-align:left;
+ }
+
+.center_home img{
+min-height:350px; 
+ }
+.center_home .font_60{
+font-size:24px;
+ }
+.center_home h6{
+font-size:14px;
+line-height:2em;
+ }
+.center_home p{
+font-size:14px;
+ }
+.trend_2im{
+margin-top:15px;
+ }
+.trend_2ilast{
+text-align:center; 
+ }
+.popular_1 .nav-tabs li {
+margin-bottom:5px;
+}
+.popular_2i1lm1 img{
+max-height:240px; 
+ }
+.popular_2i1r{
+margin-top:15px;
+text-align:center; 
+ }
+.popular_2i1r p{
+text-align:left; 
+ }
+.popular_2i1{
+margin-bottom:15px; 
+ }
+#choice img{
+min-height:240px; 
+ }
+.play1l img{
+height:auto; 
+ }
+.play1r img{
+height:auto; 
+ }
+.play2l img{
+height:auto; 
+ }
+.play2r h5{
+text-align:center; 
+ }
+.play2rir{
+margin-top:15px; 
+ }
+
+ }
+
+
+@media (min-width:576px) and (max-width:767px) {
+.trend_1l{
+text-align:left;
+ }
+.trend_1r{
+text-align:right!important;
+margin-top:0; 
+ }
+#popular .trend_1l{
+text-align:center; 
+ }
+.popular_2i1r{
+text-align:left;
+margin-top:0; 
+ }
+#play .trend_1l{
+text-align:center; 
+ }
+ }
+@media (min-width:768px) and (max-width:991px) {
+.center_home img{
+min-height:600px; 
+ }
+.carousel-caption{
+padding:50px 100px;
+ }
+.carousel-caption p{
+width:60%;
+ }
+.trend_2im1 img{
+min-height:200px; 
+ }
+#choice .trend_2im1 img{
+ min-height:240px; 
+ }
+.play2r {
+padding:10px!important; 
+min-height:515px;
+ }
+ }
+
+@media (min-width:992px) and (max-width:1200px) {
+.center_home img{
+min-height:600px; 
+ }
+.carousel-caption{
+padding:50px 100px;
+ }
+.trend_2im1 img{
+min-height:200px; 
+ }
+#choice .trend_2im1 img{
+ min-height:240px; 
+ }
+.play2r {
+padding:10px!important; 
+min-height:515px;
+ }
+
+ }
+@media (min-width:1201px) and (max-width:1255px) {
+
+ }
+
+

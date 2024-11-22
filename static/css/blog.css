@@ -1,0 +1,97 @@
+/*
+Template Name: Planet
+File: Layout CSS
+Author: TemplatesOnWeb
+Author URI: https://www.templateonweb.com/
+Licence: <a href="https://www.templateonweb.com/license">Website Template Licence</a>
+*/
+/*********************blog****************/
+.popular_2i1lm2{
+padding-top:200px;
+ }
+.blog_1r1{
+border:1px solid #27292d; 
+ }
+
+.input-group-text{
+border:1px solid #212226;
+border-radius:0;
+ }
+.blog_1r1 ul li a {
+font-size: 14px;
+padding: 7px 12px 6px;
+background: #252525;
+margin: 0px 2px 6px 0px;
+}
+.blog_1r1 ul li a:hover {
+background: #de1002;
+color:#fff;
+}
+
+.blockquote {
+border-left: 5px solid #de1002;
+}
+.blog_1l2 .social-circle li a {
+background: #252525;
+}
+.blog_1l4 .popular_2i1lm2{
+padding-top:120px;
+ }
+.blog_1dt5l .form_text{
+ height:150px;
+ }
+/*********************blog_end****************/
+
+
+@media screen and (max-width : 767px){
+.blog_1l1i {
+text-align:center; 
+ }
+.blog_1l1i p{
+text-align:left; 
+ }
+.blog_1r1 .button{
+width:50%;
+text-align:center;
+margin-left:auto;
+margin-right:auto;
+display:block;
+ }
+.blog_1l3 {
+text-align:center; 
+ }
+.popular_2i1r{
+text-align:center;
+margin-top:15px; 
+ }
+.popular_2i1r p{
+text-align:left;
+ }
+.blog_1dt5l h6{
+text-align:center; 
+ }
+.blog_1dt5l{
+margin-bottom:15px; 
+ }
+ }
+
+
+@media (min-width:576px) and (max-width:767px) {
+.popular_2i1r{
+text-align:left;
+margin-top:0; 
+ }
+
+ }
+@media (min-width:768px) and (max-width:991px) {
+
+ }
+
+@media (min-width:992px) and (max-width:1200px) {
+
+ }
+@media (min-width:1201px) and (max-width:1255px) {
+
+ }
+
+

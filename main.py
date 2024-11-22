@@ -6,10 +6,12 @@ import os
 import re
 import asyncio
 import aiohttp
+import gzip
+from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_login import UserMixin, LoginManager, login_user, logout_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_bootstrap import Bootstrap5
+from flask_bootstrap import Bootstrap
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
@@ -17,29 +19,66 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo
 from concurrent.futures import ThreadPoolExecutor
 from fuzzywuzzy import process, fuzz
+from tenacity import retry, stop_after_attempt, wait_fixed
+
+
+load_dotenv()
+
+db = SQLAlchemy()  # Create an instance of SQLAlchemy without initializing it with app.
+migrate = Migrate()  # Create an instance of Migrate without initializing it with app.
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-bootstrap = Bootstrap5(app)
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+bootstrap = Bootstrap(app)
 
-# CREATE DB
+# Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///movies.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-db.init_app(app)
 
+db.init_app(app)  # Initialize with the app only once
+migrate.init_app(app, db)  # Initialize the migration manager with the app and db
 
-API_KEY = os.environ.get("API_KEY")
+API_KEY = os.getenv("API_KEY")
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-
 # Define common stopwords
 stopwords = {"the", "a", "of", "and", "to", "in", "for", "with", "on", "at", "by", "an", "-", "as"}
 
+# Genre mapping for dynamic URL construction
+GENRE_IDS = {
+    "action": 28,
+    "adventure": 12,
+    "comedy": 35,
+    "drama": 18,
+    "fantasy": 14,
+    "horror": 27,
+    "musicals": 10402,
+    "mystery": 9648,
+    "romance": 10749,
+    "science_fiction": 878,
+    "sports": 10770,
+    "thriller": 53,
+    "western": 37,
+}
+
+GENRE = {
+        28: "Action" ,
+        12: "Adventure",
+        35: "Comedy",
+        18: "Drama",
+        14: "Fantasy",
+        27: "Horror",
+        10402: "Musicals",
+        9648: "Mystery",
+        10749: "Romance",
+        878: "Science Fiction",
+        10770: "Sports",
+        53: "Thriller",
+        37: "Western",
+    }
 
 # CREATE TABLE
 
@@ -97,6 +136,21 @@ class AddMovies(FlaskForm):
     movie_title = StringField('Movie Title', validators=[DataRequired()])
     done = SubmitField('Add Movie')
 
+class SearchMovies(FlaskForm):
+    movie_title = StringField('Movie Title', validators=[DataRequired()])
+    done = SubmitField('Search Movie')
+
+
+@app.template_filter('truncate_words')
+def truncate_words(s, num_words):
+    words = s.split()
+    if len(words) > num_words:
+        return ' '.join(words[:num_words]) + '...'
+    return s
+
+
+app.jinja_env.filters['truncate_words'] = truncate_words
+
 
 async def fetch_poster(session, movie_id):
     url = f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={API_KEY}&language=en-US'
@@ -130,7 +184,10 @@ def find_closest_match(movie_title, movie_list):
 
 async def get_recommendations(movie):
     movies_dict = pickle.load(open("./movie_dict.pkl", "rb"))
-    similarity = pickle.load(open("./similarity.pkl", "rb"))
+    # Load the compressed similarity file
+    with gzip.open("similarity.pkl.gz", "rb") as f:
+        similarity = pickle.load(f)
+
     movies = pd.DataFrame(movies_dict)
 
     if not movie:
@@ -248,8 +305,139 @@ def logout():
     return redirect(url_for('login'))
 
 
+# Retry logic for transient network issues
+@retry(stop=stop_after_attempt(3), wait=wait_fixed(2))
+async def fetch_movie_data(session, url):
+    try:
+        async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as response:
+            if response.status == 200:
+                return await response.json()
+            else:
+                logging.error(f"Error {response.status}: Failed to fetch data from {url}")
+                return {}
+    except aiohttp.ClientConnectorError as e:
+        logging.error(f"Connection error while trying to access {url}: {e}")
+        raise
+    except asyncio.TimeoutError:
+        logging.error(f"Timeout error while trying to access {url}")
+        raise
+
+
+async def get_homepage_data():
+    import datetime
+    current_year = datetime.datetime.now().year
+
+    async with aiohttp.ClientSession() as session:
+        # Common and genre-based URLs
+        common_urls = {
+            "top_3_movies": f"https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&language=en-US&sort_by=vote_average.desc&vote_count.gte=100&primary_release_year={current_year}&page=1",
+            "latest_12_movies": f"https://api.themoviedb.org/3/movie/now_playing?api_key={API_KEY}&language=en-US&page=1",
+            "upcoming_12_movies": f"https://api.themoviedb.org/3/movie/upcoming?api_key={API_KEY}&language=en-US&page=1",
+            "director_choice": f"https://api.themoviedb.org/3/movie/top_rated?api_key={API_KEY}&language=en-US&page=1",
+            "top_10_movies": f"https://api.themoviedb.org/3/movie/popular?api_key={API_KEY}&language=en-US&page=1",
+            "best_movie_of_month": f"https://api.themoviedb.org/3/movie/popular?api_key={API_KEY}&language=en-US&region=US&page=1",
+
+        }
+
+        genre_urls = {
+            f"trending_{genre}": f"https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&with_genres={genre_id}&sort_by=popularity.desc&page=1"
+            for genre, genre_id in GENRE_IDS.items()
+        }
+
+        # Combine common and genre-based URLs
+        urls = {**common_urls, **genre_urls}
+
+        # Fetch data asynchronously
+        tasks = [fetch_movie_data(session, url) for url in urls.values()]
+        results = await asyncio.gather(*tasks)
+
+        # Map results back to their keys
+        results_dict = {key: result.get('results', []) for key, result in zip(urls.keys(), results)}
+
+        # Limit results for specific categories
+        return {
+            "top_3_movies": results_dict["top_3_movies"][:3],
+            "latest_12_movies": results_dict["latest_12_movies"][:12],
+            "upcoming_12_movies": results_dict["upcoming_12_movies"][:12],
+            "director_choice": results_dict["director_choice"][:6],
+            "top_10_movies": results_dict["top_10_movies"][:10],
+            "best_movie_of_month": results_dict["best_movie_of_month"][0] if results_dict[
+                "best_movie_of_month"] else None,
+            **{key: value[:4] for key, value in results_dict.items() if key.startswith("trending_")},
+        }
+
+
 @app.route("/")
 def home():
+    form = SearchMovies()
+    # Fetch homepage data asynchronously
+    homepage_data = asyncio.run(get_homepage_data())
+    # Genre mapping for dynamic URL construction
+
+    # Prepare context for rendering the template
+    context = {
+        'title': 'Home',
+        'top_3_movies': homepage_data.get('top_3_movies', []),
+        'latest_12_movies': homepage_data.get('latest_12_movies', []),
+        'upcoming_12_movies': homepage_data.get('upcoming_12_movies', []),
+        'director_choice': homepage_data.get('director_choice', []),
+        'top_10_movies': homepage_data.get('top_10_movies', []),
+        'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
+        'genre_movies': {
+            genre: homepage_data.get(f"trending_{genre}", [])
+            for genre in [
+                "action", "adventure", "comedy", "drama", "fantasy",
+                "horror", "musicals", "mystery", "romance", "science_fiction",
+                "sports", "thriller", "western"
+            ]
+        },
+    }
+    # print(homepage_data.get('best_movie_of_month'))
+
+    # print(homepage_data.get('director_choice'))
+    # Render the homepage with the prepared context
+    return render_template("free_movie_zip/index.html", context=context, GENRE_IDS=GENRE, form=form)
+
+
+@app.route("/about")
+def about():
+    return render_template("free_movie_zip/about.html", form = SearchMovies())
+
+@app.route("/contact")
+def contect():
+    return render_template("free_movie_zip/contact.html", form = SearchMovies())
+
+@app.route("/blog")
+def blog():
+    return render_template("free_movie_zip/blog.html", form = SearchMovies())
+
+@app.route("/blog-details")
+def blog_details():
+    return render_template("free_movie_zip/blog_detail.html", form = SearchMovies())
+
+@app.route("/services")
+def services():
+    return render_template("free_movie_zip/services.html", form = SearchMovies())
+
+@app.route("/teams")
+def teams():
+    return render_template("free_movie_zip/team.html", form = SearchMovies())
+
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    form = SearchMovies()
+    if form.validate_on_submit():
+        movie_title = form.movie_title.data
+        response = requests.get("https://api.themoviedb.org/3/search/movie",
+                                params={"api_key": API_KEY, "query": movie_title})
+        data = response.json()["results"]
+        # print(data)
+        return render_template("free_movie_zip/search.html", options=data, GENRE_IDS=GENRE, form=form)
+    return redirect(url_for('home'))
+
+@app.route("/data")
+def data():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
     movies = Movie.query.filter_by(user_id=current_user.id).order_by(Movie.id.desc()).all()
@@ -278,6 +466,9 @@ def delete():
     db.session.delete(movie_to_delete)
     db.session.commit()
     return redirect(url_for('home'))
+
+
+
 
 
 @app.route('/add_movie', methods=["GET", "POST"])
