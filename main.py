@@ -39,6 +39,7 @@ db.init_app(app)  # Initialize with the app only once
 migrate.init_app(app, db)  # Initialize the migration manager with the app and db
 
 API_KEY = os.getenv("API_KEY")
+YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -205,7 +206,7 @@ async def get_recommendations(movie):
     best_match = find_closest_match(movie, potential_matches)
 
     if not best_match:
-        return "<h1>Sorry, This movie is not found in the database.</h1>"
+        return False
 
     movie_index = movies[movies['title'] == best_match].index[0]
 
@@ -323,6 +324,25 @@ async def fetch_movie_data(session, url):
         raise
 
 
+@retry(stop=stop_after_attempt(3), wait=wait_fixed(2))
+async def fetch_movie_details(session, movie_id):
+    url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={API_KEY}&language=en-US"
+    try:
+        async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as response:
+            if response.status == 200:
+                return await response.json()
+            else:
+                logging.error(f"Error {response.status}: Failed to fetch details for movie ID {movie_id}")
+                return {}
+    except aiohttp.ClientConnectorError as e:
+        logging.error(f"Connection error while accessing {url}: {e}")
+        raise
+    except asyncio.TimeoutError:
+        logging.error(f"Timeout error while accessing {url}")
+        raise
+
+
+
 async def get_homepage_data():
     import datetime
     current_year = datetime.datetime.now().year
@@ -336,7 +356,6 @@ async def get_homepage_data():
             "director_choice": f"https://api.themoviedb.org/3/movie/top_rated?api_key={API_KEY}&language=en-US&page=1",
             "top_10_movies": f"https://api.themoviedb.org/3/movie/popular?api_key={API_KEY}&language=en-US&page=1",
             "best_movie_of_month": f"https://api.themoviedb.org/3/movie/popular?api_key={API_KEY}&language=en-US&region=US&page=1",
-
         }
 
         genre_urls = {
@@ -344,7 +363,7 @@ async def get_homepage_data():
             for genre, genre_id in GENRE_IDS.items()
         }
 
-        # Combine common and genre-based URLs
+        # Combine URLs
         urls = {**common_urls, **genre_urls}
 
         # Fetch data asynchronously
@@ -354,15 +373,20 @@ async def get_homepage_data():
         # Map results back to their keys
         results_dict = {key: result.get('results', []) for key, result in zip(urls.keys(), results)}
 
-        # Limit results for specific categories
+        # Get detailed info for "best_movie_of_month"
+        best_movie_id = results_dict["best_movie_of_month"][0]["id"] if results_dict["best_movie_of_month"] else None
+        best_movie_details = None
+        if best_movie_id:
+            best_movie_details = await fetch_movie_details(session, best_movie_id)
+
+        # Limit and return results
         return {
             "top_3_movies": results_dict["top_3_movies"][:3],
             "latest_12_movies": results_dict["latest_12_movies"][:12],
             "upcoming_12_movies": results_dict["upcoming_12_movies"][:12],
             "director_choice": results_dict["director_choice"][:6],
             "top_10_movies": results_dict["top_10_movies"][:10],
-            "best_movie_of_month": results_dict["best_movie_of_month"][0] if results_dict[
-                "best_movie_of_month"] else None,
+            "best_movie_of_month": best_movie_details,
             **{key: value[:4] for key, value in results_dict.items() if key.startswith("trending_")},
         }
 
@@ -422,6 +446,95 @@ def services():
 @app.route("/teams")
 def teams():
     return render_template("free_movie_zip/team.html", form = SearchMovies())
+
+
+def fetch_genre_based_recommendations(genre_ids):
+    """Fetch 5 recommended movies based on genres."""
+    if not genre_ids:
+        return []
+
+    # Use TMDb Discover API to fetch movies by genre
+    tmdb_discover_url = "https://api.themoviedb.org/3/discover/movie"
+    params = {
+        "api_key": API_KEY,
+        "with_genres": ','.join(map(str, genre_ids)),
+        "sort_by": "popularity.desc",
+        "page": 1
+    }
+
+    response = requests.get(tmdb_discover_url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return data.get('results', [])[:5]  # Return top 5 recommendations
+    return []
+
+
+def recommend_single(movie_details):
+    movie = movie_details.get('title')
+
+    if not movie:
+        return "<h1>Movie title not provided.</h1>"
+    
+    with ThreadPoolExecutor() as executor:
+        future = executor.submit(get_recommendations_sync, movie)
+        recommended_list = future.result()
+
+    return recommended_list or []
+
+
+@app.route("/movie-details", methods=["GET", "POST"])
+def movie_details():
+    movie_name = request.args.get('movie')
+    movie_id = request.args.get('id')  # Get movie ID from request
+    video_url = None
+    movie_details = {}
+    recommended_movies = []
+
+    # Fetch trailer from YouTube API
+    if movie_name:
+        youtube_url = "https://www.googleapis.com/youtube/v3/search"
+        params = {
+            "part": "snippet",
+            "q": f"{movie_name} trailer",
+            "type": "video",
+            "maxResults": 1,  # Fetch only the top result
+            "key": YOUTUBE_API_KEY
+        }
+        response = requests.get(youtube_url, params=params)
+        if response.status_code == 200:
+            data = response.json()
+            if data["items"]:
+                # Extract video ID
+                video_id = data["items"][0]["id"]["videoId"]
+                video_url = f"https://www.youtube.com/embed/{video_id}"
+
+    # Fetch movie details from TMDb API
+    if movie_id:
+        tmdb_url = f"https://api.themoviedb.org/3/movie/{movie_id}"
+        params = {"api_key": API_KEY, "language": "en-US"}
+        response = requests.get(tmdb_url, params=params)
+
+        if response.status_code == 200:
+            movie_details = response.json()
+
+            # Fetch recommended movies
+            recommended_movies = recommend_single(movie_details)
+
+            # If no recommendations, fetch 5 movies from a similar genre
+            if not recommended_movies:
+                genre_ids = [genre['id'] for genre in movie_details.get('genres', [])]
+                recommended_movies = fetch_genre_based_recommendations(genre_ids)
+
+        # print(recommended_movies)
+
+    # Render the movie details page
+    return render_template(
+        "free_movie_zip/movie_details.html",
+        form=SearchMovies(),
+        video_url=video_url,  # Pass video trailer URL
+        movie_details=movie_details,  # Pass detailed movie data
+        recommended_movies=recommended_movies  # Pass recommendations
+    )
 
 
 @app.route("/search", methods=["GET", "POST"])

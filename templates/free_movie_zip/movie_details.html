@@ -1,0 +1,301 @@
+{% include 'free_movie_zip/header.html' %} {% block content %}
+<section id="center" class="center_o pt-2 pb-2">
+  <div class="container-xl">
+    <div class="row center_o1">
+      <div class="col-md-5">
+        <div class="center_o1l">
+          <h2 class="mb-0">Movie Detail</h2>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="center_o1r text-end">
+          <h6 class="mb-0 col_red">
+            <a href="#">Home</a>
+            <span class="me-2 ms-2 text-light"
+              ><i class="fa fa-caret-right align-middle"></i
+            ></span>
+            Movie Detail
+          </h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="blog" class="pt-4 pb-4 bg_grey">
+  <div class="container-xl">
+    <div class="row blog_1">
+      <div class="col-md-8">
+        <div class="blog_1l">
+          <div class="blog_1l1">
+            <div class="popular_2i1lm position-relative clearfix">
+                <div class="popular_2i1lm1 clearfix">
+                    <div class="grid">
+                      <figure class="effect-jazz mb-0">
+                        {% if video_url %}
+                        <iframe
+                          width="100%"
+                          height="450"
+                          src="{{ video_url }}"
+                          frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen>
+                        </iframe>
+                        {% else %}
+                        <img
+                          src="https://image.tmdb.org/t/p/w500{{movie_details.poster_path}}"
+                          height="450"
+                          class="w-100"
+                          alt="No Trailer Found"
+                        />
+                        {% endif %}
+                      </figure>
+                    </div>
+                  </div>
+                  
+              <div
+                class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix"
+              >
+                <ul>
+                  <li class="d-inline-block">
+                    <a href="#"><i class="fa fa-link col_red"></i></a>
+                  </li>
+                  <li class="d-inline-block">
+                    <a href="#"><i class="fa fa-search col_red"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="blog_1l1i mt-3">
+              <h5><i class="fa fa-folder-open col_red me-1"></i> Movie Detail</h5>
+              <h2 class="mt-3">
+                <a class="col_red" href="#"
+                  >{{ movie_details.title}}
+                </a>
+              </h2>
+              <h6 class="fw-normal mt-3 col_light">
+                <span
+                  ><i class="fa fa-clock-o me-1 align-middle col_red"></i> {{ movie_details.release_date }}</span
+                >
+                <span class="ms-3"
+                  ><i class="fa fa-user me-1 align-middle col_red"></i>
+                  Popularity</span
+                >
+              </h6>
+              <p class="mt-3">
+                {{ movie_details.overview }}
+              </p>
+            </div>
+          </div>
+        
+          <div class="blog_1l3 mt-4">
+            <h3>Recent Comments</h3>
+          </div>
+          <div class="blog_1l5 mt-3">
+            <div class="blog_1l5i row">
+              <div class="col-md-2 col-2 pe-0">
+                <div class="blog_1l5il">
+                  <img src="../../static/img/34.jpg" class="w-100" alt="abc" />
+                </div>
+              </div>
+              <div class="col-md-10 col-10">
+                <div class="blog_1l5ir">
+                  <h5>
+                    <a href="#">Mr Eget Nulla</a>
+                    <span class="font_14 col_light">/ 13 July 2017</span>
+                  </h5>
+                  <p class="font_14">
+                    Hi, this is a comment.<br />
+                    To delete a comment, just log in and view the post's
+                    comments. There you will have the option to edit or delete
+                    them.
+                  </p>
+                  <h6 class="font_14 mb-0 mt-3">
+                    <a class="button p-3 pt-2 pb-2" href="#"> Reply</a>
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <hr />
+          </div>
+          <div class="blog_1l3 mt-4">
+            <h3>Leave a Comment</h3>
+          </div>
+          <div class="blog_1l6 mt-3">
+            <div class="blog_1dt5 row mt-3">
+              <div class="col-md-6">
+                <div class="blog_1dt5l">
+                  <textarea
+                    placeholder="Comment"
+                    class="form-control form_text"
+                  ></textarea>
+                  <div class="form-check mt-3">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="customCheck1"
+                    />
+                    <label class="form-check-label" for="customCheck1"
+                      >Save my name and email in this browser for the next time
+                      I comment.</label
+                    >
+                  </div>
+                  <h6 class="mt-3 mb-0">
+                    <a class="button" href="#"> Comment</a>
+                  </h6>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="blog_1dt5l">
+                  <input class="form-control" placeholder="Name" type="text" />
+                  <input
+                    class="form-control mt-3"
+                    placeholder="Email"
+                    type="text"
+                  />
+                  <input
+                    class="form-control mt-3"
+                    placeholder="Website"
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- ########################################### -->
+      <div class="col-md-4">
+        <div class="blog_1r">
+          <div class="blog_1r1 p-4 mt-4">
+            <h4>Accordion <span class="col_red">Module</span></h4>
+            <hr class="line mb-4" />
+            <div class="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                  >
+                    Vestibulum Ante Ipsum Prin Orci
+                  </button>
+                </h2>
+                <div
+                  id="collapseOne"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div class="accordion-body">
+                    Lorem ipsum dolor sit amet consec tetuer adipiscing elit
+                    Suspendissete justo consec tetuer elite.consectetuer
+                    adipiscing hendrerit augue .
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="collapseTwo"
+                  >
+                    Cras Eleifend Lacus Ullamcorper
+                  </button>
+                </h2>
+                <div
+                  id="collapseTwo"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="headingTwo"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div class="accordion-body">
+                    Lorem ipsum dolor sit amet consec tetuer adipiscing elit
+                    Suspendissete justo consec tetuer elite.consectetuer
+                    adipiscing hendrerit augue .
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree"
+                    aria-expanded="false"
+                    aria-controls="collapseThree"
+                  >
+                    Suspendisse Lacinia Turpis Convallis
+                  </button>
+                </h2>
+                <div
+                  id="collapseThree"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div class="accordion-body">
+                    Lorem ipsum dolor sit amet consec tetuer adipiscing elit
+                    Suspendissete justo consec tetuer elite.consectetuer
+                    adipiscing hendrerit augue .
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="blog_1r1 p-4 mt-4">
+            <h4>Recommendated <span class="col_red">Movies</span></h4>
+            <hr class="line mb-4" />
+            <!-- ########################################### -->
+             {% for movie in recommended_movies %}
+                <div class="blog_1r1i row">
+                  <div class="col-md-4 col-4">
+                    <div class="blog_1r1il">
+                      <div class="grid clearfix">
+                        <figure class="effect-jazz mb-0">
+                          <a href="blog_detail.html"
+                            ><img
+                              src="{{ movie['img_url'] }}"
+                              class="w-100"
+                              alt="abc"
+                          /></a>
+                        </figure>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-8 ps-0 col-8">
+                    <div class="blog_1r1ir">
+                      <h6 class="mb-1">
+                        <a class="col_red" href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}"
+                          >{{ movie['title'] }}</a
+                        >
+                      </h6>
+                      <p class="mb-0">
+                        {{ movie['description'] | truncate_words(10) }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <hr />
+              {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %} {% include 'free_movie_zip/footer.html' %}
