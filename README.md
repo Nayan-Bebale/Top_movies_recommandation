@@ -31,8 +31,8 @@ Welcome to the CineMatch - Personalized Movie Recommendation App! This Flask-bas
 
 2. **Create a Virtual Environment**:
     ```sh
-    python -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+    python -m venv movie_env
+    source movie_env/bin/activate  # On Windows, use `movie_env\Scripts\activate`
     ```
 
 3. **Install Dependencies**:
