@@ -1,6 +1,6 @@
 # 🎬 CineMatch - Personalized Movie Recommendation App 🍿
 
-Welcome to the CineMatch - Personalized Movie Recommendation App! This Flask-based application provides personalized movie recommendations based on user input, utilizing data from the TMDb API and see trials by YouTube API's. Users can register, log in, manage their watchlist, receive tailored movie suggestions write articals and reviews.
+Welcome to the CineMatch - Personalized Movie Recommendation App! This Flask-based application provides personalized movie recommendations based on user input, utilizing data from the TMDb API and see trailers by YouTube API's. Users can register, log in, manage their watchlist, receive tailored movie suggestions write articals and reviews.
 
 ## 📑 Table of Contents
 - [Features](#features)
