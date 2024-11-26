@@ -95,7 +95,7 @@
 									</div>
 								</div>
 								<div class="trend_2ilast bg_grey p-3 clearfix">
-									<h5><a class="col_red" href="#">{{ movie['title'] }}</a></h5>
+									<h5><a class="col_red" href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}">{{ movie['title'] }}</a></h5>
 									<p class="mb-2">{{ movie['overview']|truncate(50) }}</p>
 									<span class="col_red">
 										{% for star in range(1, movie['vote_average']|round(0, 'floor')|int + 1) %}
@@ -149,7 +149,7 @@
 									<div class="trend_2im1 clearfix">
 										<div class="grid">
 											<figure class="effect-jazz mb-0">
-												<a href="#"><img
+												<a href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}"><img
 														src="https://image.tmdb.org/t/p/w500{{ movie['poster_path'] }}"
 														class="w-100" alt="{{ movie['title'] }}"></a>
 											</figure>
@@ -161,7 +161,7 @@
 									</div>
 								</div>
 								<div class="trend_2ilast bg_grey p-3 clearfix">
-									<h5><a class="col_red" href="#">{{ movie['title'] }}</a></h5>
+									<h5><a class="col_red" href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}">{{ movie['title'] }}</a></h5>
 									<p class="mb-2">{{ movie['overview']|truncate(50) }}</p>
 									<span class="col_red">
 										{% for star in range(1, movie['vote_average']|round(0, 'floor')|int + 1) %}
@@ -371,7 +371,7 @@
 						<div class="play1ri {% if not loop.first %}mt-3{% endif %}">
 							<div class="grid clearfix">
 								<figure class="effect-jazz mb-0">
-									<a href="#"><img src="https://image.tmdb.org/t/p/w500{{ movie['poster_path'] }}"
+									<a href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}"><img src="https://image.tmdb.org/t/p/w500{{ movie['poster_path'] }}"
 											class="w-100" alt="{{ movie['title'] }}"></a>
 								</figure>
 							</div>
@@ -394,7 +394,7 @@
 					<div class="grid clearfix">
 						<figure class="effect-jazz mb-0">
 
-							<a href="#"><img
+							<a href="{{ url_for('movie_details', movie= context['best_movie_of_month']['title'], id=context['best_movie_of_month']['id'] ) }}"><img
 									src="https://image.tmdb.org/t/p/w500{{ context['best_movie_of_month']['poster_path'] }}"
 									height="540" class="w-100" alt="{{ context['best_movie_of_month']['title'] }}"></a>
 						</figure>

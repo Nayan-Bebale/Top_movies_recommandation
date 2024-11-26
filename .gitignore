@@ -5,3 +5,4 @@ movies.pkl
 .env
 .gitignore
 trial.py
+movie_env
