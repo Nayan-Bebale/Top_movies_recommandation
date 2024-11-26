@@ -1,6 +1,6 @@
-# 🎬 Top Movie Recommendation Web App 🍿
+# 🎬 CineMatch - Personalized Movie Recommendation App 🍿
 
-Welcome to the Top Movie Recommendation Web App! This Flask-based application provides personalized movie recommendations based on user input, utilizing data from the TMDb API. Users can register, log in, manage their watchlist, and receive tailored movie suggestions.
+Welcome to the CineMatch - Personalized Movie Recommendation App! This Flask-based application provides personalized movie recommendations based on user input, utilizing data from the TMDb API and see trailers by YouTube API's. Users can register, log in, manage their watchlist, receive tailored movie suggestions write articals and reviews.
 
 ## 📑 Table of Contents
 - [Features](#features)
@@ -31,8 +31,8 @@ Welcome to the Top Movie Recommendation Web App! This Flask-based application pr
 
 2. **Create a Virtual Environment**:
     ```sh
-    python -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+    python -m venv movie_env
+    source movie_env/bin/activate  # On Windows, use `movie_env\Scripts\activate`
     ```
 
 3. **Install Dependencies**:
