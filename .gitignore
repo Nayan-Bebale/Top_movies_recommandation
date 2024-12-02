@@ -6,3 +6,4 @@ movies.pkl
 .gitignore
 trial.py
 movie_env
+.hintrc

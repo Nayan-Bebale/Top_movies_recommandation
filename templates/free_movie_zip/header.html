@@ -5,6 +5,12 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{{ title }}</title>
+  <link rel="icon" type="image/x-icon" href="../../static/img/favicon/favicon.ico">
+
+  <!-- Favicon -->
+  <link href="../../static/img/favicon/apple-touch-icon.png" rel="icon">
+  <link rel="icon" href="../../static/img/favicon/apple-touch-icon.png" type="image/icon type">
+
 	<link href="../../static/css/bootstrap.min.css" rel="stylesheet" >
 	<link href="../../static/css/font-awesome.min.css" rel="stylesheet" >
 	<link href="../../static/css/global.css" rel="stylesheet">
@@ -12,6 +18,36 @@
 	<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
 	<script src="../../static/js/bootstrap.bundle.min.js"></script>
 
+  <style>
+    .genre-img {
+          object-fit: cover;
+          width: 100%;
+          height: auto; /* Let the height adjust automatically */
+          aspect-ratio: 16 / 9; /* Maintain the 16:9 aspect ratio */
+          border-radius: 5px; /* Optional: rounded corners */
+      }
+
+      /* Media Queries for Responsive Design */
+      @media (min-width: 1200px) {
+          .genre-img {
+              height: 120px; /* Larger images on wide screens */
+          }
+      }
+
+      @media (min-width: 768px) and (max-width: 1199px) {
+          .genre-img {
+              height: 80px; /* Medium height for tablets */
+          }
+      }
+
+      @media (max-width: 767px) {
+          .genre-img {
+              height: 40px; /* Smaller height for mobile */
+          }
+      }
+
+
+  </style>
 </head>
 <body>
 
@@ -20,7 +56,9 @@
  <div class="row top_1">
   <div class="col-md-3">
    <div class="top_1l pt-1">
-    <h3 class="mb-0"><a class="text-white" href="{{ url_for('home') }}"><i class="fa fa-video-camera col_red me-1"></i> CineMatch</a></h3>
+    <h3 class="mb-0"><a class="text-white" href="{{ url_for('home') }}"><i class=""></i> 
+      <img src="/static/img/finalcal.png" alt="Logo" class="logo" style="max-width: 140px; max-height: 80px;">
+    </a></h3>
    </div>
   </div>
   <div class="col-md-5">
@@ -52,52 +90,60 @@
 </section>
 
 <section id="header">
-<nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
-  <div class="container">
-    <a class="navbar-brand text-white fw-bold" href="{{ url_for('home') }}"><i class="fa fa-video-camera col_red me-1"></i> CineMatch</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mb-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
-        </li>
-		<li class="nav-item">
-          <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Blog
-          </a>
-          <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{{ url_for('blog') }}">Blog</a></li>
-            <li><a class="dropdown-item border-0" href="{{ url_for('blog_details') }}">Blog Detail</a></li>
-          </ul>
-        </li>
-		<li class="nav-item">
-          <a class="nav-link" href="{{ url_for('services') }}">Services</a>
-        </li>
-		<li class="nav-item">
-          <a class="nav-link" href="{{ url_for('teams') }}">Team</a>
-        </li>
-		<li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Pages
-          </a>
-          <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{{ url_for('about') }}">About Us</a></li>
-            <li><a class="dropdown-item" href="{{ url_for('services') }}">Services</a></li>
-			<li><a class="dropdown-item" href="{{ url_for('teams') }}">Team</a></li>
-            <li><a class="dropdown-item border-0" href="{{ url_for('contect') }}">Contact</a></li>
-          </ul>
-        </li>
-
-		<li class="nav-item">
-          <a class="nav-link" href="{{ url_for('contect') }}">Contact Us</a>
-        </li>
-      </ul>
+  <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
+    <div class="container">
+      <a class="navbar-brand text-white fw-bold" href="{{ url_for('home') }}">
+        <i class=""></i> <img src="/static/img/finalcal.png" alt="Logo" class="logo" style="max-width: 100px; max-height: 50px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Blog
+            </a>
+            <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{{ url_for('blog') }}">Blog</a></li>
+              <li><a class="dropdown-item border-0" href="{{ url_for('blog_details') }}">Blog Detail</a></li>
+            </ul>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('services') }}">Services</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('teams') }}">Team</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Pages
+            </a>
+            <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{{ url_for('about') }}">About Us</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('services') }}">Services</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('teams') }}">Team</a></li>
+              <li><a class="dropdown-item border-0" href="{{ url_for('contect') }}">Contact</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('contect') }}">Contact Us</a>
+          </li>
+        </ul>
+        <!-- Right-aligned Login button -->
+        <ul class="navbar-nav ms-auto mb-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+  
 </section>

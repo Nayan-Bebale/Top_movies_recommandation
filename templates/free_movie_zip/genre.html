@@ -1,0 +1,75 @@
+{% include 'free_movie_zip/header.html' %}
+
+{% block content %}
+
+<section id="trend" class="pt-4 pb-5">
+	<div class="container">
+		<div class="row trend_1">
+			<div class="col-md-6 col-6">
+				<div class="trend_1l">
+					<h4 class="mb-0"><i class="fa fa-youtube-play align-middle col_red me-1"></i> Latest <span
+							class="col_red">Movies</span></h4>
+				</div>
+			</div>
+			<div class="col-md-6 col-6">
+				<div class="trend_1r text-end">
+					<h6 class="mb-0"><a class="button" href="#"> View All</a></h6>
+				</div>
+			</div>
+		</div>
+		<div class="row trend_2 mt-4">
+			<div id="carouselExampleCaptions1" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-indicators">
+					{% for idx in range((context['genre_movies']|length) // 4) %}
+					<button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="{{ idx }}"
+						class="{{ 'active' if idx == 0 else '' }}" aria-label="Slide {{ idx + 1 }}"></button>
+					{% endfor %}
+				</div>
+				<div class="carousel-inner">
+					{% for page in context['genre_movies']|batch(4) %}
+					<div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+						<div class="trend_2i row">
+							{% for movie in page %}
+							<div class="col-md-3 col-6">
+								<div class="trend_2im clearfix position-relative">
+									<div class="trend_2im1 clearfix">
+										<div class="grid">
+											<figure class="effect-jazz mb-0">
+												<a
+													href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}"><img
+														src="https://image.tmdb.org/t/p/w500{{ movie['poster_path'] }}"
+														class="w-100" alt="{{ movie['title'] }}"></a>
+											</figure>
+										</div>
+									</div>
+									<!-- <div class="trend_2im2 clearfix text-center position-absolute w-100 top-0">
+										<span class="fs-1"><a class="col_red" href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}"><i
+													class="fa fa-youtube-play"></i></a></span>
+									</div> -->
+								</div>
+								<!-- <div class="trend_2ilast bg_grey p-3 clearfix">
+									<h5><a class="col_red"
+											href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}">{{
+											movie['title'] }}</a></h5>
+									<p class="mb-2">{{ movie['overview']|truncate(50) }}</p>
+									<span class="col_red">
+										{% for star in range(1, (movie['vote_average'] // 2) | int + 1) %}
+											<i class="fa fa-star"></i>
+										{% endfor %}
+									</span>
+									<p class="mb-0">Votes: {{ movie['vote_count'] }}</p>
+								</div> -->
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}
+
+{% include 'free_movie_zip/footer.html' %}

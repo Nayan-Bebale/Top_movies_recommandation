@@ -55,7 +55,7 @@
                     </h6>
                     <h6> Imdb {{ movie.vote_average }}  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Related Date : {{ movie.release_date}} </h6>
                     <p>{{ movie.overview |truncate(200) }}</p>
-                    <h6 class="mb-0"><a class="button" href="{{ url_for('dataset', id=movie.id) }}">Review</a></h6>
+                    <h6 class="mb-0"><a class="button" href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}">Review</a></h6>
                     </div>
                     </div>
                 </div>

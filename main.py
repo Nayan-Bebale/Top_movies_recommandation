@@ -20,6 +20,7 @@ from wtforms.validators import DataRequired, Email, EqualTo
 from concurrent.futures import ThreadPoolExecutor
 from fuzzywuzzy import process, fuzz
 from tenacity import retry, stop_after_attempt, wait_fixed
+from requests.exceptions import ConnectionError, RequestException
 
 
 load_dotenv()
@@ -52,34 +53,68 @@ stopwords = {"the", "a", "of", "and", "to", "in", "for", "with", "on", "at", "by
 GENRE_IDS = {
     "action": 28,
     "adventure": 12,
+    "animation": 16,
     "comedy": 35,
+    "crime": 80,
+    "documentary": 99,
     "drama": 18,
+    "family": 10751,
     "fantasy": 14,
+    "history": 36,
     "horror": 27,
-    "musicals": 10402,
+    "music": 10402,
     "mystery": 9648,
     "romance": 10749,
     "science_fiction": 878,
-    "sports": 10770,
     "thriller": 53,
-    "western": 37,
+    "war": 10752,
+    "western": 37
 }
 
 GENRE = {
-        28: "Action" ,
-        12: "Adventure",
-        35: "Comedy",
-        18: "Drama",
-        14: "Fantasy",
-        27: "Horror",
-        10402: "Musicals",
-        9648: "Mystery",
-        10749: "Romance",
-        878: "Science Fiction",
-        10770: "Sports",
-        53: "Thriller",
-        37: "Western",
-    }
+    28: "Action",
+    12: "Adventure",
+    16: "Animation",
+    35: "Comedy",
+    80: "Crime",
+    99: "Documentary",
+    18: "Drama",
+    10751: "Family",
+    14: "Fantasy",
+    36: "History",
+    27: "Horror",
+    10402: "Music",
+    9648: "Mystery",
+    10749: "Romance",
+    878: "Science Fiction",
+    53: "Thriller",
+    10752: "War",
+    37: "Western"
+}
+
+country_language_map = {
+    "US": "en-US",  # United States - English
+    "IN": "hi-IN",  # India - Hindi
+    "FR": "fr-FR",  # France - French
+    "DE": "de-DE",  # Germany - German
+    "JP": "ja-JP",  # Japan - Japanese
+    "CN": "zh-CN",  # China - Mandarin
+    "KR": "ko-KR",  # South Korea - Korean
+    "ES": "es-ES",  # Spain - Spanish
+    "IT": "it-IT",  # Italy - Italian
+    "RU": "ru-RU",  # Russia - Russian
+    "BR": "pt-BR",  # Brazil - Portuguese
+    "MX": "es-MX",  # Mexico - Spanish (Mexico)
+    "CA": "en-CA",  # Canada - English
+    "AU": "en-AU",  # Australia - English
+    "SA": "ar-SA",  # Saudi Arabia - Arabic
+    "TR": "tr-TR",  # Turkey - Turkish
+    "ZA": "en-ZA",  # South Africa - English
+    "ID": "id-ID",  # Indonesia - Indonesian
+    "TH": "th-TH",  # Thailand - Thai
+    "NL": "nl-NL",  # Netherlands - Dutch
+}
+
 
 # CREATE TABLE
 
@@ -151,6 +186,22 @@ def truncate_words(s, num_words):
 
 
 app.jinja_env.filters['truncate_words'] = truncate_words
+
+
+
+# Get country code
+def get_country_and_language():
+    try:
+        response = requests.get("https://ipinfo.io/json")
+        data = response.json()
+        country_code = data.get("country", "US")
+        # print(f'#################---------------------> {country_code}')
+        language_code = country_language_map.get(country_code, "en-US")
+        # print(f'#################---------------------> {language_code}')
+        return country_code, language_code
+    except Exception as e:
+        print(f"Error: {e}")
+        return "US", "en-US"
 
 
 async def fetch_poster(session, movie_id):
@@ -275,16 +326,16 @@ def load_user(user_id):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user and user.check_password(form.password.data):
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        user = User.query.filter_by(email=email).first()
+        if user and check_password_hash(user.password_hash, password):
             login_user(user)
+            flash('Login successful!', 'success')
             return redirect(url_for('home'))
-        else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template('login.html', form=form)
-
+        flash('Invalid credentials.', 'danger')
+    return render_template('free_movie_zip/login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -296,7 +347,7 @@ def register():
         db.session.commit()
         flash('Registration successful!', 'success')
         return redirect(url_for('login'))
-    return render_template('register.html', form=form)
+    return render_template('free_movie_zip/register.html', form=form)
 
 
 @app.route('/logout')
@@ -344,8 +395,13 @@ async def fetch_movie_details(session, movie_id):
 
 
 async def get_homepage_data():
-    import datetime
-    current_year = datetime.datetime.now().year
+    from datetime import datetime
+    current_year = datetime.now().year
+    # current_year_month = datetime.now().strftime("%Y-%m")
+    # start_date = f"{current_year_month}-01"
+    # end_date = datetime.now().strftime("%Y-%m-%d")
+    # country_code, language_code  = get_country_and_language()
+    # print(country_code, language_code)
 
     async with aiohttp.ClientSession() as session:
         # Common and genre-based URLs
@@ -407,20 +463,18 @@ def home():
         'director_choice': homepage_data.get('director_choice', []),
         'top_10_movies': homepage_data.get('top_10_movies', []),
         'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
+        'GENRE_IDS':list(GENRE.values()),
         'genre_movies': {
             genre: homepage_data.get(f"trending_{genre}", [])
-            for genre in [
-                "action", "adventure", "comedy", "drama", "fantasy",
-                "horror", "musicals", "mystery", "romance", "science_fiction",
-                "sports", "thriller", "western"
-            ]
+            for genre in GENRE_IDS.keys()
         },
     }
     # print(homepage_data.get('best_movie_of_month'))
 
     # print(homepage_data.get('director_choice'))
     # Render the homepage with the prepared context
-    return render_template("free_movie_zip/index.html", context=context, GENRE_IDS=GENRE, form=form)
+    # print(homepage_data.get('trending_by_country', []))
+    return render_template("free_movie_zip/index.html", context=context, form=form)
 
 
 @app.route("/about")
@@ -465,7 +519,17 @@ def fetch_genre_based_recommendations(genre_ids):
     response = requests.get(tmdb_discover_url, params=params)
     if response.status_code == 200:
         data = response.json()
-        return data.get('results', [])[:5]  # Return top 5 recommendations
+        results = data.get('results', [])
+        return [
+            {
+                "id": movie.get('id'),
+                "title": movie.get('title'),
+                "year": movie.get('release_date', 'N/A').split('-')[0],
+                "description": movie.get('overview', 'No description available.'),
+                "img_url": f"https://image.tmdb.org/t/p/w500/{movie.get('poster_path')}" if movie.get('poster_path') else None,
+            }
+            for movie in results[:2]
+        ]
     return []
 
 
@@ -482,7 +546,23 @@ def recommend_single(movie_details):
     return recommended_list or []
 
 
-@app.route("/movie-details", methods=["GET", "POST"])
+@app.route("/genre", methods=["GET", "POST"])
+def genre():
+    try:
+        genre = request.args.get('genre')
+        genre_id = GENRE_IDS.get(genre.lower())
+        genre_movies = f"https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&with_genres={genre_id}&sort_by=popularity.desc&page=1"
+        response = requests.get(genre_movies)
+        data = response.json()
+        context = {
+            'title': genre,
+            'genre_movies': data.get('results', [])[:8],
+        }
+        return render_template("free_movie_zip/genre.html", context=context, form = SearchMovies())
+    except ConnectionError:
+        return redirect('/')
+
+@app.route("/movie-details", methods=["GET", "POST"]) 
 def movie_details():
     movie_name = request.args.get('movie')
     movie_id = request.args.get('id')  # Get movie ID from request
@@ -490,31 +570,31 @@ def movie_details():
     movie_details = {}
     recommended_movies = []
 
-    # Fetch trailer from YouTube API
-    if movie_name:
-        youtube_url = "https://www.googleapis.com/youtube/v3/search"
-        params = {
-            "part": "snippet",
-            "q": f"{movie_name} trailer",
-            "type": "video",
-            "maxResults": 1,  # Fetch only the top result
-            "key": YOUTUBE_API_KEY
-        }
-        response = requests.get(youtube_url, params=params)
-        if response.status_code == 200:
+    try:
+        # Fetch trailer from YouTube API
+        if movie_name:
+            youtube_url = "https://www.googleapis.com/youtube/v3/search"
+            params = {
+                "part": "snippet",
+                "q": f"{movie_name} trailer",
+                "type": "video",
+                "maxResults": 1,  # Fetch only the top result
+                "key": YOUTUBE_API_KEY
+            }
+            response = requests.get(youtube_url, params=params, timeout=10)  # Set a timeout
+            response.raise_for_status()  # Raise HTTP errors if any
             data = response.json()
-            if data["items"]:
+            if data.get("items"):
                 # Extract video ID
                 video_id = data["items"][0]["id"]["videoId"]
                 video_url = f"https://www.youtube.com/embed/{video_id}"
 
-    # Fetch movie details from TMDb API
-    if movie_id:
-        tmdb_url = f"https://api.themoviedb.org/3/movie/{movie_id}"
-        params = {"api_key": API_KEY, "language": "en-US"}
-        response = requests.get(tmdb_url, params=params)
-
-        if response.status_code == 200:
+        # Fetch movie details from TMDb API
+        if movie_id:
+            tmdb_url = f"https://api.themoviedb.org/3/movie/{movie_id}"
+            params = {"api_key": API_KEY, "language": "en-US"}
+            response = requests.get(tmdb_url, params=params, timeout=10)  # Set a timeout
+            response.raise_for_status()
             movie_details = response.json()
 
             # Fetch recommended movies
@@ -525,28 +605,44 @@ def movie_details():
                 genre_ids = [genre['id'] for genre in movie_details.get('genres', [])]
                 recommended_movies = fetch_genre_based_recommendations(genre_ids)
 
-        # print(recommended_movies)
+        # Render the movie details page
+        return render_template(
+            "free_movie_zip/movie_details.html",
+            form=SearchMovies(),
+            video_url=video_url,  # Pass video trailer URL
+            movie_details=movie_details,  # Pass detailed movie data
+            recommended_movies=recommended_movies  # Pass recommendations
+        )
 
-    # Render the movie details page
-    return render_template(
-        "free_movie_zip/movie_details.html",
-        form=SearchMovies(),
-        video_url=video_url,  # Pass video trailer URL
-        movie_details=movie_details,  # Pass detailed movie data
-        recommended_movies=recommended_movies  # Pass recommendations
-    )
+    except ConnectionError:
+        # Log the error for debugging (optional)
+        print("Network error: Unable to connect to the API.")
+        return redirect('/')
+
+    except RequestException as e:
+        # Handle any other requests-related exceptions
+        print(f"Request error: {e}")
+        return redirect('/')
+
+    except Exception as e:
+        # Catch-all for any other exceptions
+        print(f"Unexpected error: {e}")
+        return redirect('/')
 
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
     form = SearchMovies()
-    if form.validate_on_submit():
-        movie_title = form.movie_title.data
-        response = requests.get("https://api.themoviedb.org/3/search/movie",
-                                params={"api_key": API_KEY, "query": movie_title})
-        data = response.json()["results"]
-        # print(data)
-        return render_template("free_movie_zip/search.html", options=data, GENRE_IDS=GENRE, form=form)
+    try:
+        if form.validate_on_submit():
+            movie_title = form.movie_title.data
+            response = requests.get("https://api.themoviedb.org/3/search/movie",
+                                    params={"api_key": API_KEY, "query": movie_title})
+            data = response.json()["results"][:5]
+            # print(data)
+            return render_template("free_movie_zip/search.html", options=data, GENRE_IDS=GENRE, form=form)
+    except ConnectionError:
+        return redirect(url_for('home'))
     return redirect(url_for('home'))
 
 @app.route("/data")
