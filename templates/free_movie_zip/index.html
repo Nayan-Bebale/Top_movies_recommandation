@@ -134,10 +134,10 @@
 			</div>
 		</div>
 		<div class="row trend_2 mt-4">
-			<div id="carouselExampleCaptions1" class="carousel slide" data-bs-ride="carousel">
+			<div id="carouselExampleCaptions2" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-indicators">
 					{% for idx in range((context['upcoming_12_movies']|length) // 4) %}
-					<button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="{{ idx }}"
+					<button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="{{ idx }}"
 						class="{{ 'active' if idx == 0 else '' }}" aria-label="Slide {{ idx + 1 }}"></button>
 					{% endfor %}
 				</div>
@@ -338,17 +338,14 @@
 	</div>
 </section>
 
-
 <section id="play">
 	<div class="play_m clearfix">
 		<div class="container">
 			<div class="row trend_1">
 				<div class="col-md-12">
 					<div class="trend_1l">
-						<h4 class="mb-0">
-							<i class="fa fa-youtube-play align-middle col_red me-1"></i> Top <span class="col_red">10
-								Playlist</span>
-						</h4>
+						<h4 class="mb-0"><i class="fa fa-youtube-play align-middle col_red me-1"></i> Top <span
+								class="col_red">10 Movies</span></h4>
 					</div>
 				</div>
 			</div>
@@ -361,7 +358,7 @@
 							<figure class="effect-jazz mb-0">
 
 								<a href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}"><img
-										src="https://image.tmdb.org/t/p/w500{{ movie['poster_path'] }}" class="w-100"
+										src="https://image.tmdb.org/t/p/w500{{ movie['backdrop_path'] }}" class="w-100"
 										alt="{{ movie['title'] }}" class="w-100" height="450"
 										alt="{{ context['top_10_movies'][0]['title'] }}"></a>
 							</figure>
@@ -390,121 +387,119 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
-
-
-		<div class="play2 row mt-4">
-			<!-- Movie Poster -->
-			<div class="col-md-4 p-0">
-				<div class="play2l">
-					<div class="grid clearfix">
-						<figure class="effect-jazz mb-0">
-
-							<a
-								href="{{ url_for('movie_details', movie= context['best_movie_of_month']['title'], id=context['best_movie_of_month']['id'] ) }}"><img
-									src="https://image.tmdb.org/t/p/w500{{ context['best_movie_of_month']['poster_path'] }}"
-									height="540" class="w-100" alt="{{ context['best_movie_of_month']['title'] }}"></a>
-						</figure>
-					</div>
-				</div>
-			</div>
-
-			<!-- Movie Details -->
-			<div class="col-md-8 p-0">
-				<div class="play2r bg_grey p-4">
-					<h5>
-						<span class="col_red">BEST MOVIE OF THE MONTH:</span>
-						{{ context['best_movie_of_month']['title'] }}
-						<br>
-						{{ context['best_movie_of_month']['tagline'] or 'Must Watch!' }}
-					</h5>
-
-					<!-- Display Genres -->
-					<h5 class="mt-3">
-						Genres:
-						{% for genre in context['best_movie_of_month']['genres'] %}
-						{{ genre['name'] }}{% if not loop.last %}, {% endif %}
-						{% endfor %}
-					</h5>
-
-					<hr class="line">
-
-					<!-- Overview -->
-					<p class="mt-3">{{ context['best_movie_of_month']['overview'] }}</p>
-
-					<div class="play2ri row mt-4">
-						<!-- Movie Info -->
-						<div class="col-md-6">
-							<div class="play2ril">
-								<h6 class="fw-normal">
-									Status: <span class="pull-right">{{ context['best_movie_of_month'].get('status',
-										'Unknown') }}</span>
-								</h6>
-								<hr class="hr_1">
-
-								<h6 class="fw-normal">
-									Runtime: <span class="pull-right">{{ context['best_movie_of_month']['runtime'] or
-										'N/A' }} minutes</span>
-								</h6>
-								<hr class="hr_1">
-
-								<h6 class="fw-normal">
-									Release Date: <span class="pull-right">{{
-										context['best_movie_of_month']['release_date'] }}</span>
-								</h6>
-								<hr class="hr_1">
-
-								<h6 class="fw-normal">
-									Budget: <span class="pull-right">${{
-										"{:,.0f}".format(context['best_movie_of_month']['budget']) if
-										context['best_movie_of_month']['budget'] else 'Unknown' }}</span>
-								</h6>
-								<hr class="hr_1">
-
-								<h6 class="fw-normal">
-									Revenue: <span class="pull-right">${{
-										"{:,.0f}".format(context['best_movie_of_month']['revenue']) if
-										context['best_movie_of_month']['revenue'] else 'Unknown' }}</span>
-								</h6>
-								<hr class="hr_1">
-
-								<h6 class="fw-normal">
-									Votes: <span class="pull-right">{{ context['best_movie_of_month']['vote_count']
-										}}</span>
-								</h6>
-								<hr class="hr_1 mb-0">
-							</div>
-						</div>
-
-						<!-- Ratings -->
-						<div class="col-md-6">
-							<div class="play2rir">
-								<h6 class="fw-normal">IMDB Rating - {{ context['best_movie_of_month']['vote_average'] }}
-								</h6>
-								<div class="progress">
-									<div class="progress-bar" role="progressbar"
-										style="width: {{ context['best_movie_of_month']['vote_average'] * 10 }}%;"
-										aria-valuenow="{{ context['best_movie_of_month']['vote_average'] * 10 }}"
-										aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-
-								<h6 class="fw-normal mt-3">Popularity - {{ context['best_movie_of_month']['popularity']
-									}}</h6>
-								<div class="progress">
-									<div class="progress-bar" role="progressbar"
-										style="width: {{ context['best_movie_of_month']['popularity'] / 100 }}%;"
-										aria-valuenow="{{ context['best_movie_of_month']['popularity'] / 100 }}"
-										aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-							</div>
+			<div class="play2 row mt-4">
+				<div class="col-md-4 p-0">
+					<div class="play2l">
+						<div class="grid clearfix">
+							<figure class="effect-jazz mb-0">
+								<a
+									href="{{ url_for('movie_details', movie= context['best_movie_of_month']['title'], id=context['best_movie_of_month']['id'] ) }}">
+									<img src="https://image.tmdb.org/t/p/w500{{ context['best_movie_of_month']['poster_path'] }}"
+										height="515" class="w-100"
+										alt="{{ context['best_movie_of_month']['title'] }}"></a>
+							</figure>
 						</div>
 					</div>
 				</div>
-			</div>
 
+				<!-- Movie Details -->
+				<div class="col-md-8 p-0">
+					<div class="play2r bg_grey p-4">
+						<h5>
+							<span class="col_red">BEST MOVIE OF THE MONTH:</span>
+							{{ context['best_movie_of_month']['title'] }}
+							<br>
+							{{ context['best_movie_of_month']['tagline'] or 'Must Watch!' }}
+						</h5>
+
+						<!-- Display Genres -->
+						<h5 class="mt-3">
+							Genres:
+							{% for genre in context['best_movie_of_month']['genres'] %}
+							{{ genre['name'] }}{% if not loop.last %}, {% endif %}
+							{% endfor %}
+						</h5>
+
+						<hr class="line">
+
+						<!-- Overview -->
+						<p class="mt-3">{{ context['best_movie_of_month']['overview'] }}</p>
+
+						<div class="play2ri row mt-4">
+							<!-- Movie Info -->
+							<div class="col-md-6">
+								<div class="play2ril">
+									<h6 class="fw-normal">
+										Status: <span class="pull-right">{{ context['best_movie_of_month'].get('status',
+											'Unknown') }}</span>
+									</h6>
+									<hr class="hr_1">
+
+									<h6 class="fw-normal">
+										Runtime: <span class="pull-right">{{ context['best_movie_of_month']['runtime']
+											or
+											'N/A' }} minutes</span>
+									</h6>
+									<hr class="hr_1">
+
+									<h6 class="fw-normal">
+										Release Date: <span class="pull-right">{{
+											context['best_movie_of_month']['release_date'] }}</span>
+									</h6>
+									<hr class="hr_1">
+
+									<h6 class="fw-normal">
+										Budget: <span class="pull-right">${{
+											"{:,.0f}".format(context['best_movie_of_month']['budget']) if
+											context['best_movie_of_month']['budget'] else 'Unknown' }}</span>
+									</h6>
+									<hr class="hr_1">
+
+									<h6 class="fw-normal">
+										Revenue: <span class="pull-right">${{
+											"{:,.0f}".format(context['best_movie_of_month']['revenue']) if
+											context['best_movie_of_month']['revenue'] else 'Unknown' }}</span>
+									</h6>
+									<hr class="hr_1">
+
+									<h6 class="fw-normal">
+										Votes: <span class="pull-right">{{ context['best_movie_of_month']['vote_count']
+											}}</span>
+									</h6>
+									<hr class="hr_1 mb-0">
+								</div>
+							</div>
+
+							<!-- Ratings -->
+							<div class="col-md-6">
+								<div class="play2rir">
+									<h6 class="fw-normal">IMDB Rating - {{
+										context['best_movie_of_month']['vote_average'] }}
+									</h6>
+									<div class="progress">
+										<div class="progress-bar" role="progressbar"
+											style="width: {{ context['best_movie_of_month']['vote_average'] * 10 }}%;"
+											aria-valuenow="{{ context['best_movie_of_month']['vote_average'] * 10 }}"
+											aria-valuemin="0" aria-valuemax="100"></div>
+									</div>
+
+									<h6 class="fw-normal mt-3">Popularity - {{
+										context['best_movie_of_month']['popularity']
+										}}</h6>
+									<div class="progress">
+										<div class="progress-bar" role="progressbar"
+											style="width: {{ context['best_movie_of_month']['popularity'] / 100 }}%;"
+											aria-valuenow="{{ context['best_movie_of_month']['popularity'] / 100 }}"
+											aria-valuemin="0" aria-valuemax="100"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
 		</div>
-	</div>
 	</div>
 </section>
 
@@ -515,11 +510,6 @@
 				<div class="trend_1l">
 					<h4 class="mb-0"><i class="fa fa-youtube-play align-middle col_red me-1"></i> Popular <span
 							class="col_red">Genres</span></h4>
-				</div>
-			</div>
-			<div class="col-md-6 col-6">
-				<div class="trend_1r text-end">
-					<h6 class="mb-0"><a class="button" href="#">View All</a></h6>
 				</div>
 			</div>
 		</div>
@@ -541,13 +531,64 @@
 									<div class="trend_2im1 clearfix">
 										<div class="grid">
 											<figure class="effect-jazz mb-0">
-												<a href="{{ url_for('genre', genre=genre)}}"><img src="../../static/img/genres/{{genre}}.jpg" class="w-100 genre-img"
-														alt="{{genre}}"></a>
+												<a href="{{ url_for('genre', genre=genre)}}"><img
+														src="../../static/img/genres/{{genre}}.jpg"
+														class="w-100 genre-img" alt="{{genre}}"></a>
 											</figure>
 										</div>
 									</div>
 									<div class="trend_2im2 clearfix position-absolute w-100 top-0">
-										<h5><a class="col_red" href="{{ url_for('genre', genre=genre) }}">{{ genre }}</a></h5>
+										<h5><a class="col_red" href="{{ url_for('genre', genre=genre) }}">{{ genre
+												}}</a></h5>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="stream" class="pb-5 pt-4" style="border-top: black;">
+	<div class="container">
+		<div class="row trend_1">
+			<div class="col-md-6 col-6">
+				<div class="trend_1l">
+					<h4 class="mb-0"><i class="fa fa-youtube-play align-middle col_red me-1"></i> Popular <span
+							class="col_red">Languages</span></h4>
+				</div>
+			</div>
+		</div>
+		<div class="row trend_2 mt-4">
+			<div id="carouselExampleCaptions5" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-indicators">
+					{% for idx in range((context['languages']|length) // 3 ) %}
+					<button type="button" data-bs-target="#carouselExampleCaptions5" data-bs-slide-to="{{ idx }}"
+						class="{{ 'active' if idx == 0 else '' }}" aria-label="Slide {{ idx + 1 }}"></button>
+					{% endfor %}
+				</div>
+				<div class="carousel-inner">
+					{% for page in context['languages']|batch(3) %}
+					<div class="carousel-item {{ 'active' if loop.first else '' }}">
+						<div class="trend_2i row">
+							{% for lang in page %}
+							<div class="col">
+								<div class="trend_2im clearfix position-relative">
+									<div class="trend_2im1 clearfix">
+										<div class="grid">
+											<figure class="effect-jazz mb-0">
+												<a href="{{ url_for('go_languages', language=lang)}}"><img
+														src="../../static/img/languages/{{lang}}.jpg"
+														class="w-100 genre-img" alt="{{lang}}"></a>
+											</figure>
+										</div>
+									</div>
+									<div class="trend_2im2 clearfix position-absolute w-100 top-0">
+										<h5><a class="col_red" href="{{ url_for('go_languages', language=lang) }}">{{ lang }}</a></h5>
 									</div>
 								</div>
 							</div>

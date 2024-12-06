@@ -1,0 +1,342 @@
+{% include 'free_movie_zip/header.html' %} {% block content %}
+
+<section id="center" class="center_o pt-2 pb-2">
+  <div class="container-xl">
+    <div class="row center_o1">
+      <div class="col-md-5">
+        <div class="center_o1l">
+          <h2 class="mb-0">Movie Detail</h2>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="center_o1r text-end">
+          <h6 class="mb-0 col_red">
+            <a href="#">Home</a>
+            <span class="me-2 ms-2 text-light"
+              ><i class="fa fa-caret-right align-middle"></i
+            ></span>
+            Movie Detail
+          </h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="blog" class="pt-4 pb-4 bg_grey">
+  <div class="container-xl">
+    <div class="row blog_1">
+      <div class="col-md-8">
+        <div class="blog_1l">
+          <div class="blog_1l1">
+            <div class="popular_2i1lm position-relative clearfix">
+              <div class="popular_2i1lm1 clearfix">
+                <div class="grid">
+                  <figure class="effect-jazz mb-0">
+                    {% if video_url %}
+                    <iframe
+                      width="100%"
+                      height="450"
+                      src="{{ video_url }}"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    >
+                    </iframe>
+                    {% else %}
+                    <img
+                      src="https://image.tmdb.org/t/p/w500{{movie_details.poster_path}}"
+                      height="450"
+                      class="w-100"
+                      alt="No Trailer Found"
+                    />
+                    {% endif %}
+                  </figure>
+                </div>
+              </div>
+              <div
+                class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix"
+              >
+                <ul>
+                  <li class="d-inline-block">
+                    <a href="#"><i class="fa fa-link col_red"></i></a>
+                  </li>
+                  <li class="d-inline-block">
+                    <a href="#"><i class="fa fa-search col_red"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="blog_1l1i mt-3">
+              <h5><i class="fa fa-folder-open col_red me-1"></i> Movie Details</h5>
+              
+              <h2 class="mt-3">
+                <a class="col_red" href="#"
+                  >{{ movie_details.title}}
+                </a><span>
+                    <h4>{{ movie_details.tagline or 'Must Watch!' }}</h4>
+                </span>
+              </h2>
+              <h6 class="fw-normal mt-3 col_light">
+                <span
+                  ><i class="fa fa-clock-o me-1 align-middle col_red"></i>
+                  {{ movie_details.release_date }}</span
+                >
+                <span class="ms-3">
+                  <i class="fa fa-info-circle me-1 align-middle col_red"></i>
+                  {{ movie_details.status }}
+                </span>
+                
+              </h6>
+              <p class="mt-3">
+                {{ movie_details.overview }}
+              </p>
+            </div>
+          </div>
+          
+          <div class="blog_1l3 mt-4">
+            <h3>Recent Comments</h3>
+          </div>
+          <div class="blog_1l5 mt-3">
+            <div class="blog_1l5i row">
+              <div class="col-md-2 col-2 pe-0">
+                <div class="blog_1l5il">
+                  <img src="img/34.jpg" class="w-100" alt="abc" />
+                </div>
+              </div>
+              <div class="col-md-10 col-10">
+                <div class="blog_1l5ir">
+                  <h5>
+                    <a href="#">Mr Eget Nulla</a>
+                    <span class="font_14 col_light">/ 13 July 2017</span>
+                  </h5>
+                  <p class="font_14">
+                    Hi, this is a comment.<br />
+                    To delete a comment, just log in and view the post's
+                    comments. There you will have the option to edit or delete
+                    them.
+                  </p>
+                  <h6 class="font_14 mb-0 mt-3">
+                    <a class="button p-3 pt-2 pb-2" href="#"> Reply</a>
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div class="blog_1l5i row">
+              <div class="col-md-2 col-2 pe-0">
+                <div class="blog_1l5il">
+                  <img src="img/35.jpg" class="w-100" alt="abc" />
+                </div>
+              </div>
+              <div class="col-md-10 col-10">
+                <div class="blog_1l5ir">
+                  <h5>
+                    <a href="#">Mr Semp Porta</a>
+                    <span class="font_14 col_light">/ 13 July 2017</span>
+                  </h5>
+                  <p class="font_14">
+                    Hi, this is a comment.<br />
+                    To delete a comment, just log in and view the post's
+                    comments. There you will have the option to edit or delete
+                    them.
+                  </p>
+                  <h6 class="font_14 mb-0 mt-3">
+                    <a class="button p-3 pt-2 pb-2" href="#"> Reply</a>
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div class="blog_1l5i row">
+              <div class="col-md-2 col-2 pe-0">
+                <div class="blog_1l5il">
+                  <img src="img/36.jpg" class="w-100" alt="abc" />
+                </div>
+              </div>
+              <div class="col-md-10 col-10">
+                <div class="blog_1l5ir">
+                  <h5>
+                    <a href="#">Mr Quis Sem</a>
+                    <span class="font_14 col_light">/ 13 July 2017</span>
+                  </h5>
+                  <p class="font_14">
+                    Hi, this is a comment.<br />
+                    To delete a comment, just log in and view the post's
+                    comments. There you will have the option to edit or delete
+                    them.
+                  </p>
+                  <h6 class="font_14 mb-0 mt-3">
+                    <a class="button p-3 pt-2 pb-2" href="#"> Reply</a>
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="blog_1l3 mt-4">
+            <h3>Leave a Comment</h3>
+          </div>
+          <div class="blog_1l6 mt-3">
+            <div class="blog_1dt5 row mt-3">
+              <div class="col-md-6">
+                <div class="blog_1dt5l">
+                  <textarea
+                    placeholder="Comment"
+                    class="form-control form_text"
+                  ></textarea>
+                  <div class="form-check mt-3">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="customCheck1"
+                    />
+                    <label class="form-check-label" for="customCheck1"
+                      >Save my name and email in this browser for the next time
+                      I comment.</label
+                    >
+                  </div>
+                  <h6 class="mt-3 mb-0">
+                    <a class="button" href="#"> Comment</a>
+                  </h6>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="blog_1dt5l">
+                  <input class="form-control" placeholder="Name" type="text" />
+                  <input
+                    class="form-control mt-3"
+                    placeholder="Email"
+                    type="text"
+                  />
+                  <input
+                    class="form-control mt-3"
+                    placeholder="Website"
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-4">
+        <div class="blog_1r">
+          <div class="blog_1r1 p-4">
+            <h4>Movie <span class="col_red">Overview</span></h4>
+            <hr class="line mb-4" />
+            <h6>
+                <a href="blog_detail.html"
+                  ><i class="fa fa-chevron-right me-1 col_red font_12"></i>
+                  IMDB Rating <span class="pull-right">{{
+                    context['movie_details']['vote_average'] }}</span></a
+                >
+              </h6>
+            <h6>
+              <a href="blog_detail.html"
+                ><i class="fa fa-chevron-right me-1 col_red font_12"></i> Popularity
+                <span class="pull-right">{{
+                    context['movie_details']['popularity']
+                    }}</span></a
+              >
+            </h6>
+            <hr />
+            <h6>
+              <a href="blog_detail.html"
+                ><i class="fa fa-chevron-right me-1 col_red font_12"></i>
+                Runtime <span class="pull-right">{{ context['movie_details']['runtime']
+                    or
+                    'N/A' }} minutes</span></a
+              >
+            </h6>
+            <hr />
+            <h6>
+              <a href="blog_detail.html"
+                ><i class="fa fa-chevron-right me-1 col_red font_12"></i> Budget
+                <span class="pull-right">${{
+                    "{:,.0f}".format(context['movie_details']['budget']) if
+                    context['movie_details']['budget'] else 'Unknown' }}</span></a
+              >
+            </h6>
+            <hr />
+            <h6>
+              <a href="blog_detail.html"
+                ><i class="fa fa-chevron-right me-1 col_red font_12"></i>
+                Revenue <span class="pull-right">${{
+                    "{:,.0f}".format(context['movie_details']['revenue']) if
+                    context['movie_details']['revenue'] else 'Unknown' }}</span></a
+              >
+            </h6>
+            <hr />
+            <h6>
+              <a href="blog_detail.html"
+                ><i class="fa fa-chevron-right me-1 col_red font_12"></i>
+                Votes <span class="pull-right">{{ context['movie_details']['vote_count']
+                }}</span></a
+              >
+            </h6>
+            <hr />
+            
+            <hr />
+            <h6 class="mb-0">
+              <a href="blog_detail.html"
+                ><i class="fa fa-chevron-right me-1 col_red font_12"></i> Adult 
+                <span class="pull-right">{{ context['movie_details']['adult']
+                }}</span></a
+              >
+            </h6>
+          </div>
+
+          <div class="blog_1r1 p-4 mt-4">
+            <h4>Popular <span class="col_red">Genres</span></h4>
+            <hr class="line mb-4" />
+            <ul class="mb-0">
+            {% for genre in context['movie_details']['genres'] %}  
+              <li class="d-inline-block">
+                <a class="d-block" href="#">{{ genre }}</a>
+              </li>
+            {% endfor %} 
+            </ul>
+          </div>
+          
+          <div class="blog_1r1 p-4 mt-4">
+            <h4>Recommendated <span class="col_red">Movies</span></h4>
+            <hr class="line mb-4" />
+            {% for movie in recommended_movies %}
+                <div class="blog_1r1i row">
+                <div class="col-md-4 col-4">
+                    <div class="blog_1r1il">
+                    <div class="grid clearfix">
+                        <figure class="effect-jazz mb-0">
+                        <a href="blog_detail.html"
+                            ><img src="{{ movie['img_url'] }}" class="w-100" alt="abc"
+                        /></a>
+                        </figure>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-8 ps-0 col-8">
+                    <div class="blog_1r1ir">
+                    <h6 class="mb-1">
+                        <a class="col_red" href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}"
+                        >{{ movie['title'] }}</a
+                        >
+                    </h6>
+                    <p class="mb-0">
+                        {{ movie['description'] | truncate_words(10) }}
+                    </p>
+                    </div>
+                </div>
+                </div>
+                <hr />
+            {% endfor %}
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %} {% include 'free_movie_zip/footer.html' %}

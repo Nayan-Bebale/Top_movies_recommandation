@@ -77,10 +77,17 @@
                 <span
                   ><i class="fa fa-clock-o me-1 align-middle col_red"></i> {{ movie_details.release_date }}</span
                 >
-                <span class="ms-3"
-                  ><i class="fa fa-user me-1 align-middle col_red"></i>
-                  Popularity</span
-                >
+                <span class="ms-3">
+                  <i class="fa fa-info-circle me-1 align-middle col_red"></i>
+                  {{ movie_details.status }}
+                </span>
+
+                <span class="ms-3">
+                  <i class="fa fa-tags me-1 align-middle col_red"></i>
+                  {% for genre in movie_details.genres %}
+                    {{ genre.name }}{% if not loop.last %}, {% endif %}{% endfor %}
+                </span>
+
               </h6>
               <p class="mt-3">
                 {{ movie_details.overview }}
@@ -129,35 +136,10 @@
                     placeholder="Comment"
                     class="form-control form_text"
                   ></textarea>
-                  <div class="form-check mt-3">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      id="customCheck1"
-                    />
-                    <label class="form-check-label" for="customCheck1"
-                      >Save my name and email in this browser for the next time
-                      I comment.</label
-                    >
-                  </div>
+                
                   <h6 class="mt-3 mb-0">
                     <a class="button" href="#"> Comment</a>
                   </h6>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="blog_1dt5l">
-                  <input class="form-control" placeholder="Name" type="text" />
-                  <input
-                    class="form-control mt-3"
-                    placeholder="Email"
-                    type="text"
-                  />
-                  <input
-                    class="form-control mt-3"
-                    placeholder="Website"
-                    type="text"
-                  />
                 </div>
               </div>
             </div>
@@ -171,92 +153,72 @@
       <div class="col-md-4">
         <div class="blog_1r">
           <div class="blog_1r1 p-4 mt-4">
-            <h4>Accordion <span class="col_red">Module</span></h4>
+            <h4>Movie <span class="col_red">Overview</span></h4>
             <hr class="line mb-4" />
-            <div class="accordion" id="accordionExample">
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                  <button
-                    class="accordion-button"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseOne"
-                    aria-expanded="true"
-                    aria-controls="collapseOne"
-                  >
-                    Vestibulum Ante Ipsum Prin Orci
-                  </button>
-                </h2>
-                <div
-                  id="collapseOne"
-                  class="accordion-collapse collapse show"
-                  aria-labelledby="headingOne"
-                  data-bs-parent="#accordionExample"
+            <h6>
+                <a href="#"
+                  ><i class="fa fa-chevron-right me-1 col_red font_12"></i>
+                  IMDB Rating <span class="pull-right">{{
+                    movie_details.vote_average }}</span></a
                 >
-                  <div class="accordion-body">
-                    Lorem ipsum dolor sit amet consec tetuer adipiscing elit
-                    Suspendissete justo consec tetuer elite.consectetuer
-                    adipiscing hendrerit augue .
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                  <button
-                    class="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseTwo"
-                    aria-expanded="false"
-                    aria-controls="collapseTwo"
-                  >
-                    Cras Eleifend Lacus Ullamcorper
-                  </button>
-                </h2>
-                <div
-                  id="collapseTwo"
-                  class="accordion-collapse collapse"
-                  aria-labelledby="headingTwo"
-                  data-bs-parent="#accordionExample"
-                >
-                  <div class="accordion-body">
-                    Lorem ipsum dolor sit amet consec tetuer adipiscing elit
-                    Suspendissete justo consec tetuer elite.consectetuer
-                    adipiscing hendrerit augue .
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                  <button
-                    class="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseThree"
-                    aria-expanded="false"
-                    aria-controls="collapseThree"
-                  >
-                    Suspendisse Lacinia Turpis Convallis
-                  </button>
-                </h2>
-                <div
-                  id="collapseThree"
-                  class="accordion-collapse collapse"
-                  aria-labelledby="headingThree"
-                  data-bs-parent="#accordionExample"
-                >
-                  <div class="accordion-body">
-                    Lorem ipsum dolor sit amet consec tetuer adipiscing elit
-                    Suspendissete justo consec tetuer elite.consectetuer
-                    adipiscing hendrerit augue .
-                  </div>
-                </div>
-              </div>
-            </div>
+              </h6>
+            <hr />
+            <h6>
+              <a href="#"
+                ><i class="fa fa-chevron-right me-1 col_red font_12"></i> Popularity
+                <span class="pull-right">{{
+                    movie_details.popularity
+                    }}</span></a
+              >
+            </h6>
+            <hr />
+            <h6>
+              <a href="#"
+                ><i class="fa fa-chevron-right me-1 col_red font_12"></i>
+                Runtime <span class="pull-right">{{ movie_details.runtime
+                    or
+                    'N/A' }} minutes</span></a
+              >
+            </h6>
+            <hr />
+            <h6>
+              <a href="#"
+                ><i class="fa fa-chevron-right me-1 col_red font_12"></i> Budget
+                <span class="pull-right">${{
+                    "{:,.0f}".format(movie_details.budget) if
+                    movie_details.budget else 'Unknown' }}</span></a
+              >
+            </h6>
+            <hr />
+            <h6>
+              <a href="#"
+                ><i class="fa fa-chevron-right me-1 col_red font_12"></i>
+                Revenue <span class="pull-right">${{
+                    "{:,.0f}".format(movie_details.revenue) if
+                    movie_details.revenue else 'Unknown' }}</span></a
+              >
+            </h6>
+            <hr />
+            <h6>
+              <a href="#"
+                ><i class="fa fa-chevron-right me-1 col_red font_12"></i>
+                Votes <span class="pull-right">{{ movie_details.vote_count
+                }}</span></a
+              >
+            </h6>
+            <hr />
+            
+            <h6 class="mb-0">
+              <a href="#"
+                ><i class="fa fa-chevron-right me-1 col_red font_12"></i> Adult 
+                <span class="pull-right">{{ movie_details.adult }}
+                </span></a
+              >
+            </h6>
           </div>
-          <div class="blog_1r1 p-4 mt-4">
+
+
+
             <h4>Recommendated <span class="col_red">Movies</span></h4>
             <hr class="line mb-4" />
             <!-- ########################################### -->
@@ -266,7 +228,7 @@
                     <div class="blog_1r1il">
                       <div class="grid clearfix">
                         <figure class="effect-jazz mb-0">
-                          <a href="blog_detail.html"
+                          <a href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}""
                             ><img
                               src="{{ movie['img_url'] }}"
                               class="w-100"

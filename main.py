@@ -93,30 +93,19 @@ GENRE = {
 }
 
 country_language_map = {
-    "US": "en-US",  # United States - English
-    "IN": "hi-IN",  # India - Hindi
-    "FR": "fr-FR",  # France - French
-    "DE": "de-DE",  # Germany - German
-    "JP": "ja-JP",  # Japan - Japanese
-    "CN": "zh-CN",  # China - Mandarin
-    "KR": "ko-KR",  # South Korea - Korean
-    "ES": "es-ES",  # Spain - Spanish
-    "IT": "it-IT",  # Italy - Italian
-    "RU": "ru-RU",  # Russia - Russian
-    "BR": "pt-BR",  # Brazil - Portuguese
-    "MX": "es-MX",  # Mexico - Spanish (Mexico)
-    "CA": "en-CA",  # Canada - English
-    "AU": "en-AU",  # Australia - English
-    "SA": "ar-SA",  # Saudi Arabia - Arabic
-    "TR": "tr-TR",  # Turkey - Turkish
-    "ZA": "en-ZA",  # South Africa - English
-    "ID": "id-ID",  # Indonesia - Indonesian
-    "TH": "th-TH",  # Thailand - Thai
-    "NL": "nl-NL",  # Netherlands - Dutch
+    "English": ("US", "en-US"),  # United States - English
+    "Hindi": ("IN", "hi-IN"),  # India - Hindi
+    "French": ("FR", "fr-FR"),  # France - French
+    "German": ("DE", "de-DE"),  # Germany - German
+    "Japanese": ("JP", "ja-JP"),  # Japan - Japanese
+    "Mandarin": ("CN", "zh-CN"),  # China - Mandarin
+    "Korean": ("KR", "ko-KR"),  # South Korea - Korean
+    "Spanish": ("ES", "es-ES"),  # Spain - Spanish
+    "Russian": ("RU", "ru-RU"),  # Russia - Russian
 }
 
 
-# CREATE TABLE
+# ################################################### Database 
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -147,6 +136,7 @@ class Movie(db.Model):
 with app.app_context():
     db.create_all()
 
+################################################## Flask Form
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -187,7 +177,7 @@ def truncate_words(s, num_words):
 
 app.jinja_env.filters['truncate_words'] = truncate_words
 
-
+############################################################# Recomendation and Fetch data 
 
 # Get country code
 def get_country_and_language():
@@ -302,61 +292,6 @@ def get_recommendations_sync(movie):
     return loop.run_until_complete(get_recommendations(movie))
 
 
-@app.route('/recommendation')
-def recommend():
-    movie = request.args.get('movie')
-
-    if not movie:
-        return "<h1>Movie title not provided.</h1>"
-
-    with ThreadPoolExecutor() as executor:
-        future = executor.submit(get_recommendations_sync, movie)
-        recommended_list = future.result()
-
-    if isinstance(recommended_list, str):  # This means an error message was returned
-        return recommended_list
-
-    return render_template("recommendation.html", movies=recommended_list)
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        user = User.query.filter_by(email=email).first()
-        if user and check_password_hash(user.password_hash, password):
-            login_user(user)
-            flash('Login successful!', 'success')
-            return redirect(url_for('home'))
-        flash('Invalid credentials.', 'danger')
-    return render_template('free_movie_zip/login.html')
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data, method='sha256')
-        new_user = User(username=form.username.data, email=form.email.data, password_hash=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-        flash('Registration successful!', 'success')
-        return redirect(url_for('login'))
-    return render_template('free_movie_zip/register.html', form=form)
-
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('login'))
-
-
 # Retry logic for transient network issues
 @retry(stop=stop_after_attempt(3), wait=wait_fixed(2))
 async def fetch_movie_data(session, url):
@@ -447,8 +382,129 @@ async def get_homepage_data():
         }
 
 
+@app.route('/recommendation')
+def recommend():
+    movie = request.args.get('movie')
+
+    if not movie:
+        return "<h1>Movie title not provided.</h1>"
+
+    with ThreadPoolExecutor() as executor:
+        future = executor.submit(get_recommendations_sync, movie)
+        recommended_list = future.result()
+
+    if isinstance(recommended_list, str):  # This means an error message was returned
+        return recommended_list
+
+    return render_template("recommendation.html", movies=recommended_list)
+
+
+async def fetch_genre_based_recommendations(session, genre_ids):
+    """Fetch 5 recommended movies based on genres asynchronously."""
+    if not genre_ids:
+        return []
+
+    # Use TMDb Discover API to fetch movies by genre
+    tmdb_discover_url = "https://api.themoviedb.org/3/discover/movie"
+    params = {
+        "api_key": API_KEY,
+        "with_genres": ','.join(map(str, genre_ids)),
+        "sort_by": "popularity.desc",
+        "page": 1
+    }
+
+    try:
+        async with session.get(tmdb_discover_url, params=params, timeout=10) as response:
+            response.raise_for_status()
+            data = await response.json()
+            results = data.get('results', [])
+            return [
+                {
+                    "id": movie.get('id'),
+                    "title": movie.get('title'),
+                    "year": movie.get('release_date', 'N/A').split('-')[0],
+                    "description": movie.get('overview', 'No description available.'),
+                    "img_url": f"https://image.tmdb.org/t/p/w500/{movie.get('poster_path')}" if movie.get('poster_path') else None,
+                }
+                for movie in results[:5]  # Fetch up to 5 recommendations
+            ]
+    except aiohttp.ClientError as e:
+        print(f"Error fetching genre-based recommendations: {e}")
+        return []
+
+
+async def recommend_single(session, movie_details):
+    movie = movie_details.get('title')
+
+    if not movie:
+        return []
+
+    # Now we fetch recommendations asynchronously
+    try:
+        url = f"https://api.themoviedb.org/3/movie/{movie_details['id']}/recommendations"
+        params = {"api_key": API_KEY, "language": "en-US"}
+        async with session.get(url, params=params, timeout=10) as response:
+            response.raise_for_status()
+            data = await response.json()
+            return [
+                {
+                    "id": recommendation.get('id'),
+                    "title": recommendation.get('title'),
+                    "year": recommendation.get('release_date', 'N/A').split('-')[0],
+                    "description": recommendation.get('overview', 'No description available.'),
+                    "img_url": f"https://image.tmdb.org/t/p/w500/{recommendation.get('poster_path')}" if recommendation.get('poster_path') else None,
+                }
+                for recommendation in data.get('results', [])[:5]  # Fetch up to 5 recommendations
+            ]
+    except aiohttp.ClientError as e:
+        print(f"Error fetching movie recommendations: {e}")
+        return []
+
+
+############################################################# Flask Authentication
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        user = User.query.filter_by(email=email).first()
+        if user and check_password_hash(user.password_hash, password):
+            login_user(user)
+            flash('Login successful!', 'success')
+            return redirect(url_for('home'))
+        flash('Invalid credentials.', 'danger')
+    return render_template('free_movie_zip/login.html')
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password.data, method='sha256')
+        new_user = User(username=form.username.data, email=form.email.data, password_hash=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Registration successful!', 'success')
+        return redirect(url_for('login'))
+    return render_template('free_movie_zip/register.html', form=form)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+
+############################################################ Flask Routes
+
 @app.route("/")
 def home():
+    languages = ['English', 'Hindi', 'Japanese', 'Korean', 'Russian', 'Mandarin (Chaina)', 'German', 'French', 'Spanish']
     form = SearchMovies()
     # Fetch homepage data asynchronously
     homepage_data = asyncio.run(get_homepage_data())
@@ -464,16 +520,12 @@ def home():
         'top_10_movies': homepage_data.get('top_10_movies', []),
         'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
         'GENRE_IDS':list(GENRE.values()),
+        'languages': languages,
         'genre_movies': {
             genre: homepage_data.get(f"trending_{genre}", [])
             for genre in GENRE_IDS.keys()
         },
     }
-    # print(homepage_data.get('best_movie_of_month'))
-
-    # print(homepage_data.get('director_choice'))
-    # Render the homepage with the prepared context
-    # print(homepage_data.get('trending_by_country', []))
     return render_template("free_movie_zip/index.html", context=context, form=form)
 
 
@@ -501,148 +553,193 @@ def services():
 def teams():
     return render_template("free_movie_zip/team.html", form = SearchMovies())
 
-
-def fetch_genre_based_recommendations(genre_ids):
-    """Fetch 5 recommended movies based on genres."""
-    if not genre_ids:
-        return []
-
-    # Use TMDb Discover API to fetch movies by genre
-    tmdb_discover_url = "https://api.themoviedb.org/3/discover/movie"
-    params = {
-        "api_key": API_KEY,
-        "with_genres": ','.join(map(str, genre_ids)),
-        "sort_by": "popularity.desc",
-        "page": 1
-    }
-
-    response = requests.get(tmdb_discover_url, params=params)
-    if response.status_code == 200:
-        data = response.json()
-        results = data.get('results', [])
-        return [
-            {
-                "id": movie.get('id'),
-                "title": movie.get('title'),
-                "year": movie.get('release_date', 'N/A').split('-')[0],
-                "description": movie.get('overview', 'No description available.'),
-                "img_url": f"https://image.tmdb.org/t/p/w500/{movie.get('poster_path')}" if movie.get('poster_path') else None,
-            }
-            for movie in results[:2]
-        ]
-    return []
-
-
-def recommend_single(movie_details):
-    movie = movie_details.get('title')
-
-    if not movie:
-        return "<h1>Movie title not provided.</h1>"
-    
-    with ThreadPoolExecutor() as executor:
-        future = executor.submit(get_recommendations_sync, movie)
-        recommended_list = future.result()
-
-    return recommended_list or []
-
-
 @app.route("/genre", methods=["GET", "POST"])
-def genre():
-    try:
-        genre = request.args.get('genre')
-        genre_id = GENRE_IDS.get(genre.lower())
-        genre_movies = f"https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&with_genres={genre_id}&sort_by=popularity.desc&page=1"
-        response = requests.get(genre_movies)
-        data = response.json()
-        context = {
-            'title': genre,
-            'genre_movies': data.get('results', [])[:8],
-        }
-        return render_template("free_movie_zip/genre.html", context=context, form = SearchMovies())
-    except ConnectionError:
-        return redirect('/')
+async def genre():
+    genre = request.args.get('genre', '').lower()
+    genre_id = GENRE_IDS.get(genre)
 
-@app.route("/movie-details", methods=["GET", "POST"]) 
-def movie_details():
+    if not genre_id:
+        print(f"Invalid genre: {genre}")
+        return redirect('/#popular')
+
+    # Construct the TMDb API URL
+    genre_movies_url = (f"https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}"
+                        f"&with_genres={genre_id}&sort_by=popularity.desc&page=1")
+
+    async with aiohttp.ClientSession() as session:
+        try:
+            # Fetch data from the API
+            response = await fetch_movie_data(session, genre_movies_url)
+            # Extract movie results
+            genre_movies = response.get("results", [])[:8]  # Limit to the first 8 movies
+            
+            # Prepare the context for the template
+            context = {
+                'movie_genre': genre.capitalize(),
+                'genre_movies': genre_movies,
+            }
+            return render_template("free_movie_zip/genre.html", context=context, form=SearchMovies())
+
+        except aiohttp.ClientConnectionError:
+            print("Network error: Unable to connect to TMDb API.")
+            return redirect('/#popular')
+
+        except aiohttp.ClientResponseError as e:
+            print(f"HTTP error during TMDb API call: {e}")
+            return redirect('/#popular')
+
+        except asyncio.TimeoutError:
+            print("The request to TMDb API timed out.")
+            return redirect('/#popular')
+
+        except Exception as e:
+            # Catch-all for unexpected errors
+            print(f"Unexpected error: {e}")
+            return redirect('/#popular')
+
+
+@app.route("/language", methods=["GET", "POST"])
+async def go_languages():
+    language = request.args.get('language')
+    country_code, language_code = country_language_map.get(language, ("US", "en-US"))
+    original_language = language_code.split('-')[0]  # Extract the language part (e.g., "en" from "en-US")
+    
+    # Construct the TMDb API URL
+    url = (f"https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}"
+           f"&language={language_code}&region={country_code}"
+           f"&with_original_language={original_language}&sort_by=popularity.desc&page=1")
+    
+    async with aiohttp.ClientSession() as session:
+        try:
+            # Fetch data from the API
+            response = await fetch_movie_data(session, url)
+            # Extract movie results
+            movies = response.get("results", [])
+            context = {
+                'language': language,
+                'movies': movies[:8],  # Limit to the first 8 movies
+            }
+            return render_template("free_movie_zip/language.html", context=context, form=SearchMovies())
+        except ConnectionError:
+            return redirect('/#stream')
+        except RequestException as e:
+            # Handle any other requests-related exceptions
+            print(f"Request error: {e}")
+            return redirect('/#stream')
+        except Exception as e:
+            # Catch-all for any other exceptions
+            print(f"Unexpected error: {e}")
+            return redirect('/#stream')
+
+
+@app.route("/movie-details", methods=["GET", "POST"])
+async def movie_details():
     movie_name = request.args.get('movie')
     movie_id = request.args.get('id')  # Get movie ID from request
     video_url = None
     movie_details = {}
     recommended_movies = []
 
-    try:
-        # Fetch trailer from YouTube API
-        if movie_name:
-            youtube_url = "https://www.googleapis.com/youtube/v3/search"
-            params = {
-                "part": "snippet",
-                "q": f"{movie_name} trailer",
-                "type": "video",
-                "maxResults": 1,  # Fetch only the top result
-                "key": YOUTUBE_API_KEY
-            }
-            response = requests.get(youtube_url, params=params, timeout=10)  # Set a timeout
-            response.raise_for_status()  # Raise HTTP errors if any
-            data = response.json()
-            if data.get("items"):
-                # Extract video ID
-                video_id = data["items"][0]["id"]["videoId"]
-                video_url = f"https://www.youtube.com/embed/{video_id}"
+    async with aiohttp.ClientSession() as session:
+        try:
+            # Fetch trailer from YouTube API
+            if movie_name:
+                youtube_url = "https://www.googleapis.com/youtube/v3/search"
+                params = {
+                    "part": "snippet",
+                    "q": f"{movie_name} trailer",
+                    "type": "video",
+                    "maxResults": 1,  # Fetch only the top result
+                    "key": YOUTUBE_API_KEY
+                }
+                async with session.get(youtube_url, params=params, timeout=10) as response:
+                    response.raise_for_status()  # Raise HTTP errors if any
+                    data = await response.json()
+                    if data.get("items"):
+                        # Extract video ID
+                        video_id = data["items"][0]["id"]["videoId"]
+                        video_url = f"https://www.youtube.com/embed/{video_id}"
 
-        # Fetch movie details from TMDb API
-        if movie_id:
-            tmdb_url = f"https://api.themoviedb.org/3/movie/{movie_id}"
-            params = {"api_key": API_KEY, "language": "en-US"}
-            response = requests.get(tmdb_url, params=params, timeout=10)  # Set a timeout
-            response.raise_for_status()
-            movie_details = response.json()
+            # Fetch movie details from TMDb API
+            if movie_id:
+                tmdb_url = f"https://api.themoviedb.org/3/movie/{movie_id}"
+                params = {"api_key": API_KEY, "language": "en-US"}
+                async with session.get(tmdb_url, params=params, timeout=10) as response:
+                    response.raise_for_status()
+                    movie_details = await response.json()
 
-            # Fetch recommended movies
-            recommended_movies = recommend_single(movie_details)
 
-            # If no recommendations, fetch 5 movies from a similar genre
-            if not recommended_movies:
-                genre_ids = [genre['id'] for genre in movie_details.get('genres', [])]
-                recommended_movies = fetch_genre_based_recommendations(genre_ids)
+                # Fetch recommended movies
+                recommended_movies = await recommend_single(session, movie_details)
 
-        # Render the movie details page
-        return render_template(
-            "free_movie_zip/movie_details.html",
-            form=SearchMovies(),
-            video_url=video_url,  # Pass video trailer URL
-            movie_details=movie_details,  # Pass detailed movie data
-            recommended_movies=recommended_movies  # Pass recommendations
-        )
+                # If no recommendations, fetch 5 movies from a similar genre
+                if not recommended_movies:
+                    genre_ids = [genre['id'] for genre in movie_details.get('genres', [])]
+                    recommended_movies = await fetch_genre_based_recommendations(session, genre_ids)
 
-    except ConnectionError:
-        # Log the error for debugging (optional)
-        print("Network error: Unable to connect to the API.")
-        return redirect('/')
+            # Render the movie details page
+            return render_template(
+                "free_movie_zip/movie_details.html",
+                form=SearchMovies(),
+                video_url=video_url,  # Pass video trailer URL
+                movie_details=movie_details,  # Pass detailed movie data
+                recommended_movies=recommended_movies  # Pass recommendations
+            )
 
-    except RequestException as e:
-        # Handle any other requests-related exceptions
-        print(f"Request error: {e}")
-        return redirect('/')
+        except aiohttp.ClientConnectionError:
+            print("Network error: Unable to connect to the API.")
+            return redirect('/')
 
-    except Exception as e:
-        # Catch-all for any other exceptions
-        print(f"Unexpected error: {e}")
-        return redirect('/')
+        except aiohttp.ClientResponseError as e:
+            print(f"HTTP error: {e}")
+            return redirect('/')
+
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return redirect('/')
 
 
 @app.route("/search", methods=["GET", "POST"])
-def search():
+async def search():
     form = SearchMovies()
-    try:
-        if form.validate_on_submit():
-            movie_title = form.movie_title.data
-            response = requests.get("https://api.themoviedb.org/3/search/movie",
-                                    params={"api_key": API_KEY, "query": movie_title})
-            data = response.json()["results"][:5]
-            # print(data)
-            return render_template("free_movie_zip/search.html", options=data, GENRE_IDS=GENRE, form=form)
-    except ConnectionError:
-        return redirect(url_for('home'))
+
+    if form.validate_on_submit():
+        movie_title = form.movie_title.data
+        search_url = "https://api.themoviedb.org/3/search/movie"
+        params = {"api_key": API_KEY, "query": movie_title}
+
+        async with aiohttp.ClientSession() as session:
+            try:
+                # Make asynchronous API call
+                async with session.get(search_url, params=params, timeout=10) as response:
+                    response.raise_for_status()  # Raise an exception for HTTP errors
+                    data = await response.json()
+                    movies = data.get("results", [])[:5]  # Limit to the first 5 results
+
+                # Render the search results page
+                return render_template(
+                    "free_movie_zip/search.html",
+                    options=movies,
+                    GENRE_IDS=GENRE,
+                    form=form
+                )
+            except aiohttp.ClientConnectionError:
+                print("Network error: Unable to connect to TMDb API.")
+                return redirect(url_for('home'))
+
+            except aiohttp.ClientResponseError as e:
+                print(f"HTTP error during TMDb API call: {e}")
+                return redirect(url_for('home'))
+
+            except asyncio.TimeoutError:
+                print("The request to TMDb API timed out.")
+                return redirect(url_for('home'))
+
+            except Exception as e:
+                print(f"Unexpected error: {e}")
+                return redirect(url_for('home'))
+
+    # Redirect to the home page if form is not valid
     return redirect(url_for('home'))
 
 @app.route("/data")
@@ -675,8 +772,6 @@ def delete():
     db.session.delete(movie_to_delete)
     db.session.commit()
     return redirect(url_for('home'))
-
-
 
 
 
@@ -725,5 +820,8 @@ def dataset():
     return redirect(url_for("edit", id=new_movie.id))
 
 
+@app.route('/try')
+def try_it():
+    return render_template("free_movie_zip/try.html", form = SearchMovies())
 if __name__ == '__main__':
     app.run(debug=True, host="localhost")

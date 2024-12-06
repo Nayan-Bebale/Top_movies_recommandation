@@ -242,7 +242,7 @@ display: inline-block;
 .social-network a.icoRss:hover {
 background-color: #F56505;
 }
-.social-network a.icoFacebook:hover {
+.social-network a.icoGithub:hover {
 background-color:#3B5998;
 }
 .social-network a.icoTwitter:hover {
@@ -257,7 +257,7 @@ background-color:#0590B8;
 .social-network a.icoLinkedin:hover {
 background-color:#007bb7;
 }
-.social-network a.icoRss:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,
+.social-network a.icoRss:hover i, .social-network a.icoGithub:hover i, .social-network a.icoTwitter:hover i,
 .social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {
 color:#fff;
 }
@@ -403,7 +403,7 @@ padding-top:30px;
 padding-bottom:30px; 
  }
 #footer {
-background-image: url(../img/3.jpg);
+background-image: url(../img/footer-bg.jpg);
 background-position: center;
 }
 .footer_1i .form-control{
@@ -555,9 +555,9 @@ padding:10px 10px!important;
 .popular_2i1lm1 img{
 min-height:240px; 
  }
-#stream .trend_2im2 {
+/* #stream .trend_2im2 {
 display:none; 
- }
+ } */
 .contact_1il span{
 font-size:16px!important; 
  }
