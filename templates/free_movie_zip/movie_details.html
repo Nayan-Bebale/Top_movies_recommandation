@@ -97,53 +97,68 @@
         
           <div class="blog_1l3 mt-4">
             <h3>Recent Comments</h3>
-          </div>
-          <div class="blog_1l5 mt-3">
+        </div>
+        <div class="blog_1l5 mt-3">
+            {% for comment in comments %}
             <div class="blog_1l5i row">
-              <div class="col-md-2 col-2 pe-0">
-                <div class="blog_1l5il">
-                  <img src="../../static/img/34.jpg" class="w-100" alt="abc" />
+                <div class="col-md-2 col-2 pe-0">
+                    <div class="blog_1l5il">
+                      {% if comment.user.profile_pic %}
+                        <img src="../../static/uploads/{{ comment.user.profile_pic }}" class="w-50" style="border-radius: 50%;" alt="Profile Image">
+                      {% else %}
+                        <img src="../../static/img/default.png" class="w-50" style="border-radius: 50%;" alt="Profile Image">
+                      {% endif %}  
+                    </div>
+
                 </div>
-              </div>
-              <div class="col-md-10 col-10">
-                <div class="blog_1l5ir">
-                  <h5>
-                    <a href="#">Mr Eget Nulla</a>
-                    <span class="font_14 col_light">/ 13 July 2017</span>
-                  </h5>
-                  <p class="font_14">
-                    Hi, this is a comment.<br />
-                    To delete a comment, just log in and view the post's
-                    comments. There you will have the option to edit or delete
-                    them.
-                  </p>
-                  <h6 class="font_14 mb-0 mt-3">
-                    <a class="button p-3 pt-2 pb-2" href="#"> Reply</a>
-                  </h6>
+                <div class="col-md-10 col-10">
+                    <div class="blog_1l5ir">
+                        <h5>
+                            <a href="#">{{ comment.user.username }}</a>
+                            <span class="font_14 col_light">/ {{ comment.timestamp.strftime('%d %b %Y') }}</span>
+                        </h5>
+                        <p class="font_18">
+                            {{ comment.comment_text }}
+                        </p>
+                        <h6 class="font_14 mb-0 mt-3">
+                            <a class="button p-3 pt-2 pb-2" href="#">Reply</a>
+                        </h6>
+                    </div>
                 </div>
-              </div>
             </div>
+            {% endfor %}
             <hr />
-          </div>
+        </div>
+        
+          
           <div class="blog_1l3 mt-4">
             <h3>Leave a Comment</h3>
           </div>
           <div class="blog_1l6 mt-3">
             <div class="blog_1dt5 row mt-3">
               <div class="col-md-6">
-                <div class="blog_1dt5l">
-                  <textarea
-                    placeholder="Comment"
-                    class="form-control form_text"
-                  ></textarea>
-                
-                  <h6 class="mt-3 mb-0">
-                    <a class="button" href="#"> Comment</a>
-                  </h6>
-                </div>
+                <form action="/add_comment" method="POST">
+                  <div class="blog_1dt5l">
+                    <textarea
+                      name="comment_text"
+                      placeholder="Write your comment here..."
+                      class="form-control form_text"
+                      required
+                    ></textarea>
+                    <input type="hidden" name="movie_id" value="{{ movie_details.id }}">
+                    <input type="hidden" name="movie_name" value="{{ movie_details.title }}">
+                    {% if current_user.is_authenticated %}
+                      <br>
+                      <button type="submit" class="button">Comment</button>
+                    {% else %}
+                      <h6 class="mt-3 mb-0"><a class="button" href="{{ url_for('login') }}">Login for Comment</a></h6>
+                    {% endif %}
+                    </div>
+                </form>
               </div>
             </div>
           </div>
+          
         </div>
       </div>
 

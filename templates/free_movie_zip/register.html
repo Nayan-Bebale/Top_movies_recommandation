@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="stylesheet" href="/static/css/auth.css">
-
     <style>
         .bg-image {
             background-image: url("/static/img/background-auth2.jpg");
@@ -25,12 +24,36 @@
             padding: 0;
         }
 
+        #togglePassword, #toggleConfirmPassword {
+            font-size: 1.2em;
+            user-select: none;
+            position: absolute;
+            right: 10px;
+            cursor: pointer;
+            color: #b3b3b3;
+        }
+
+        #togglePassword:hover, #toggleConfirmPassword:hover {
+            color: #ffffff;
+        }
+
+        .password-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .password-container input {
+            flex: 1;
+            padding-right: 40px;
+        }
     </style>
 </head>
 <body class="bg-image">
     <!-- Responsive Header -->
     <header class="header">
-        <a href="{{ url_for('home')}}" style="padding-top: 5%;">
+        <a href="{{ url_for('home') }}" style="padding-top: 5%;">
             <img src="/static/img/finalcal.png" alt="Logo" class="logo">
         </a>
     </header>
@@ -40,35 +63,76 @@
 
         {% with messages = get_flashed_messages() %}
           {% if messages %}
-              <ul class=flashes>
+              <ul class="flashes">
               {% for message in messages %}
                   <li>{{ message }}</li>
               {% endfor %}
               </ul>
           {% endif %}
         {% endwith %}
-        <!-- Simple Form -->
+        
+        <!-- Sign-Up Form -->
         <form method="POST" action="/register" style="margin-bottom: 50px;">
             <!-- Username Field -->
             <input type="text" name="username" id="username" placeholder="Username" required>
 
             <!-- Email Field -->
-            <input type="email" name="email" id="email" placeholder="Email or phone number" required>
-            
-            <!-- Password Field -->
-            <input type="password" name="password" id="password" placeholder="Password" required>
-            
-            <!-- Confirm Field -->
-            <input type="password" name="con_password" id="con_password" placeholder="Confirm Password" required>
+            <input type="email" name="email" id="email" placeholder="Email" required>
+
+            <!-- Password Field with Toggle -->
+            <div class="password-container">
+                <input 
+                    type="password" 
+                    name="password" 
+                    id="password" 
+                    placeholder="Password" 
+                    required>
+                <span 
+                    id="togglePassword" 
+                    aria-label="Toggle Password Visibility">🙄</span>
+            </div>
+
+            <!-- Confirm Password Field with Toggle -->
+            <div class="password-container">
+                <input 
+                    type="password" 
+                    name="confirm_password" 
+                    id="confirmPassword" 
+                    placeholder="Confirm Password" 
+                    required>
+                <span 
+                    id="toggleConfirmPassword" 
+                    aria-label="Toggle Confirm Password Visibility">🙄</span>
+            </div>
 
             <!-- Submit Button -->
-            <button type="submit" id="signInBtn">Sign Up</button>
+            <button type="submit" id="signUpBtn">Sign Up</button>
             
             <div class="options">
                 <a href="#">Forgot Password?</a>
-                <a href="{{ url_for('login') }}">Have a account!</a>
+                <a href="{{ url_for('login') }}">Have an account?</a>
             </div>
         </form>
     </div>
+
+    <script>
+        // Toggle visibility for password
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? '🙄' : '🧐';
+        });
+
+        // Toggle visibility for confirm password
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        toggleConfirmPassword.addEventListener('click', function () {
+            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? '🙄' : '🧐';
+        });
+    </script>
 </body>
 </html>

@@ -135,12 +135,34 @@
             <a class="nav-link" href="{{ url_for('contect') }}">Contact Us</a>
           </li>
         </ul>
-        <!-- Right-aligned Login button -->
+        <!-- Right-aligned Login/Logout button -->
         <ul class="navbar-nav ms-auto mb-0">
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
-          </li>
+          {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  hi, {{ current_user.username }}
+                </a>
+                <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
+                  <form action="{{ url_for('upload_profile_pic') }}" method="POST" enctype="multipart/form-data" class="d-inline">
+                    <label for="profile_pic_upload" class="btn btn-primary">Upload Profile Picture</label>
+                    <input type="file" name="profile_pic" id="profile_pic_upload" style="display: none;" onchange="this.form.submit()">
+                  </form>
+                  
+                  <li><a class="dropdown-item" href="{{ url_for('about') }}">Add Movies</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('services') }}">My Favorite</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('teams') }}">My Preference</a></li>
+                  <li><a class="dropdown-item border-0" href="{{ url_for('logout') }}">Logout</a></li>
+                </ul>
+              </li>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+            </li>
+          {% endif %}
         </ul>
+
       </div>
     </div>
   </nav>

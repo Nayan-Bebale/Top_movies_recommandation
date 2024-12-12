@@ -13,6 +13,14 @@
             margin: 0;
             padding: 0;
         }
+        #togglePassword {
+                font-size: 1.2em;
+                user-select: none;
+            }
+        #togglePassword:hover {
+            color: #ffffff;
+        }
+
     </style>
 </head>
 <body class="bg-image">
@@ -40,8 +48,26 @@
             <!-- Email Field -->
             <input type="email" name="email" id="email" placeholder="Email or phone number" required>
             
-            <!-- Password Field -->
-            <input type="password" name="password" id="password" placeholder="Password" required>
+            <!-- Password Field with Toggle -->
+            <div style="position: relative; display: flex; align-items: center;">
+                <input 
+                    type="password" 
+                    name="password" 
+                    id="password" 
+                    placeholder="Password" 
+                    required 
+                    style="flex: 1; padding-right: 40px;">
+                <span 
+                    id="togglePassword" 
+                    style="
+                        position: absolute; 
+                        right: 10px; 
+                        cursor: pointer; 
+                        color: #b3b3b3;">
+                    🙄
+                </span>
+            </div>
+
             
             <!-- Submit Button -->
             <button type="submit" id="signInBtn">Sign In</button>
@@ -53,5 +79,19 @@
         </form>
         
     </div>
+    <script>
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+    
+        togglePassword.addEventListener('click', function () {
+            // Toggle the type attribute
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+    
+            // Toggle the icon
+            this.textContent = type === 'password' ? '🙄' : '🧐';
+        });
+    </script>
+    
 </body>
 </html>

@@ -7,6 +7,7 @@ import re
 import asyncio
 import aiohttp
 import gzip
+from datetime import datetime
 from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_login import UserMixin, LoginManager, login_user, logout_user, current_user, login_required
@@ -14,13 +15,16 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bootstrap import Bootstrap
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Email, EqualTo
 from concurrent.futures import ThreadPoolExecutor
 from fuzzywuzzy import process, fuzz
 from tenacity import retry, stop_after_attempt, wait_fixed
 from requests.exceptions import ConnectionError, RequestException
+from sqlalchemy import ForeignKeyConstraint
+from werkzeug.utils import secure_filename
+
+# Import data from assemble_code
+from assemble_code.parameters import GENRE, GENRE_IDS, country_language_map, stopwords
+from assemble_code.forms import SearchMovies, RegistrationForm, Edit, AddMovies 
 
 
 load_dotenv()
@@ -36,6 +40,14 @@ bootstrap = Bootstrap(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///movies.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+
+# Helper function to check allowed file types
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
+
 db.init_app(app)  # Initialize with the app only once
 migrate.init_app(app, db)  # Initialize the migration manager with the app and db
 
@@ -46,73 +58,19 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-# Define common stopwords
-stopwords = {"the", "a", "of", "and", "to", "in", "for", "with", "on", "at", "by", "an", "-", "as"}
-
-# Genre mapping for dynamic URL construction
-GENRE_IDS = {
-    "action": 28,
-    "adventure": 12,
-    "animation": 16,
-    "comedy": 35,
-    "crime": 80,
-    "documentary": 99,
-    "drama": 18,
-    "family": 10751,
-    "fantasy": 14,
-    "history": 36,
-    "horror": 27,
-    "music": 10402,
-    "mystery": 9648,
-    "romance": 10749,
-    "science_fiction": 878,
-    "thriller": 53,
-    "war": 10752,
-    "western": 37
-}
-
-GENRE = {
-    28: "Action",
-    12: "Adventure",
-    16: "Animation",
-    35: "Comedy",
-    80: "Crime",
-    99: "Documentary",
-    18: "Drama",
-    10751: "Family",
-    14: "Fantasy",
-    36: "History",
-    27: "Horror",
-    10402: "Music",
-    9648: "Mystery",
-    10749: "Romance",
-    878: "Science Fiction",
-    53: "Thriller",
-    10752: "War",
-    37: "Western"
-}
-
-country_language_map = {
-    "English": ("US", "en-US"),  # United States - English
-    "Hindi": ("IN", "hi-IN"),  # India - Hindi
-    "French": ("FR", "fr-FR"),  # France - French
-    "German": ("DE", "de-DE"),  # Germany - German
-    "Japanese": ("JP", "ja-JP"),  # Japan - Japanese
-    "Mandarin": ("CN", "zh-CN"),  # China - Mandarin
-    "Korean": ("KR", "ko-KR"),  # South Korea - Korean
-    "Spanish": ("ES", "es-ES"),  # Spain - Spanish
-    "Russian": ("RU", "ru-RU"),  # Russia - Russian
-}
-
 
 # ################################################### Database 
-
+# User Model
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password_hash = db.Column(db.String(150), nullable=False)
-    movies = db.relationship('Movie', backref='owner', lazy=True)
+    profile_pic = db.Column(db.String(150), default='static/img/default.png')
+    favorites = db.relationship('Favorite', backref='user', lazy=True)
+    comments = db.relationship('Comment', backref='user', lazy=True)
+    watch_history = db.relationship('WatchHistory', backref='user', lazy=True)
+    critics = db.relationship('FilmCritic', backref='user', lazy=True)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -121,51 +79,67 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
 
+# Movie Model
 class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250), unique=True, nullable=False)
-    year = db.Column(db.Integer, nullable=False)
-    description = db.Column(db.String(500), nullable=False)
-    rating = db.Column(db.Float, nullable=True)
-    ranking = db.Column(db.Integer, nullable=True)
-    review = db.Column(db.String(250), nullable=True)
-    img_url = db.Column(db.String(250), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    description = db.Column(db.JSON, nullable=False)
+    video_url = db.Column(db.String(250), nullable=False)
+    comments = db.relationship('Comment', backref='movie', lazy=True)
+    favorites = db.relationship('Favorite', backref='movie', lazy=True)
+    watch_history = db.relationship('WatchHistory', backref='movie', lazy=True)
+    critics = db.relationship('FilmCritic', backref='movie', lazy=True)
 
+
+# Favorite Model
+class Favorite(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'), nullable=False)
+    added_on = db.Column(db.DateTime, default=datetime.utcnow)
+
+# Comment Model
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'), nullable=False)
+    comment_text = db.Column(db.String(500), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+# Watch History Model
+class WatchHistory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'), nullable=False)
+    watched_on = db.Column(db.DateTime, default=datetime.utcnow)
+
+# Film Critic Model
+class FilmCritic(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'), nullable=False)
+    critic_title = db.Column(db.String(150), nullable=False)
+    critic_text = db.Column(db.Text, nullable=False)
+    rating = db.Column(db.Float, nullable=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+class UserPreference(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', name='fk_userpreference_user'), nullable=False)
+    preferred_genres = db.Column(db.String(500))
+    preferred_language = db.Column(db.String(50), nullable=True)
+
+
+class ApiCache(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    movie_id = db.Column(db.Integer, nullable=False)
+    data = db.Column(db.JSON, nullable=False)
+    cached_on = db.Column(db.DateTime, default=datetime.utcnow)
 
 with app.app_context():
     db.create_all()
-
-################################################## Flask Form
-
-class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Login')
-
-
-class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired()])
-    submit = SubmitField('Register')
-
-
-class Edit(FlaskForm):
-    your_rating = StringField('Your Rating Out of 10 e.g. 7.3', validators=[DataRequired()])
-    your_review = StringField('Your Review', validators=[DataRequired()])
-    done = SubmitField('Done')
-
-
-class AddMovies(FlaskForm):
-    movie_title = StringField('Movie Title', validators=[DataRequired()])
-    done = SubmitField('Add Movie')
-
-class SearchMovies(FlaskForm):
-    movie_title = StringField('Movie Title', validators=[DataRequired()])
-    done = SubmitField('Search Movie')
-
 
 @app.template_filter('truncate_words')
 def truncate_words(s, num_words):
@@ -482,15 +456,42 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data, method='sha256')
-        new_user = User(username=form.username.data, email=form.email.data, password_hash=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-        flash('Registration successful!', 'success')
-        return redirect(url_for('login'))
-    return render_template('free_movie_zip/register.html', form=form)
+    if request.method == 'POST':
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+
+        # Check if all fields are filled
+        if not all([username, email, password, confirm_password]):
+            flash('All fields are required.', 'danger')
+            return render_template('free_movie_zip/register.html')
+
+        # Check if passwords match
+        if password != confirm_password:
+            flash('Passwords do not match.', 'danger')
+            return render_template('free_movie_zip/register.html')
+
+        # Check if the email or username already exists
+        existing_user = User.query.filter((User.email == email) | (User.username == username)).first()
+        if existing_user:
+            flash('User with this email or username already exists.', 'danger')
+            return render_template('free_movie_zip/register.html')
+
+        # Hash the password and create a new user
+        hashed_password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16)
+        new_user = User(username=username, email=email, password_hash=hashed_password)
+
+        try:
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Registration successful! You can now log in.', 'success')
+            return redirect(url_for('login'))
+        except Exception as e:
+            db.session.rollback()
+            flash('An error occurred during registration. Please try again.', 'danger')
+
+    return render_template('free_movie_zip/register.html')
 
 
 @app.route('/logout')
@@ -527,6 +528,22 @@ def home():
         },
     }
     return render_template("free_movie_zip/index.html", context=context, form=form)
+
+@app.route('/upload-profile-pic', methods=['GET', 'POST'])
+def upload_profile_pic():
+    if 'profile_pic' not in request.files:
+        print('Data is not store')
+        return redirect(request.url)
+    file = request.files['profile_pic']
+    if file.filename == '' or not allowed_file(file.filename):
+        print('Data is not valid or something')
+        return redirect(url_for('home'))
+    if file:
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        current_user.profile_pic = filename
+        db.session.commit()
+        return redirect(url_for('home'))
 
 
 @app.route("/about")
@@ -634,70 +651,83 @@ async def go_languages():
 
 @app.route("/movie-details", methods=["GET", "POST"])
 async def movie_details():
-    movie_name = request.args.get('movie')
-    movie_id = request.args.get('id')  # Get movie ID from request
+    movie_id = request.args.get('id')
     video_url = None
     movie_details = {}
     recommended_movies = []
 
-    async with aiohttp.ClientSession() as session:
-        try:
-            # Fetch trailer from YouTube API
-            if movie_name:
-                youtube_url = "https://www.googleapis.com/youtube/v3/search"
-                params = {
-                    "part": "snippet",
-                    "q": f"{movie_name} trailer",
-                    "type": "video",
-                    "maxResults": 1,  # Fetch only the top result
-                    "key": YOUTUBE_API_KEY
-                }
-                async with session.get(youtube_url, params=params, timeout=10) as response:
-                    response.raise_for_status()  # Raise HTTP errors if any
-                    data = await response.json()
-                    if data.get("items"):
-                        # Extract video ID
-                        video_id = data["items"][0]["id"]["videoId"]
-                        video_url = f"https://www.youtube.com/embed/{video_id}"
-
-            # Fetch movie details from TMDb API
-            if movie_id:
+    movie = Movie.query.filter_by(id=movie_id).first()
+    if not movie and movie_id:
+        async with aiohttp.ClientSession() as session:
+            try:
                 tmdb_url = f"https://api.themoviedb.org/3/movie/{movie_id}"
                 params = {"api_key": API_KEY, "language": "en-US"}
                 async with session.get(tmdb_url, params=params, timeout=10) as response:
                     response.raise_for_status()
                     movie_details = await response.json()
+                    new_movie = Movie(
+                        id=movie_details['id'],
+                        title=movie_details['title'],
+                        description=movie_details,
+                        video_url=""
+                    )
+                    db.session.add(new_movie)
+                    db.session.commit()
+                    movie = new_movie
 
+                youtube_url = "https://www.googleapis.com/youtube/v3/search"
+                params = {
+                    "part": "snippet",
+                    "q": f"{movie.title} trailer",
+                    "type": "video",
+                    "maxResults": 1,
+                    "key": YOUTUBE_API_KEY
+                }
+                async with session.get(youtube_url, params=params, timeout=10) as response:
+                    response.raise_for_status()
+                    data = await response.json()
+                    if data.get("items"):
+                        video_id = data["items"][0]["id"]["videoId"]
+                        video_url = f"https://www.youtube.com/embed/{video_id}"
 
-                # Fetch recommended movies
+                        # Save video_url to the database
+                        movie.video_url = video_url
+                        db.session.commit()
+
                 recommended_movies = await recommend_single(session, movie_details)
-
-                # If no recommendations, fetch 5 movies from a similar genre
                 if not recommended_movies:
                     genre_ids = [genre['id'] for genre in movie_details.get('genres', [])]
                     recommended_movies = await fetch_genre_based_recommendations(session, genre_ids)
 
-            # Render the movie details page
-            return render_template(
-                "free_movie_zip/movie_details.html",
-                form=SearchMovies(),
-                video_url=video_url,  # Pass video trailer URL
-                movie_details=movie_details,  # Pass detailed movie data
-                recommended_movies=recommended_movies  # Pass recommendations
-            )
+                comments = Comment.query.filter_by(movie_id=movie.id).all()
+                return render_template(
+                    "free_movie_zip/movie_details.html",
+                    form=SearchMovies(),
+                    video_url=video_url,
+                    movie_details=movie_details,
+                    recommended_movies=recommended_movies,
+                    comments=comments
+                )
+            except Exception as e:
+                print(f"Unexpected error: {e}")
+                return redirect('/')
 
-        except aiohttp.ClientConnectionError:
-            print("Network error: Unable to connect to the API.")
-            return redirect('/')
-
-        except aiohttp.ClientResponseError as e:
-            print(f"HTTP error: {e}")
-            return redirect('/')
-
-        except Exception as e:
-            print(f"Unexpected error: {e}")
-            return redirect('/')
-
+    comments = Comment.query.filter_by(movie_id=movie.id).all()
+    movie_details=movie.description
+    async with aiohttp.ClientSession() as session:
+        recommended_movies = await recommend_single(session, movie.description)
+        if not recommended_movies:
+            genre_ids = [genre['id'] for genre in movie.description.get('genres', [])]
+            recommended_movies = await fetch_genre_based_recommendations(session, genre_ids)
+                
+    return render_template(
+        "free_movie_zip/movie_details.html",
+        form=SearchMovies(),
+        video_url=movie.video_url,
+        movie_details=movie.description,
+        recommended_movies=recommended_movies,
+        comments=comments
+    )
 
 @app.route("/search", methods=["GET", "POST"])
 async def search():
@@ -741,6 +771,37 @@ async def search():
 
     # Redirect to the home page if form is not valid
     return redirect(url_for('home'))
+
+
+@app.route("/add_comment", methods=["POST"])
+def add_comment():
+    comment_text = request.form.get('comment_text')
+    movie_id = request.form.get('movie_id')  # Use POST for security
+    movie_name = request.form.get('movie_name')
+
+
+    if not current_user.is_authenticated:
+        flash('Please log in to leave a comment.', 'danger')
+        return redirect(url_for('login'))
+    
+
+    # Create a new comment object
+    new_comment = Comment(
+        user_id=current_user.id,
+        movie_id=movie_id,
+        comment_text=comment_text.strip()
+    )
+
+    try:
+        db.session.add(new_comment)
+        db.session.commit()
+        flash('Comment added successfully!', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Error adding comment: {str(e)}', 'danger')
+
+    return redirect(url_for('movie_details', movie=movie_name, id=movie_id))
+
 
 @app.route("/data")
 def data():
