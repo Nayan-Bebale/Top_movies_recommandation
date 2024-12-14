@@ -102,7 +102,7 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
           </li>
           <li class="nav-item dropdown">
@@ -113,11 +113,11 @@
               <li><a class="dropdown-item" href="{{ url_for('blog') }}">Blog</a></li>
               <li><a class="dropdown-item border-0" href="{{ url_for('blog_details') }}">Blog Detail</a></li>
             </ul>
-          </li>
+          </li> -->
           <!-- <li class="nav-item">
             <a class="nav-link" href="{{ url_for('services') }}">Services</a>
           </li> -->
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="{{ url_for('teams') }}">Team</a>
           </li>
           <li class="nav-item dropdown">
@@ -133,7 +133,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('contect') }}">Contact Us</a>
-          </li>
+          </li> -->
         </ul>
         <!-- Right-aligned Login/Logout button -->
         <ul class="navbar-nav ms-auto mb-0">
@@ -141,11 +141,23 @@
             <li class="nav-item">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  hi, {{ current_user.username }}
+                  <!-- hi, {{ current_user.username }} -->
+                  {% if current_user.profile_pic %}
+                    <img src="{{ url_for('static', filename='uploads/' + current_user.profile_pic) }}" 
+                        class="img-fluid rounded-circle" 
+                        style="max-width: 40px; height: auto;" 
+                        alt="Profile Image">
+                  {% else %}
+                    <img src="{{ url_for('static', filename='img/default.png') }}" 
+                        class="img-fluid rounded-circle" 
+                        style="max-width: 40px; height: auto;" 
+                        alt="Profile Image">
+                  {% endif %}
+
                 </a>
                 <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
                   <form action="{{ url_for('upload_profile_pic') }}" method="POST" enctype="multipart/form-data" class="d-inline">
-                    <label for="profile_pic_upload" class="btn btn-primary">Upload Profile Picture</label>
+                    <label for="profile_pic_upload" class="btn btn-primary">Upload Picture</label>
                     <input type="file" name="profile_pic" id="profile_pic_upload" style="display: none;" onchange="this.form.submit()">
                   </form>
                   

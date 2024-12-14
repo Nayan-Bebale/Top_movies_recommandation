@@ -7,6 +7,7 @@ import re
 import asyncio
 import aiohttp
 import gzip
+import json
 from datetime import datetime
 from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, url_for, request, flash
@@ -42,6 +43,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+
+DATA_FILE = "homepage_data.json"
 
 # Helper function to check allowed file types
 def allowed_file(filename):
@@ -304,16 +307,18 @@ async def fetch_movie_details(session, movie_id):
 
 
 async def get_homepage_data():
-    from datetime import datetime
-    current_year = datetime.now().year
-    # current_year_month = datetime.now().strftime("%Y-%m")
-    # start_date = f"{current_year_month}-01"
-    # end_date = datetime.now().strftime("%Y-%m-%d")
-    # country_code, language_code  = get_country_and_language()
-    # print(country_code, language_code)
+    current_date = datetime.now().strftime("%Y-%m-%d")
+
+    # Check if data file exists and is up-to-date
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "r") as file:
+            cached_data = json.load(file)
+        if cached_data.get("date") == current_date:
+            return cached_data["data"]
 
     async with aiohttp.ClientSession() as session:
-        # Common and genre-based URLs
+        current_year = datetime.now().year
+
         common_urls = {
             "top_3_movies": f"https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&language=en-US&sort_by=vote_average.desc&vote_count.gte=100&primary_release_year={current_year}&page=1",
             "latest_12_movies": f"https://api.themoviedb.org/3/movie/now_playing?api_key={API_KEY}&language=en-US&page=1",
@@ -328,32 +333,48 @@ async def get_homepage_data():
             for genre, genre_id in GENRE_IDS.items()
         }
 
-        # Combine URLs
         urls = {**common_urls, **genre_urls}
-
-        # Fetch data asynchronously
         tasks = [fetch_movie_data(session, url) for url in urls.values()]
         results = await asyncio.gather(*tasks)
-
-        # Map results back to their keys
         results_dict = {key: result.get('results', []) for key, result in zip(urls.keys(), results)}
 
-        # Get detailed info for "best_movie_of_month"
         best_movie_id = results_dict["best_movie_of_month"][0]["id"] if results_dict["best_movie_of_month"] else None
         best_movie_details = None
         if best_movie_id:
             best_movie_details = await fetch_movie_details(session, best_movie_id)
+            
+            youtube_url = "https://www.googleapis.com/youtube/v3/search"
+            params = {
+                "part": "snippet",
+                "q": f"{best_movie_details['title']} trailer",
+                "type": "video",
+                "maxResults": 1,
+                "key": YOUTUBE_API_KEY
+            }
+            async with session.get(youtube_url, params=params, timeout=10) as response:
+                response.raise_for_status()
+                data = await response.json()
+                if data.get("items"):
+                    video_id = data["items"][0]["id"]["videoId"]
+                    video_url = f"https://www.youtube.com/embed/{video_id}"
+                
 
-        # Limit and return results
-        return {
+
+        final_data = {
             "top_3_movies": results_dict["top_3_movies"][:3],
             "latest_12_movies": results_dict["latest_12_movies"][:12],
             "upcoming_12_movies": results_dict["upcoming_12_movies"][:12],
             "director_choice": results_dict["director_choice"][:6],
             "top_10_movies": results_dict["top_10_movies"][:10],
             "best_movie_of_month": best_movie_details,
+            "best_movie_video_url": video_url if best_movie_details else None,
             **{key: value[:4] for key, value in results_dict.items() if key.startswith("trending_")},
         }
+
+        with open(DATA_FILE, "w") as file:
+            json.dump({"date": current_date, "data": final_data}, file, indent=4)
+
+        return final_data
 
 
 @app.route('/recommendation')
@@ -508,6 +529,7 @@ def home():
     languages = ['English', 'Hindi', 'Japanese', 'Korean', 'Russian', 'Mandarin (Chaina)', 'German', 'French', 'Spanish']
     form = SearchMovies()
     # Fetch homepage data asynchronously
+    global homepage_data
     homepage_data = asyncio.run(get_homepage_data())
     # Genre mapping for dynamic URL construction
 
@@ -520,6 +542,7 @@ def home():
         'director_choice': homepage_data.get('director_choice', []),
         'top_10_movies': homepage_data.get('top_10_movies', []),
         'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
+        'best_movie_video_url': homepage_data.get('best_movie_video_url', None),
         'GENRE_IDS':list(GENRE.values()),
         'languages': languages,
         'genre_movies': {
@@ -655,6 +678,11 @@ async def movie_details():
     video_url = None
     movie_details = {}
     recommended_movies = []
+    
+    context = {
+        'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
+        'best_movie_video_url': homepage_data.get('best_movie_video_url', None),
+    }
 
     movie = Movie.query.filter_by(id=movie_id).first()
     if not movie and movie_id:
@@ -706,7 +734,8 @@ async def movie_details():
                     video_url=video_url,
                     movie_details=movie_details,
                     recommended_movies=recommended_movies,
-                    comments=comments
+                    comments=comments,
+                    context=context
                 )
             except Exception as e:
                 print(f"Unexpected error: {e}")
@@ -726,12 +755,18 @@ async def movie_details():
         video_url=movie.video_url,
         movie_details=movie.description,
         recommended_movies=recommended_movies,
-        comments=comments
+        comments=comments,
+        context=context
     )
+
 
 @app.route("/search", methods=["GET", "POST"])
 async def search():
     form = SearchMovies()
+    context = {
+        'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
+        'best_movie_video_url': homepage_data.get('best_movie_video_url', None),
+    }
 
     if form.validate_on_submit():
         movie_title = form.movie_title.data
@@ -751,7 +786,8 @@ async def search():
                     "free_movie_zip/search.html",
                     options=movies,
                     GENRE_IDS=GENRE,
-                    form=form
+                    form=form,
+                    context=context
                 )
             except aiohttp.ClientConnectionError:
                 print("Network error: Unable to connect to TMDb API.")

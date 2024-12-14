@@ -18,86 +18,38 @@
 	 </div>
 	</div>
 	<div class="col-md-4">
-	 <div class="footer_1i">
-	  <h4>Flickr <span class="col_red">Stream</span></h4>
-      <div class="footer_1i1 row mt-4">
-	   <div class="col-md-3 col-3">
-	    <div class="footer_1i1i">
-		  <div class="grid clearfix">
-				  <figure class="effect-jazz mb-0">
-					<a href="#"><img src="../../static/img/4.jpg" height="70" class="w-100" alt="abc"></a>
-				  </figure>
-			  </div>
+		<div class="footer_1i">
+		 <h4>Best Movie <span class="col_red">Trailer</span></h4>
+		 <div class="footer_1i1 row mt-4">
+		   <div class="popular_2i1lm1 clearfix">
+			   <div class="grid">
+		   <figure class="effect-jazz mb-0">
+			{% if context['best_movie_video_url'] %}
+			<iframe
+				width="100%"
+				height="200"
+				src="{{ context['best_movie_video_url'] }}"
+				frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen>
+			</iframe>
+			{% else %}
+			<img
+				src="https://image.tmdb.org/t/p/w500{{context['best_movie_of_month']['poster_path']}}"
+				height="200"
+				class="w-100"
+				alt="No Trailer Found"
+				/>
+			{% endif %}
+			 
+		   </figure>
+	   </div>
+			</div>
+		 </div>
 		</div>
 	   </div>
-	   <div class="col-md-3 col-3">
-	    <div class="footer_1i1i">
-		  <div class="grid clearfix">
-				  <figure class="effect-jazz mb-0">
-					<a href="#"><img src="../../static/img/5.jpg" height="70" class="w-100" alt="abc"></a>
-				  </figure>
-			  </div>
-		</div>
-	   </div>
-	   <div class="col-md-3 col-3">
-	    <div class="footer_1i1i">
-		  <div class="grid clearfix">
-				  <figure class="effect-jazz mb-0">
-					<a href="#"><img src="../../static/img/6.jpg" height="70" class="w-100" alt="abc"></a>
-				  </figure>
-			  </div>
-		</div>
-	   </div>
-	   <div class="col-md-3 col-3">
-	    <div class="footer_1i1i">
-		  <div class="grid clearfix">
-				  <figure class="effect-jazz mb-0">
-					<a href="#"><img src="../../static/img/7.jpg" height="70" class="w-100" alt="abc"></a>
-				  </figure>
-			  </div>
-		</div>
-	   </div>
-	  </div>
-	  <div class="footer_1i1 row mt-3">
-	   <div class="col-md-3 col-3">
-	    <div class="footer_1i1i">
-		  <div class="grid clearfix">
-				  <figure class="effect-jazz mb-0">
-					<a href="#"><img src="../../static/img/8.jpg" height="70" class="w-100" alt="abc"></a>
-				  </figure>
-			  </div>
-		</div>
-	   </div>
-	   <div class="col-md-3 col-3">
-	    <div class="footer_1i1i">
-		  <div class="grid clearfix">
-				  <figure class="effect-jazz mb-0">
-					<a href="#"><img src="../../static/img/9.jpg" height="70" class="w-100" alt="abc"></a>
-				  </figure>
-			  </div>
-		</div>
-	   </div>
-	   <div class="col-md-3 col-3">
-	    <div class="footer_1i1i">
-		  <div class="grid clearfix">
-				  <figure class="effect-jazz mb-0">
-					<a href="#"><img src="../../static/img/10.jpg" height="70" class="w-100" alt="abc"></a>
-				  </figure>
-			  </div>
-		</div>
-	   </div>
-	   <div class="col-md-3 col-3">
-	    <div class="footer_1i1i">
-		  <div class="grid clearfix">
-				  <figure class="effect-jazz mb-0">
-					<a href="#"><img src="../../static/img/11.jpg" height="70" class="w-100" alt="abc"></a>
-				  </figure>
-			  </div>
-		</div>
-	   </div>
-	  </div>
-	 </div>
-	</div>
+
+
 	<div class="col-md-4">
 	 <div class="footer_1i">
 	  <h4>Sign  <span class="col_red">Newsletter</span></h4>
