@@ -1,5 +1,5 @@
 {
-    "date": "2024-12-14",
+    "date": "2024-12-15",
     "data": {
         "top_3_movies": [
             {
@@ -13,13 +13,13 @@
                 "original_language": "en",
                 "original_title": "Succubus",
                 "overview": "A new father going through a marital separation joins a dating app and matches with a beautiful but mysterious young woman... whose powers of seduction and manipulation entangle him in a mystery more horrifying than he could have ever imagined.",
-                "popularity": 16.528,
+                "popularity": 14.665,
                 "poster_path": "/nyGKQrctWNmhSvto8h60AhZ3iLz.jpg",
                 "release_date": "2024-08-30",
                 "title": "Succubus",
                 "video": false,
-                "vote_average": 9.569,
-                "vote_count": 144
+                "vote_average": 9.581,
+                "vote_count": 148
             },
             {
                 "adult": false,
@@ -32,7 +32,7 @@
                 "original_language": "ja",
                 "original_title": "\u4f59\u547d\u4e00\u5e74\u306e\u50d5\u304c\u3001\u4f59\u547d\u534a\u5e74\u306e\u541b\u3068\u51fa\u4f1a\u3063\u305f\u8a71\u3002",
                 "overview": "With only a year left to live, 17-year-old Akito finds new meaning in life by bringing joy to a terminally ill girl who has just six months remaining.",
-                "popularity": 92.152,
+                "popularity": 101.438,
                 "poster_path": "/173FD4a0rpSF30z4CoWx6qdx8Ry.jpg",
                 "release_date": "2024-06-26",
                 "title": "Drawing Closer",
@@ -52,13 +52,13 @@
                 "original_language": "lv",
                 "original_title": "Straume",
                 "overview": "A solitary cat, displaced by a great flood, finds refuge on a boat with various species and must navigate the challenges of adapting to a transformed world together.",
-                "popularity": 273.685,
+                "popularity": 295.487,
                 "poster_path": "/enRimDhtFfb7hNTQlOjrgK8O8UO.jpg",
                 "release_date": "2024-08-29",
                 "title": "Flow",
                 "video": false,
-                "vote_average": 8.6,
-                "vote_count": 391
+                "vote_average": 8.535,
+                "vote_count": 396
             }
         ],
         "latest_12_movies": [
@@ -75,13 +75,13 @@
                 "original_language": "en",
                 "original_title": "Venom: The Last Dance",
                 "overview": "Eddie and Venom are on the run. Hunted by both of their worlds and with the net closing in, the duo are forced into a devastating decision that will bring the curtains down on Venom and Eddie's last dance.",
-                "popularity": 9823.665,
+                "popularity": 9267.92,
                 "poster_path": "/aosm8NMQ3UyoBVpSxyimorCQykC.jpg",
                 "release_date": "2024-10-22",
                 "title": "Venom: The Last Dance",
                 "video": false,
-                "vote_average": 6.8,
-                "vote_count": 1416
+                "vote_average": 6.776,
+                "vote_count": 1484
             },
             {
                 "adult": false,
@@ -96,13 +96,13 @@
                 "original_language": "en",
                 "original_title": "Moana 2",
                 "overview": "After receiving an unexpected call from her wayfinding ancestors, Moana journeys alongside Maui and a new crew to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she's ever faced.",
-                "popularity": 3726.979,
+                "popularity": 3893.381,
                 "poster_path": "/4YZpsylmjHbqeWzjKpUEF8gcLNW.jpg",
                 "release_date": "2024-11-21",
                 "title": "Moana 2",
                 "video": false,
                 "vote_average": 6.9,
-                "vote_count": 477
+                "vote_count": 484
             },
             {
                 "adult": false,
@@ -116,13 +116,33 @@
                 "original_language": "en",
                 "original_title": "Elevation",
                 "overview": "A single father and two women venture from the safety of their homes to face monstrous creatures to save the life of a young boy.",
-                "popularity": 2146.632,
+                "popularity": 2065.521,
                 "poster_path": "/uQhYBxOVFU6s9agD49FnGHwJqG5.jpg",
                 "release_date": "2024-11-07",
                 "title": "Elevation",
                 "video": false,
-                "vote_average": 6.483,
-                "vote_count": 150
+                "vote_average": 6.487,
+                "vote_count": 159
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg",
+                "genre_ids": [
+                    28,
+                    14,
+                    35
+                ],
+                "id": 845781,
+                "original_language": "en",
+                "original_title": "Red One",
+                "overview": "After Santa Claus (codename: Red One) is kidnapped, the North Pole's Head of Security must team up with the world's most infamous tracker in a globe-trotting, action-packed mission to save Christmas.",
+                "popularity": 2414.156,
+                "poster_path": "/cdqLnri3NEGcmfnqwk2TSIYtddg.jpg",
+                "release_date": "2024-10-31",
+                "title": "Red One",
+                "video": false,
+                "vote_average": 6.979,
+                "vote_count": 556
             },
             {
                 "adult": false,
@@ -136,33 +156,13 @@
                 "original_language": "en",
                 "original_title": "Absolution",
                 "overview": "An aging ex-boxer gangster working as muscle for a Boston crime boss receives an upsetting diagnosis.  Despite a faltering memory, he attempts to rectify the sins of his past and reconnect with his estranged children. He is determined to leave a positive legacy for his grandson, but the criminal underworld isn\u2019t done with him and won\u2019t loosen their grip willingly.",
-                "popularity": 1475.937,
+                "popularity": 1518.335,
                 "poster_path": "/cNtAslrDhk1i3IOZ16vF7df6lMy.jpg",
                 "release_date": "2024-10-31",
                 "title": "Absolution",
                 "video": false,
-                "vote_average": 6.1,
+                "vote_average": 6.107,
                 "vote_count": 131
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg",
-                "genre_ids": [
-                    35,
-                    28,
-                    14
-                ],
-                "id": 845781,
-                "original_language": "en",
-                "original_title": "Red One",
-                "overview": "After Santa Claus (codename: Red One) is kidnapped, the North Pole's Head of Security must team up with the world's most infamous tracker in a globe-trotting, action-packed mission to save Christmas.",
-                "popularity": 1724.397,
-                "poster_path": "/cdqLnri3NEGcmfnqwk2TSIYtddg.jpg",
-                "release_date": "2024-10-31",
-                "title": "Red One",
-                "video": false,
-                "vote_average": 7.0,
-                "vote_count": 422
             },
             {
                 "adult": false,
@@ -176,55 +176,13 @@
                 "original_language": "en",
                 "original_title": "Armor",
                 "overview": "Armored truck security guard James Brody is working with his son Casey transporting millions of dollars between banks when a team of thieves led by Rook orchestrate a takeover of their truck to seize the riches. Following a violent car chase, Rook soon has the armored truck surrounded and James and Casey find themselves cornered onto a decrepit bridge.",
-                "popularity": 1314.269,
+                "popularity": 1310.864,
                 "poster_path": "/pnXLFioDeftqjlCVlRmXvIdMsdP.jpg",
                 "release_date": "2024-10-30",
                 "title": "Armor",
                 "video": false,
-                "vote_average": 5.546,
-                "vote_count": 65
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/m2hs6YPVrzjvRC21SE9BeXtgqFW.jpg",
-                "genre_ids": [
-                    16,
-                    9648,
-                    878,
-                    28
-                ],
-                "id": 1299652,
-                "original_language": "en",
-                "original_title": "Watchmen: Chapter II",
-                "overview": "Suspicious of the events ensnaring their former colleagues, Nite Owl and Silk Spectre are spurred out of retirement to investigate. As they grapple with personal ethics, inner demons and a society turned against them, they race the clock to uncover a deepening plot that might trigger global nuclear war.",
-                "popularity": 1199.364,
-                "poster_path": "/4rBObJFpiWJOG7aIlRrOUniAkBs.jpg",
-                "release_date": "2024-11-25",
-                "title": "Watchmen: Chapter II",
-                "video": false,
-                "vote_average": 7.6,
-                "vote_count": 46
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/cBTwQKMd7Vn6rGTGBtoFLIfj7uM.jpg",
-                "genre_ids": [
-                    16,
-                    12,
-                    28,
-                    14
-                ],
-                "id": 1147416,
-                "original_language": "fr",
-                "original_title": "Miraculous World : Londres, la course contre le temps",
-                "overview": "To save the future from a terrible fate, Marinette becomes Chronobug and teams up with Bunnyx to defeat a mysterious opponent who travels through time. Who is this new supervillain, and why are they obsessed with exposing Marinette's secret superhero identity? Marinette's only hope is to defeat her new opponent to prevent the end of Ladybug and time itself!",
-                "popularity": 1235.591,
-                "poster_path": "/6AtoMpHvs9pxd30KsyK8QmJ9W9M.jpg",
-                "release_date": "2024-11-14",
-                "title": "Miraculous World, London: At the Edge of Time",
-                "video": false,
-                "vote_average": 8.5,
-                "vote_count": 44
+                "vote_average": 5.5,
+                "vote_count": 68
             },
             {
                 "adult": false,
@@ -240,13 +198,95 @@
                 "original_language": "en",
                 "original_title": "That Christmas",
                 "overview": "It's an unforgettable Christmas for the townsfolk of Wellington-on-Sea when the worst snowstorm in history alters everyone's plans \u2014 including Santa's.",
-                "popularity": 1274.145,
+                "popularity": 1400.733,
                 "poster_path": "/bX6dx2U4hOk1esI7mYwtD3cEKdC.jpg",
                 "release_date": "2024-11-27",
                 "title": "That Christmas",
                 "video": false,
                 "vote_average": 7.6,
-                "vote_count": 104
+                "vote_count": 121
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/cBTwQKMd7Vn6rGTGBtoFLIfj7uM.jpg",
+                "genre_ids": [
+                    16,
+                    12,
+                    28,
+                    14
+                ],
+                "id": 1147416,
+                "original_language": "fr",
+                "original_title": "Miraculous World : Londres, la course contre le temps",
+                "overview": "To save the future from a terrible fate, Marinette becomes Chronobug and teams up with Bunnyx to defeat a mysterious opponent who travels through time. Who is this new supervillain, and why are they obsessed with exposing Marinette's secret superhero identity? Marinette's only hope is to defeat her new opponent to prevent the end of Ladybug and time itself!",
+                "popularity": 1242.364,
+                "poster_path": "/6AtoMpHvs9pxd30KsyK8QmJ9W9M.jpg",
+                "release_date": "2024-11-14",
+                "title": "Miraculous World, London: At the Edge of Time",
+                "video": false,
+                "vote_average": 8.468,
+                "vote_count": 47
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/m2hs6YPVrzjvRC21SE9BeXtgqFW.jpg",
+                "genre_ids": [
+                    16,
+                    9648,
+                    878,
+                    28
+                ],
+                "id": 1299652,
+                "original_language": "en",
+                "original_title": "Watchmen: Chapter II",
+                "overview": "Suspicious of the events ensnaring their former colleagues, Nite Owl and Silk Spectre are spurred out of retirement to investigate. As they grapple with personal ethics, inner demons and a society turned against them, they race the clock to uncover a deepening plot that might trigger global nuclear war.",
+                "popularity": 1155.315,
+                "poster_path": "/4rBObJFpiWJOG7aIlRrOUniAkBs.jpg",
+                "release_date": "2024-11-25",
+                "title": "Watchmen: Chapter II",
+                "video": false,
+                "vote_average": 7.542,
+                "vote_count": 48
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/1ulX4rDlS97lbDi929PUrEi507V.jpg",
+                "genre_ids": [
+                    28,
+                    12,
+                    53
+                ],
+                "id": 539972,
+                "original_language": "en",
+                "original_title": "Kraven the Hunter",
+                "overview": "Kraven Kravinoff's complex relationship with his ruthless gangster father, Nikolai, starts him down a path of vengeance with brutal consequences, motivating him to become not only the greatest hunter in the world, but also one of its most feared.",
+                "popularity": 1175.071,
+                "poster_path": "/i47IUSsN126K11JUzqQIOi1Mg1M.jpg",
+                "release_date": "2024-12-11",
+                "title": "Kraven the Hunter",
+                "video": false,
+                "vote_average": 5.5,
+                "vote_count": 67
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/fyeyxFzZ3qYqDsaMVYF6sq3pp2n.jpg",
+                "genre_ids": [
+                    28,
+                    12,
+                    53
+                ],
+                "id": 1167271,
+                "original_language": "en",
+                "original_title": "Weekend in Taipei",
+                "overview": "A former DEA agent and a former undercover operative revisit their romance during a fateful weekend in Taipei, unaware of the dangerous consequences of their past.",
+                "popularity": 1151.264,
+                "poster_path": "/qSc0AUvs8mRy00R9y8QYEHWIAQ9.jpg",
+                "release_date": "2024-09-19",
+                "title": "Weekend in Taipei",
+                "video": false,
+                "vote_average": 6.2,
+                "vote_count": 68
             },
             {
                 "adult": false,
@@ -261,54 +301,13 @@
                 "original_language": "en",
                 "original_title": "The Wild Robot",
                 "overview": "After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh environment, Roz bonds with the island's animals and cares for an orphaned baby goose.",
-                "popularity": 973.601,
+                "popularity": 1034.993,
                 "poster_path": "/wTnV3PCVW5O92JMrFvvrRcV39RU.jpg",
                 "release_date": "2024-09-08",
                 "title": "The Wild Robot",
                 "video": false,
                 "vote_average": 8.4,
-                "vote_count": 3408
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/sv3clpwOSSZO1c8i9uX4zig6Lzz.jpg",
-                "genre_ids": [
-                    53,
-                    80,
-                    9648,
-                    28
-                ],
-                "id": 1252470,
-                "original_language": "hi",
-                "original_title": "\u0938\u093f\u0915\u0902\u0926\u0930 \u0915\u093e \u092e\u0941\u0915\u0926\u094d\u0926\u0930",
-                "overview": "After an unsolved diamond heist, a hard-nosed cop\u2019s pursuit of his key suspect turns into obsession, until they finally face each other \u2014 and the truth.",
-                "popularity": 796.991,
-                "poster_path": "/eWUh4rgxtgypgnOa6uGMnUt01ux.jpg",
-                "release_date": "2024-11-29",
-                "title": "Sikandar Ka Muqaddar",
-                "video": false,
-                "vote_average": 6.0,
-                "vote_count": 9
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/h3fwlwHotd3JfV13HdW0mxDcxPD.jpg",
-                "genre_ids": [
-                    35,
-                    10749,
-                    10770
-                ],
-                "id": 957119,
-                "original_language": "en",
-                "original_title": "Sidelined: The QB and Me",
-                "overview": "Dallas, a burdened but headstrong dancer, is determined to get into the best dance school in the country\u2014her late mother\u2019s alma mater. However, that dream is suddenly derailed when the cheeky yet secretly grieving football star, Drayton, crashes into her life with a unique story of his own. Will the two of them be able to grow into their dreams together, or will their dreams be sidelined?",
-                "popularity": 851.169,
-                "poster_path": "/hklQwv6QVoOp5bWyh1bjuF2ydyG.jpg",
-                "release_date": "2024-11-29",
-                "title": "Sidelined: The QB and Me",
-                "video": false,
-                "vote_average": 6.4,
-                "vote_count": 65
+                "vote_count": 3428
             }
         ],
         "upcoming_12_movies": [
@@ -324,13 +323,13 @@
                 "original_language": "en",
                 "original_title": "Elevation",
                 "overview": "A single father and two women venture from the safety of their homes to face monstrous creatures to save the life of a young boy.",
-                "popularity": 2146.632,
+                "popularity": 2065.521,
                 "poster_path": "/uQhYBxOVFU6s9agD49FnGHwJqG5.jpg",
                 "release_date": "2024-11-07",
                 "title": "Elevation",
                 "video": false,
-                "vote_average": 6.5,
-                "vote_count": 149
+                "vote_average": 6.478,
+                "vote_count": 158
             },
             {
                 "adult": false,
@@ -344,12 +343,12 @@
                 "original_language": "en",
                 "original_title": "Absolution",
                 "overview": "An aging ex-boxer gangster working as muscle for a Boston crime boss receives an upsetting diagnosis.  Despite a faltering memory, he attempts to rectify the sins of his past and reconnect with his estranged children. He is determined to leave a positive legacy for his grandson, but the criminal underworld isn\u2019t done with him and won\u2019t loosen their grip willingly.",
-                "popularity": 1475.937,
+                "popularity": 1518.335,
                 "poster_path": "/cNtAslrDhk1i3IOZ16vF7df6lMy.jpg",
                 "release_date": "2024-10-31",
                 "title": "Absolution",
                 "video": false,
-                "vote_average": 6.1,
+                "vote_average": 6.107,
                 "vote_count": 131
             },
             {
@@ -369,8 +368,27 @@
                 "release_date": "2024-12-11",
                 "title": "Kraven the Hunter",
                 "video": false,
-                "vote_average": 5.7,
-                "vote_count": 50
+                "vote_average": 5.5,
+                "vote_count": 66
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/ag66gJCiZ06q1GSJuQlhGLi3Udx.jpg",
+                "genre_ids": [
+                    27,
+                    53
+                ],
+                "id": 1138194,
+                "original_language": "en",
+                "original_title": "Heretic",
+                "overview": "Two young missionaries are forced to prove their faith when they knock on the wrong door and are greeted by a diabolical Mr. Reed, becoming ensnared in his deadly game of cat-and-mouse.",
+                "popularity": 1079.765,
+                "poster_path": "/5HJqjCTcaE1TFwnNh3Dn21be2es.jpg",
+                "release_date": "2024-10-31",
+                "title": "Heretic",
+                "video": false,
+                "vote_average": 7.105,
+                "vote_count": 266
             },
             {
                 "adult": false,
@@ -384,13 +402,13 @@
                 "original_language": "en",
                 "original_title": "Wicked",
                 "overview": "In the land of Oz, ostracized and misunderstood green-skinned Elphaba is forced to share a room with the popular aristocrat Glinda at Shiz University, and the two's unlikely friendship is tested as they begin to fulfill their respective destinies as Glinda the Good and the Wicked Witch of the West.",
-                "popularity": 842.142,
+                "popularity": 766.652,
                 "poster_path": "/xDGbZ0JJ3mYaGKy4Nzd9Kph6M9L.jpg",
                 "release_date": "2024-11-20",
                 "title": "Wicked",
                 "video": false,
-                "vote_average": 7.592,
-                "vote_count": 527
+                "vote_average": 7.59,
+                "vote_count": 536
             },
             {
                 "adult": false,
@@ -405,32 +423,13 @@
                 "original_language": "en",
                 "original_title": "Mufasa: The Lion King",
                 "overview": "Rafiki relays the legend of Mufasa to lion cub Kiara, daughter of Simba and Nala, with Timon and Pumbaa lending their signature schtick. Told in flashbacks, the story introduces Mufasa as an orphaned cub, lost and alone until he meets a sympathetic lion named Taka\u2014the heir to a royal bloodline. The chance meeting sets in motion a journey of misfits searching for their destiny and working together to evade a threatening and deadly foe.",
-                "popularity": 657.68,
+                "popularity": 733.041,
                 "poster_path": "/lurEK87kukWNaHd0zYnsi3yzJrs.jpg",
                 "release_date": "2024-12-18",
                 "title": "Mufasa: The Lion King",
                 "video": false,
-                "vote_average": 9.5,
-                "vote_count": 2
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/ag66gJCiZ06q1GSJuQlhGLi3Udx.jpg",
-                "genre_ids": [
-                    27,
-                    53
-                ],
-                "id": 1138194,
-                "original_language": "en",
-                "original_title": "Heretic",
-                "overview": "Two young missionaries are forced to prove their faith when they knock on the wrong door and are greeted by a diabolical Mr. Reed, becoming ensnared in his deadly game of cat-and-mouse.",
-                "popularity": 771.261,
-                "poster_path": "/5HJqjCTcaE1TFwnNh3Dn21be2es.jpg",
-                "release_date": "2024-10-31",
-                "title": "Heretic",
-                "video": false,
-                "vote_average": 6.985,
-                "vote_count": 235
+                "vote_average": 9.2,
+                "vote_count": 4
             },
             {
                 "adult": false,
@@ -445,13 +444,13 @@
                 "original_language": "en",
                 "original_title": "Sonic the Hedgehog 3",
                 "overview": "Sonic, Knuckles, and Tails reunite against a powerful new adversary, Shadow, a mysterious villain with powers unlike anything they have faced before. With their abilities outmatched in every way, Team Sonic must seek out an unlikely alliance in hopes of stopping Shadow and protecting the planet.",
-                "popularity": 513.382,
-                "poster_path": "/nyEr1VqvKx1YiesMC3oTB2fZvpY.jpg",
+                "popularity": 543.599,
+                "poster_path": "/d8Ryb8AunYAuycVKDp5HpdWPKgC.jpg",
                 "release_date": "2024-12-19",
                 "title": "Sonic the Hedgehog 3",
                 "video": false,
-                "vote_average": 0.0,
-                "vote_count": 0
+                "vote_average": 10.0,
+                "vote_count": 1
             },
             {
                 "adult": false,
@@ -465,13 +464,13 @@
                 "original_language": "fr",
                 "original_title": "Le Comte de Monte-Cristo",
                 "overview": "Edmond Dantes becomes the target of a sinister plot and is arrested on his wedding day for a crime he did not commit. After 14 years in the island prison of Ch\u00e2teau d\u2019If, he manages a daring escape. Now rich beyond his dreams, he assumes the identity of the Count of Monte-Cristo and exacts his revenge on the three men who betrayed him.",
-                "popularity": 359.933,
+                "popularity": 382.107,
                 "poster_path": "/7O0WDGsa4lBzqv3uaB1tp8UvFK3.jpg",
                 "release_date": "2024-06-28",
                 "title": "The Count of Monte Cristo",
                 "video": false,
-                "vote_average": 8.193,
-                "vote_count": 965
+                "vote_average": 8.19,
+                "vote_count": 970
             },
             {
                 "adult": false,
@@ -484,7 +483,7 @@
                 "original_language": "en",
                 "original_title": "We Live in Time",
                 "overview": "An up-and-coming chef and a recent divorc\u00e9e find their lives forever changed when a chance encounter brings them together, in a decade-spanning, deeply moving romance.",
-                "popularity": 322.14,
+                "popularity": 329.623,
                 "poster_path": "/oeDNBgnlGF6rnyX1P1K8Vl2f3lW.jpg",
                 "release_date": "2024-10-10",
                 "title": "We Live in Time",
@@ -504,33 +503,32 @@
                 "original_language": "lv",
                 "original_title": "Straume",
                 "overview": "A solitary cat, displaced by a great flood, finds refuge on a boat with various species and must navigate the challenges of adapting to a transformed world together.",
-                "popularity": 273.685,
+                "popularity": 295.487,
                 "poster_path": "/enRimDhtFfb7hNTQlOjrgK8O8UO.jpg",
                 "release_date": "2024-08-29",
                 "title": "Flow",
                 "video": false,
-                "vote_average": 8.6,
-                "vote_count": 391
+                "vote_average": 8.538,
+                "vote_count": 394
             },
             {
                 "adult": false,
-                "backdrop_path": "/5IIFJxwRzmkhczQidIhpoaolpZY.jpg",
+                "backdrop_path": "/cI3nL7CgGmPr0CizCwFHBpDkKyB.jpg",
                 "genre_ids": [
-                    28,
-                    53,
-                    80
+                    18,
+                    10749
                 ],
-                "id": 976734,
-                "original_language": "en",
-                "original_title": "Canary Black",
-                "overview": "Top level CIA agent Avery Graves is blackmailed by terrorists into betraying her own country to save her kidnapped husband. Cut off from her team, she turns to her underworld contacts to survive and help locate the coveted intelligence that the kidnappers want.",
-                "popularity": 223.139,
-                "poster_path": "/hhiR6uUbTYYvKoACkdAIQPS5c6f.jpg",
-                "release_date": "2024-10-10",
-                "title": "Canary Black",
+                "id": 1156593,
+                "original_language": "es",
+                "original_title": "Culpa tuya",
+                "overview": "The love between Noah and Nick seems unwavering despite their parents' attempts to separate them. But his job and her entry into college open up their lives to new relationships that will shake the foundations of both their relationship and the Leister family itself.",
+                "popularity": 277.201,
+                "poster_path": "/6kYDG8Imfhph2duBYZeYksHgx7L.jpg",
+                "release_date": "2024-12-26",
+                "title": "Culpa tuya",
                 "video": false,
-                "vote_average": 6.362,
-                "vote_count": 290
+                "vote_average": 0.0,
+                "vote_count": 0
             },
             {
                 "adult": false,
@@ -543,13 +541,13 @@
                 "original_language": "en",
                 "original_title": "The Lord of the Rings: The War of the Rohirrim",
                 "overview": "183 years before the events chronicled in the original trilogy, a sudden attack by Wulf, a clever and ruthless Dunlending lord seeking vengeance for the death of his father, forces Helm Hammerhand and his people to make a daring last stand in the ancient stronghold of the Hornburg. Finding herself in an increasingly desperate situation, H\u00e9ra, the daughter of Helm, must summon the will to lead the resistance against a deadly enemy intent on their total destruction.",
-                "popularity": 256.671,
+                "popularity": 313.386,
                 "poster_path": "/qXKFlGX9n66zd4q0oWztPuvRD9D.jpg",
                 "release_date": "2024-12-05",
                 "title": "The Lord of the Rings: The War of the Rohirrim",
                 "video": false,
-                "vote_average": 7.0,
-                "vote_count": 33
+                "vote_average": 6.9,
+                "vote_count": 38
             }
         ],
         "director_choice": [
@@ -564,13 +562,13 @@
                 "original_language": "en",
                 "original_title": "The Shawshank Redemption",
                 "overview": "Imprisoned in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison, where he puts his accounting skills to work for an amoral warden. During his long stretch in prison, Dufresne comes to be admired by the other inmates -- including an older prisoner named Red -- for his integrity and unquenchable sense of hope.",
-                "popularity": 168.665,
+                "popularity": 175.05,
                 "poster_path": "/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
                 "release_date": "1994-09-23",
                 "title": "The Shawshank Redemption",
                 "video": false,
-                "vote_average": 8.7,
-                "vote_count": 27266
+                "vote_average": 8.708,
+                "vote_count": 27278
             },
             {
                 "adult": false,
@@ -583,13 +581,13 @@
                 "original_language": "en",
                 "original_title": "The Godfather",
                 "overview": "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family. When organized crime family patriarch, Vito Corleone barely survives an attempt on his life, his youngest son, Michael steps in to take care of the would-be killers, launching a campaign of bloody revenge.",
-                "popularity": 166.987,
+                "popularity": 156.298,
                 "poster_path": "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
                 "release_date": "1972-03-14",
                 "title": "The Godfather",
                 "video": false,
-                "vote_average": 8.689,
-                "vote_count": 20707
+                "vote_average": 8.69,
+                "vote_count": 20712
             },
             {
                 "adult": false,
@@ -602,13 +600,13 @@
                 "original_language": "en",
                 "original_title": "The Godfather Part II",
                 "overview": "In the continuing saga of the Corleone crime family, a young Vito Corleone grows up in Sicily and in 1910s New York. In the 1950s, Michael Corleone attempts to expand the family business into Las Vegas, Hollywood and Cuba.",
-                "popularity": 83.607,
+                "popularity": 86.541,
                 "poster_path": "/hek3koDUyRQk7FIhPXsa6mT2Zc3.jpg",
                 "release_date": "1974-12-20",
                 "title": "The Godfather Part II",
                 "video": false,
                 "vote_average": 8.572,
-                "vote_count": 12487
+                "vote_count": 12490
             },
             {
                 "adult": false,
@@ -622,13 +620,33 @@
                 "original_language": "en",
                 "original_title": "Schindler's List",
                 "overview": "The true story of how businessman Oskar Schindler saved over a thousand Jewish lives from the Nazis while they worked as slaves in his factory during World War II.",
-                "popularity": 76.246,
+                "popularity": 93.687,
                 "poster_path": "/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg",
                 "release_date": "1993-12-15",
                 "title": "Schindler's List",
                 "video": false,
-                "vote_average": 8.6,
-                "vote_count": 15905
+                "vote_average": 8.567,
+                "vote_count": 15907
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/b3mdmjYTEL70j7nuXATUAD9qgu4.jpg",
+                "genre_ids": [
+                    16,
+                    14,
+                    12
+                ],
+                "id": 823219,
+                "original_language": "lv",
+                "original_title": "Straume",
+                "overview": "A solitary cat, displaced by a great flood, finds refuge on a boat with various species and must navigate the challenges of adapting to a transformed world together.",
+                "popularity": 295.487,
+                "poster_path": "/enRimDhtFfb7hNTQlOjrgK8O8UO.jpg",
+                "release_date": "2024-08-29",
+                "title": "Flow",
+                "video": false,
+                "vote_average": 8.538,
+                "vote_count": 394
             },
             {
                 "adult": false,
@@ -640,33 +658,13 @@
                 "original_language": "en",
                 "original_title": "12 Angry Men",
                 "overview": "The defense and the prosecution have rested and the jury is filing into the jury room to decide if a young Spanish-American is guilty or innocent of murdering his father. What begins as an open and shut case soon becomes a mini-drama of each of the jurors' prejudices and preconceptions about the trial, the accused, and each other.",
-                "popularity": 57.663,
+                "popularity": 57.4,
                 "poster_path": "/ow3wq89wM8qd5X7hWKxiRfsFf9C.jpg",
                 "release_date": "1957-04-10",
                 "title": "12 Angry Men",
                 "video": false,
-                "vote_average": 8.5,
-                "vote_count": 8702
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/m4TUa2ciEWSlk37rOsjiSIvZDXE.jpg",
-                "genre_ids": [
-                    16,
-                    10751,
-                    14
-                ],
-                "id": 129,
-                "original_language": "ja",
-                "original_title": "\u5343\u3068\u5343\u5c0b\u306e\u795e\u96a0\u3057",
-                "overview": "A young girl, Chihiro, becomes trapped in a strange new world of spirits. When her parents undergo a mysterious transformation, she must call upon the courage she never knew she had to free her family.",
-                "popularity": 96.321,
-                "poster_path": "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
-                "release_date": "2001-07-20",
-                "title": "Spirited Away",
-                "video": false,
-                "vote_average": 8.5,
-                "vote_count": 16573
+                "vote_average": 8.547,
+                "vote_count": 8705
             }
         ],
         "top_10_movies": [
@@ -683,13 +681,13 @@
                 "original_language": "en",
                 "original_title": "Venom: The Last Dance",
                 "overview": "Eddie and Venom are on the run. Hunted by both of their worlds and with the net closing in, the duo are forced into a devastating decision that will bring the curtains down on Venom and Eddie's last dance.",
-                "popularity": 9823.665,
+                "popularity": 9267.92,
                 "poster_path": "/aosm8NMQ3UyoBVpSxyimorCQykC.jpg",
                 "release_date": "2024-10-22",
                 "title": "Venom: The Last Dance",
                 "video": false,
-                "vote_average": 6.7,
-                "vote_count": 1401
+                "vote_average": 6.8,
+                "vote_count": 1482
             },
             {
                 "adult": false,
@@ -704,13 +702,13 @@
                 "original_language": "en",
                 "original_title": "Moana 2",
                 "overview": "After receiving an unexpected call from her wayfinding ancestors, Moana journeys alongside Maui and a new crew to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she's ever faced.",
-                "popularity": 3726.979,
+                "popularity": 3893.381,
                 "poster_path": "/4YZpsylmjHbqeWzjKpUEF8gcLNW.jpg",
                 "release_date": "2024-11-21",
                 "title": "Moana 2",
                 "video": false,
-                "vote_average": 6.9,
-                "vote_count": 475
+                "vote_average": 6.905,
+                "vote_count": 484
             },
             {
                 "adult": false,
@@ -724,13 +722,33 @@
                 "original_language": "en",
                 "original_title": "Elevation",
                 "overview": "A single father and two women venture from the safety of their homes to face monstrous creatures to save the life of a young boy.",
-                "popularity": 2146.632,
+                "popularity": 2065.521,
                 "poster_path": "/uQhYBxOVFU6s9agD49FnGHwJqG5.jpg",
                 "release_date": "2024-11-07",
                 "title": "Elevation",
                 "video": false,
-                "vote_average": 6.5,
-                "vote_count": 149
+                "vote_average": 6.487,
+                "vote_count": 159
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg",
+                "genre_ids": [
+                    28,
+                    14,
+                    35
+                ],
+                "id": 845781,
+                "original_language": "en",
+                "original_title": "Red One",
+                "overview": "After Santa Claus (codename: Red One) is kidnapped, the North Pole's Head of Security must team up with the world's most infamous tracker in a globe-trotting, action-packed mission to save Christmas.",
+                "popularity": 2414.156,
+                "poster_path": "/cdqLnri3NEGcmfnqwk2TSIYtddg.jpg",
+                "release_date": "2024-10-31",
+                "title": "Red One",
+                "video": false,
+                "vote_average": 6.979,
+                "vote_count": 552
             },
             {
                 "adult": false,
@@ -744,12 +762,12 @@
                 "original_language": "en",
                 "original_title": "Absolution",
                 "overview": "An aging ex-boxer gangster working as muscle for a Boston crime boss receives an upsetting diagnosis.  Despite a faltering memory, he attempts to rectify the sins of his past and reconnect with his estranged children. He is determined to leave a positive legacy for his grandson, but the criminal underworld isn\u2019t done with him and won\u2019t loosen their grip willingly.",
-                "popularity": 1475.937,
+                "popularity": 1518.335,
                 "poster_path": "/cNtAslrDhk1i3IOZ16vF7df6lMy.jpg",
                 "release_date": "2024-10-31",
                 "title": "Absolution",
                 "video": false,
-                "vote_average": 6.1,
+                "vote_average": 6.107,
                 "vote_count": 131
             },
             {
@@ -764,55 +782,13 @@
                 "original_language": "en",
                 "original_title": "Armor",
                 "overview": "Armored truck security guard James Brody is working with his son Casey transporting millions of dollars between banks when a team of thieves led by Rook orchestrate a takeover of their truck to seize the riches. Following a violent car chase, Rook soon has the armored truck surrounded and James and Casey find themselves cornered onto a decrepit bridge.",
-                "popularity": 1314.269,
+                "popularity": 1310.864,
                 "poster_path": "/pnXLFioDeftqjlCVlRmXvIdMsdP.jpg",
                 "release_date": "2024-10-30",
                 "title": "Armor",
                 "video": false,
-                "vote_average": 5.6,
-                "vote_count": 64
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/m2hs6YPVrzjvRC21SE9BeXtgqFW.jpg",
-                "genre_ids": [
-                    16,
-                    9648,
-                    878,
-                    28
-                ],
-                "id": 1299652,
-                "original_language": "en",
-                "original_title": "Watchmen: Chapter II",
-                "overview": "Suspicious of the events ensnaring their former colleagues, Nite Owl and Silk Spectre are spurred out of retirement to investigate. As they grapple with personal ethics, inner demons and a society turned against them, they race the clock to uncover a deepening plot that might trigger global nuclear war.",
-                "popularity": 1199.364,
-                "poster_path": "/4rBObJFpiWJOG7aIlRrOUniAkBs.jpg",
-                "release_date": "2024-11-25",
-                "title": "Watchmen: Chapter II",
-                "video": false,
-                "vote_average": 7.6,
-                "vote_count": 46
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/cBTwQKMd7Vn6rGTGBtoFLIfj7uM.jpg",
-                "genre_ids": [
-                    16,
-                    12,
-                    28,
-                    14
-                ],
-                "id": 1147416,
-                "original_language": "fr",
-                "original_title": "Miraculous World : Londres, la course contre le temps",
-                "overview": "To save the future from a terrible fate, Marinette becomes Chronobug and teams up with Bunnyx to defeat a mysterious opponent who travels through time. Who is this new supervillain, and why are they obsessed with exposing Marinette's secret superhero identity? Marinette's only hope is to defeat her new opponent to prevent the end of Ladybug and time itself!",
-                "popularity": 1235.591,
-                "poster_path": "/6AtoMpHvs9pxd30KsyK8QmJ9W9M.jpg",
-                "release_date": "2024-11-14",
-                "title": "Miraculous World, London: At the Edge of Time",
-                "video": false,
-                "vote_average": 8.455,
-                "vote_count": 44
+                "vote_average": 5.5,
+                "vote_count": 68
             },
             {
                 "adult": false,
@@ -828,54 +804,75 @@
                 "original_language": "en",
                 "original_title": "That Christmas",
                 "overview": "It's an unforgettable Christmas for the townsfolk of Wellington-on-Sea when the worst snowstorm in history alters everyone's plans \u2014 including Santa's.",
-                "popularity": 1274.145,
+                "popularity": 1400.733,
                 "poster_path": "/bX6dx2U4hOk1esI7mYwtD3cEKdC.jpg",
                 "release_date": "2024-11-27",
                 "title": "That Christmas",
                 "video": false,
-                "vote_average": 7.6,
-                "vote_count": 103
+                "vote_average": 7.603,
+                "vote_count": 121
             },
             {
                 "adult": false,
-                "backdrop_path": "/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg",
+                "backdrop_path": "/cBTwQKMd7Vn6rGTGBtoFLIfj7uM.jpg",
                 "genre_ids": [
-                    35,
+                    16,
+                    12,
                     28,
                     14
                 ],
-                "id": 845781,
-                "original_language": "en",
-                "original_title": "Red One",
-                "overview": "After Santa Claus (codename: Red One) is kidnapped, the North Pole's Head of Security must team up with the world's most infamous tracker in a globe-trotting, action-packed mission to save Christmas.",
-                "popularity": 1231.712,
-                "poster_path": "/cdqLnri3NEGcmfnqwk2TSIYtddg.jpg",
-                "release_date": "2024-10-31",
-                "title": "Red One",
+                "id": 1147416,
+                "original_language": "fr",
+                "original_title": "Miraculous World : Londres, la course contre le temps",
+                "overview": "To save the future from a terrible fate, Marinette becomes Chronobug and teams up with Bunnyx to defeat a mysterious opponent who travels through time. Who is this new supervillain, and why are they obsessed with exposing Marinette's secret superhero identity? Marinette's only hope is to defeat her new opponent to prevent the end of Ladybug and time itself!",
+                "popularity": 1242.364,
+                "poster_path": "/6AtoMpHvs9pxd30KsyK8QmJ9W9M.jpg",
+                "release_date": "2024-11-14",
+                "title": "Miraculous World, London: At the Edge of Time",
                 "video": false,
-                "vote_average": 6.957,
-                "vote_count": 396
+                "vote_average": 8.468,
+                "vote_count": 47
             },
             {
                 "adult": false,
-                "backdrop_path": "/mQZJoIhTEkNhCYAqcHrQqhENLdu.jpg",
+                "backdrop_path": "/m2hs6YPVrzjvRC21SE9BeXtgqFW.jpg",
                 "genre_ids": [
                     16,
-                    28,
+                    9648,
                     878,
-                    10751
+                    28
                 ],
-                "id": 1184918,
+                "id": 1299652,
                 "original_language": "en",
-                "original_title": "The Wild Robot",
-                "overview": "After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh environment, Roz bonds with the island's animals and cares for an orphaned baby goose.",
-                "popularity": 973.601,
-                "poster_path": "/wTnV3PCVW5O92JMrFvvrRcV39RU.jpg",
-                "release_date": "2024-09-08",
-                "title": "The Wild Robot",
+                "original_title": "Watchmen: Chapter II",
+                "overview": "Suspicious of the events ensnaring their former colleagues, Nite Owl and Silk Spectre are spurred out of retirement to investigate. As they grapple with personal ethics, inner demons and a society turned against them, they race the clock to uncover a deepening plot that might trigger global nuclear war.",
+                "popularity": 1155.315,
+                "poster_path": "/4rBObJFpiWJOG7aIlRrOUniAkBs.jpg",
+                "release_date": "2024-11-25",
+                "title": "Watchmen: Chapter II",
                 "video": false,
-                "vote_average": 8.4,
-                "vote_count": 3408
+                "vote_average": 7.542,
+                "vote_count": 48
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/1ulX4rDlS97lbDi929PUrEi507V.jpg",
+                "genre_ids": [
+                    28,
+                    12,
+                    53
+                ],
+                "id": 539972,
+                "original_language": "en",
+                "original_title": "Kraven the Hunter",
+                "overview": "Kraven Kravinoff's complex relationship with his ruthless gangster father, Nikolai, starts him down a path of vengeance with brutal consequences, motivating him to become not only the greatest hunter in the world, but also one of its most feared.",
+                "popularity": 1175.071,
+                "poster_path": "/i47IUSsN126K11JUzqQIOi1Mg1M.jpg",
+                "release_date": "2024-12-11",
+                "title": "Kraven the Hunter",
+                "video": false,
+                "vote_average": 5.5,
+                "vote_count": 67
             }
         ],
         "best_movie_of_month": {
@@ -969,8 +966,8 @@
             "tagline": "'Til death do they part.",
             "title": "Venom: The Last Dance",
             "video": false,
-            "vote_average": 6.756,
-            "vote_count": 1412
+            "vote_average": 6.755,
+            "vote_count": 1462
         },
         "best_movie_video_url": "https://www.youtube.com/embed/HyIyd9joTTc",
         "trending_action": [
@@ -987,13 +984,13 @@
                 "original_language": "en",
                 "original_title": "Venom: The Last Dance",
                 "overview": "Eddie and Venom are on the run. Hunted by both of their worlds and with the net closing in, the duo are forced into a devastating decision that will bring the curtains down on Venom and Eddie's last dance.",
-                "popularity": 9823.665,
+                "popularity": 9267.92,
                 "poster_path": "/aosm8NMQ3UyoBVpSxyimorCQykC.jpg",
                 "release_date": "2024-10-22",
                 "title": "Venom: The Last Dance",
                 "video": false,
-                "vote_average": 6.759,
-                "vote_count": 1414
+                "vote_average": 6.77,
+                "vote_count": 1474
             },
             {
                 "adult": false,
@@ -1007,13 +1004,33 @@
                 "original_language": "en",
                 "original_title": "Elevation",
                 "overview": "A single father and two women venture from the safety of their homes to face monstrous creatures to save the life of a young boy.",
-                "popularity": 2146.632,
+                "popularity": 2065.521,
                 "poster_path": "/uQhYBxOVFU6s9agD49FnGHwJqG5.jpg",
                 "release_date": "2024-11-07",
                 "title": "Elevation",
                 "video": false,
-                "vote_average": 6.483,
-                "vote_count": 150
+                "vote_average": 6.5,
+                "vote_count": 158
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg",
+                "genre_ids": [
+                    28,
+                    14,
+                    35
+                ],
+                "id": 845781,
+                "original_language": "en",
+                "original_title": "Red One",
+                "overview": "After Santa Claus (codename: Red One) is kidnapped, the North Pole's Head of Security must team up with the world's most infamous tracker in a globe-trotting, action-packed mission to save Christmas.",
+                "popularity": 2414.156,
+                "poster_path": "/cdqLnri3NEGcmfnqwk2TSIYtddg.jpg",
+                "release_date": "2024-10-31",
+                "title": "Red One",
+                "video": false,
+                "vote_average": 6.965,
+                "vote_count": 535
             },
             {
                 "adult": false,
@@ -1027,33 +1044,13 @@
                 "original_language": "en",
                 "original_title": "Absolution",
                 "overview": "An aging ex-boxer gangster working as muscle for a Boston crime boss receives an upsetting diagnosis.  Despite a faltering memory, he attempts to rectify the sins of his past and reconnect with his estranged children. He is determined to leave a positive legacy for his grandson, but the criminal underworld isn\u2019t done with him and won\u2019t loosen their grip willingly.",
-                "popularity": 1475.937,
+                "popularity": 1518.335,
                 "poster_path": "/cNtAslrDhk1i3IOZ16vF7df6lMy.jpg",
                 "release_date": "2024-10-31",
                 "title": "Absolution",
                 "video": false,
-                "vote_average": 6.1,
+                "vote_average": 6.107,
                 "vote_count": 131
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg",
-                "genre_ids": [
-                    35,
-                    28,
-                    14
-                ],
-                "id": 845781,
-                "original_language": "en",
-                "original_title": "Red One",
-                "overview": "After Santa Claus (codename: Red One) is kidnapped, the North Pole's Head of Security must team up with the world's most infamous tracker in a globe-trotting, action-packed mission to save Christmas.",
-                "popularity": 1724.397,
-                "poster_path": "/cdqLnri3NEGcmfnqwk2TSIYtddg.jpg",
-                "release_date": "2024-10-31",
-                "title": "Red One",
-                "video": false,
-                "vote_average": 7.026,
-                "vote_count": 421
             }
         ],
         "trending_adventure": [
@@ -1075,8 +1072,8 @@
                 "release_date": "2024-10-22",
                 "title": "Venom: The Last Dance",
                 "video": false,
-                "vote_average": 6.76,
-                "vote_count": 1418
+                "vote_average": 6.756,
+                "vote_count": 1464
             },
             {
                 "adult": false,
@@ -1096,29 +1093,8 @@
                 "release_date": "2024-11-21",
                 "title": "Moana 2",
                 "video": false,
-                "vote_average": 6.904,
-                "vote_count": 478
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/cBTwQKMd7Vn6rGTGBtoFLIfj7uM.jpg",
-                "genre_ids": [
-                    16,
-                    12,
-                    28,
-                    14
-                ],
-                "id": 1147416,
-                "original_language": "fr",
-                "original_title": "Miraculous World : Londres, la course contre le temps",
-                "overview": "To save the future from a terrible fate, Marinette becomes Chronobug and teams up with Bunnyx to defeat a mysterious opponent who travels through time. Who is this new supervillain, and why are they obsessed with exposing Marinette's secret superhero identity? Marinette's only hope is to defeat her new opponent to prevent the end of Ladybug and time itself!",
-                "popularity": 1235.591,
-                "poster_path": "/6AtoMpHvs9pxd30KsyK8QmJ9W9M.jpg",
-                "release_date": "2024-11-14",
-                "title": "Miraculous World, London: At the Edge of Time",
-                "video": false,
-                "vote_average": 8.5,
-                "vote_count": 44
+                "vote_average": 6.9,
+                "vote_count": 484
             },
             {
                 "adult": false,
@@ -1139,8 +1115,29 @@
                 "release_date": "2024-11-27",
                 "title": "That Christmas",
                 "video": false,
-                "vote_average": 7.6,
-                "vote_count": 104
+                "vote_average": 7.568,
+                "vote_count": 118
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/cBTwQKMd7Vn6rGTGBtoFLIfj7uM.jpg",
+                "genre_ids": [
+                    16,
+                    12,
+                    28,
+                    14
+                ],
+                "id": 1147416,
+                "original_language": "fr",
+                "original_title": "Miraculous World : Londres, la course contre le temps",
+                "overview": "To save the future from a terrible fate, Marinette becomes Chronobug and teams up with Bunnyx to defeat a mysterious opponent who travels through time. Who is this new supervillain, and why are they obsessed with exposing Marinette's secret superhero identity? Marinette's only hope is to defeat her new opponent to prevent the end of Ladybug and time itself!",
+                "popularity": 1235.591,
+                "poster_path": "/6AtoMpHvs9pxd30KsyK8QmJ9W9M.jpg",
+                "release_date": "2024-11-14",
+                "title": "Miraculous World, London: At the Edge of Time",
+                "video": false,
+                "vote_average": 8.283,
+                "vote_count": 46
             }
         ],
         "trending_animation": [
@@ -1162,29 +1159,30 @@
                 "release_date": "2024-11-21",
                 "title": "Moana 2",
                 "video": false,
-                "vote_average": 6.9,
-                "vote_count": 475
+                "vote_average": 6.888,
+                "vote_count": 484
             },
             {
                 "adult": false,
-                "backdrop_path": "/m2hs6YPVrzjvRC21SE9BeXtgqFW.jpg",
+                "backdrop_path": "/rWs3Q9bT7zCH6t004z67UGuWUwu.jpg",
                 "genre_ids": [
                     16,
-                    9648,
-                    878,
-                    28
+                    35,
+                    10751,
+                    14,
+                    12
                 ],
-                "id": 1299652,
+                "id": 645757,
                 "original_language": "en",
-                "original_title": "Watchmen: Chapter II",
-                "overview": "Suspicious of the events ensnaring their former colleagues, Nite Owl and Silk Spectre are spurred out of retirement to investigate. As they grapple with personal ethics, inner demons and a society turned against them, they race the clock to uncover a deepening plot that might trigger global nuclear war.",
-                "popularity": 1199.364,
-                "poster_path": "/4rBObJFpiWJOG7aIlRrOUniAkBs.jpg",
-                "release_date": "2024-11-25",
-                "title": "Watchmen: Chapter II",
+                "original_title": "That Christmas",
+                "overview": "It's an unforgettable Christmas for the townsfolk of Wellington-on-Sea when the worst snowstorm in history alters everyone's plans \u2014 including Santa's.",
+                "popularity": 1274.145,
+                "poster_path": "/bX6dx2U4hOk1esI7mYwtD3cEKdC.jpg",
+                "release_date": "2024-11-27",
+                "title": "That Christmas",
                 "video": false,
                 "vote_average": 7.6,
-                "vote_count": 46
+                "vote_count": 117
             },
             {
                 "adult": false,
@@ -1204,30 +1202,29 @@
                 "release_date": "2024-11-14",
                 "title": "Miraculous World, London: At the Edge of Time",
                 "video": false,
-                "vote_average": 8.455,
-                "vote_count": 44
+                "vote_average": 8.283,
+                "vote_count": 46
             },
             {
                 "adult": false,
-                "backdrop_path": "/rWs3Q9bT7zCH6t004z67UGuWUwu.jpg",
+                "backdrop_path": "/m2hs6YPVrzjvRC21SE9BeXtgqFW.jpg",
                 "genre_ids": [
                     16,
-                    35,
-                    10751,
-                    14,
-                    12
+                    9648,
+                    878,
+                    28
                 ],
-                "id": 645757,
+                "id": 1299652,
                 "original_language": "en",
-                "original_title": "That Christmas",
-                "overview": "It's an unforgettable Christmas for the townsfolk of Wellington-on-Sea when the worst snowstorm in history alters everyone's plans \u2014 including Santa's.",
-                "popularity": 1274.145,
-                "poster_path": "/bX6dx2U4hOk1esI7mYwtD3cEKdC.jpg",
-                "release_date": "2024-11-27",
-                "title": "That Christmas",
+                "original_title": "Watchmen: Chapter II",
+                "overview": "Suspicious of the events ensnaring their former colleagues, Nite Owl and Silk Spectre are spurred out of retirement to investigate. As they grapple with personal ethics, inner demons and a society turned against them, they race the clock to uncover a deepening plot that might trigger global nuclear war.",
+                "popularity": 1199.364,
+                "poster_path": "/4rBObJFpiWJOG7aIlRrOUniAkBs.jpg",
+                "release_date": "2024-11-25",
+                "title": "Watchmen: Chapter II",
                 "video": false,
-                "vote_average": 7.6,
-                "vote_count": 103
+                "vote_average": 7.511,
+                "vote_count": 47
             }
         ],
         "trending_comedy": [
@@ -1244,33 +1241,33 @@
                 "original_language": "en",
                 "original_title": "Moana 2",
                 "overview": "After receiving an unexpected call from her wayfinding ancestors, Moana journeys alongside Maui and a new crew to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she's ever faced.",
-                "popularity": 3726.979,
+                "popularity": 3893.381,
                 "poster_path": "/4YZpsylmjHbqeWzjKpUEF8gcLNW.jpg",
                 "release_date": "2024-11-21",
                 "title": "Moana 2",
                 "video": false,
-                "vote_average": 6.904,
-                "vote_count": 478
+                "vote_average": 6.905,
+                "vote_count": 484
             },
             {
                 "adult": false,
                 "backdrop_path": "/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg",
                 "genre_ids": [
-                    35,
                     28,
-                    14
+                    14,
+                    35
                 ],
                 "id": 845781,
                 "original_language": "en",
                 "original_title": "Red One",
                 "overview": "After Santa Claus (codename: Red One) is kidnapped, the North Pole's Head of Security must team up with the world's most infamous tracker in a globe-trotting, action-packed mission to save Christmas.",
-                "popularity": 1724.397,
+                "popularity": 2414.156,
                 "poster_path": "/cdqLnri3NEGcmfnqwk2TSIYtddg.jpg",
                 "release_date": "2024-10-31",
                 "title": "Red One",
                 "video": false,
-                "vote_average": 7.0,
-                "vote_count": 426
+                "vote_average": 6.966,
+                "vote_count": 548
             },
             {
                 "adult": false,
@@ -1286,13 +1283,13 @@
                 "original_language": "en",
                 "original_title": "That Christmas",
                 "overview": "It's an unforgettable Christmas for the townsfolk of Wellington-on-Sea when the worst snowstorm in history alters everyone's plans \u2014 including Santa's.",
-                "popularity": 1274.145,
+                "popularity": 1400.733,
                 "poster_path": "/bX6dx2U4hOk1esI7mYwtD3cEKdC.jpg",
                 "release_date": "2024-11-27",
                 "title": "That Christmas",
                 "video": false,
                 "vote_average": 7.6,
-                "vote_count": 104
+                "vote_count": 120
             },
             {
                 "adult": false,
@@ -1306,13 +1303,13 @@
                 "original_language": "en",
                 "original_title": "Sidelined: The QB and Me",
                 "overview": "Dallas, a burdened but headstrong dancer, is determined to get into the best dance school in the country\u2014her late mother\u2019s alma mater. However, that dream is suddenly derailed when the cheeky yet secretly grieving football star, Drayton, crashes into her life with a unique story of his own. Will the two of them be able to grow into their dreams together, or will their dreams be sidelined?",
-                "popularity": 851.169,
+                "popularity": 833.655,
                 "poster_path": "/hklQwv6QVoOp5bWyh1bjuF2ydyG.jpg",
                 "release_date": "2024-11-29",
                 "title": "Sidelined: The QB and Me",
                 "video": false,
-                "vote_average": 6.4,
-                "vote_count": 65
+                "vote_average": 6.424,
+                "vote_count": 66
             }
         ],
         "trending_crime": [
@@ -1333,8 +1330,8 @@
                 "release_date": "2024-10-31",
                 "title": "Absolution",
                 "video": false,
-                "vote_average": 6.1,
-                "vote_count": 131
+                "vote_average": 6.091,
+                "vote_count": 132
             },
             {
                 "adult": false,
@@ -1353,8 +1350,8 @@
                 "release_date": "2024-10-30",
                 "title": "Armor",
                 "video": false,
-                "vote_average": 5.6,
-                "vote_count": 64
+                "vote_average": 5.522,
+                "vote_count": 68
             },
             {
                 "adult": false,
@@ -1375,7 +1372,7 @@
                 "title": "Sikandar Ka Muqaddar",
                 "video": false,
                 "vote_average": 6.0,
-                "vote_count": 9
+                "vote_count": 10
             },
             {
                 "adult": false,
@@ -1394,8 +1391,8 @@
                 "release_date": "2024-11-19",
                 "title": "GTMAX",
                 "video": false,
-                "vote_average": 6.1,
-                "vote_count": 72
+                "vote_average": 6.12,
+                "vote_count": 75
             }
         ],
         "trending_documentary": [
@@ -1410,7 +1407,7 @@
                 "original_language": "fr",
                 "original_title": "Le clitoris",
                 "overview": "Women are lucky, they get to have the only organ in the human body dedicated exclusively for pleasure: the clitoris! In this humorous and instructive animated documentary, find out its unrecognized anatomy and its unknown herstory.",
-                "popularity": 151.463,
+                "popularity": 168.804,
                 "poster_path": "/p5i1yyQW6OpLfB59w7ZkX5lvBqD.jpg",
                 "release_date": "2016-06-18",
                 "title": "Le clitoris",
@@ -1428,7 +1425,7 @@
                 "original_language": "en",
                 "original_title": "Defying Gravity: The Curtain Rises on Wicked",
                 "overview": "A behind-the-scenes look at the highly-anticipated two-part film adaptation of the hit Broadway musical, featuring interviews with the cast and crew.",
-                "popularity": 93.45,
+                "popularity": 102.798,
                 "poster_path": "/7SBOaeKcPsvquHKhyKUN8gZ4tzo.jpg",
                 "release_date": "2024-11-16",
                 "title": "Defying Gravity: The Curtain Rises on Wicked",
@@ -1438,22 +1435,21 @@
             },
             {
                 "adult": false,
-                "backdrop_path": "/bAAOUDcLDV93cASAXtAxqOj8tO3.jpg",
+                "backdrop_path": "/bqlfDdEnDiyMp5DxYl50FIrvyNO.jpg",
                 "genre_ids": [
-                    99,
-                    80
+                    99
                 ],
-                "id": 1391409,
+                "id": 899082,
                 "original_language": "en",
-                "original_title": "Biggest Heist Ever",
-                "overview": "Their crimes earned them the nickname Bitcoin Bonnie and Clyde \u2014 and the story only gets weirder in this documentary about the most lucrative heist ever.",
-                "popularity": 42.399,
-                "poster_path": "/wIS7g0i09afNbHQ9VHRnP8PErTs.jpg",
-                "release_date": "2024-12-05",
-                "title": "Biggest Heist Ever",
+                "original_title": "Harry Potter 20th Anniversary: Return to Hogwarts",
+                "overview": "An enchanting making-of story told through all-new in-depth interviews and cast conversations, inviting fans on a magical first-person journey through one of the most beloved film franchises of all time.",
+                "popularity": 67.11,
+                "poster_path": "/jntLBq0MLR3hrwKaTQswxACRPMs.jpg",
+                "release_date": "2022-01-01",
+                "title": "Harry Potter 20th Anniversary: Return to Hogwarts",
                 "video": false,
-                "vote_average": 6.5,
-                "vote_count": 5
+                "vote_average": 7.31,
+                "vote_count": 3319
             },
             {
                 "adult": false,
@@ -1466,7 +1462,7 @@
                 "original_language": "es",
                 "original_title": "El Apocalipsis de san Juan",
                 "overview": "Embark on an epic journey through time and faith with 'The Apocalypse of Saint John.' Join the Apostle John in a stunning visual narrative that unravels the visions of the End Times. Experience each vision like never before, with striking visual effects and epic scenes that immerse you in the apocalyptic narrative.",
-                "popularity": 57.237,
+                "popularity": 63.655,
                 "poster_path": "/zzXU586n4uDBgMtVMPPQW7UJwu8.jpg",
                 "release_date": "2024-10-07",
                 "title": "El Apocalipsis de san Juan",
@@ -1476,26 +1472,6 @@
             }
         ],
         "trending_drama": [
-            {
-                "adult": false,
-                "backdrop_path": "/liuBLPXvisMRo5w2JEKHXceWq5u.jpg",
-                "genre_ids": [
-                    28,
-                    80,
-                    18
-                ],
-                "id": 1171640,
-                "original_language": "fr",
-                "original_title": "GTMAX",
-                "overview": "When a notorious gang of bikers recruits her brother for a heist, a former motocross champion must face her deepest fears to keep her family safe.",
-                "popularity": 753.923,
-                "poster_path": "/bx92hl70NUhojjO3eV6LqKllj4L.jpg",
-                "release_date": "2024-11-19",
-                "title": "GTMAX",
-                "video": false,
-                "vote_average": 6.1,
-                "vote_count": 72
-            },
             {
                 "adult": false,
                 "backdrop_path": "/uVlUu174iiKhsUGqnOSy46eIIMU.jpg",
@@ -1513,8 +1489,28 @@
                 "release_date": "2024-11-20",
                 "title": "Wicked",
                 "video": false,
-                "vote_average": 7.595,
-                "vote_count": 528
+                "vote_average": 7.59,
+                "vote_count": 536
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/liuBLPXvisMRo5w2JEKHXceWq5u.jpg",
+                "genre_ids": [
+                    28,
+                    80,
+                    18
+                ],
+                "id": 1171640,
+                "original_language": "fr",
+                "original_title": "GTMAX",
+                "overview": "When a notorious gang of bikers recruits her brother for a heist, a former motocross champion must face her deepest fears to keep her family safe.",
+                "popularity": 754.107,
+                "poster_path": "/bx92hl70NUhojjO3eV6LqKllj4L.jpg",
+                "release_date": "2024-11-19",
+                "title": "GTMAX",
+                "video": false,
+                "vote_average": 6.12,
+                "vote_count": 75
             },
             {
                 "adult": false,
@@ -1528,33 +1524,34 @@
                 "original_language": "es",
                 "original_title": "Apocalipsis Z: el principio del fin",
                 "overview": "When a kind of rabies that transforms people into aggressive creatures spreads across the planet, Manel isolates himself at home with his cat, relying on his wits to survive; but soon they must go out in search of food, by land and by sea, dodging many dangers.",
-                "popularity": 678.244,
+                "popularity": 706.764,
                 "poster_path": "/wIGJnIFQlESkC2rLpfA8EDHqk4g.jpg",
                 "release_date": "2024-10-04",
                 "title": "Apocalypse Z: The Beginning of the End",
                 "video": false,
-                "vote_average": 6.9,
-                "vote_count": 696
+                "vote_average": 6.858,
+                "vote_count": 703
             },
             {
                 "adult": false,
-                "backdrop_path": "/r4Xn4eWOyxye8m3dR80I8TPhfE5.jpg",
+                "backdrop_path": "/c6nouvFYnmNO50WQDLcKMI3p0jA.jpg",
                 "genre_ids": [
-                    28,
-                    80,
-                    18
+                    12,
+                    10751,
+                    18,
+                    16
                 ],
-                "id": 1326059,
-                "original_language": "es",
-                "original_title": "Pimpinero: Sangre y gasolina",
-                "overview": "When Juan, a young gasoline smuggler, is forced to work for a mysterious organization in the desert bordering Colombia and Venezuela, his girlfriend Diana embarks on a journey to uncover the secrets that inhabit this no-man\u2019s-land.",
-                "popularity": 599.108,
-                "poster_path": "/kukotsflOSVGXQezuXohj41dbfL.jpg",
-                "release_date": "2024-10-10",
-                "title": "Pimpinero: Blood and Oil",
+                "id": 762509,
+                "original_language": "en",
+                "original_title": "Mufasa: The Lion King",
+                "overview": "Rafiki relays the legend of Mufasa to lion cub Kiara, daughter of Simba and Nala, with Timon and Pumbaa lending their signature schtick. Told in flashbacks, the story introduces Mufasa as an orphaned cub, lost and alone until he meets a sympathetic lion named Taka\u2014the heir to a royal bloodline. The chance meeting sets in motion a journey of misfits searching for their destiny and working together to evade a threatening and deadly foe.",
+                "popularity": 733.041,
+                "poster_path": "/lurEK87kukWNaHd0zYnsi3yzJrs.jpg",
+                "release_date": "2024-12-18",
+                "title": "Mufasa: The Lion King",
                 "video": false,
-                "vote_average": 7.4,
-                "vote_count": 35
+                "vote_average": 9.2,
+                "vote_count": 4
             }
         ],
         "trending_family": [
@@ -1571,13 +1568,13 @@
                 "original_language": "en",
                 "original_title": "Moana 2",
                 "overview": "After receiving an unexpected call from her wayfinding ancestors, Moana journeys alongside Maui and a new crew to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she's ever faced.",
-                "popularity": 3726.979,
+                "popularity": 3893.381,
                 "poster_path": "/4YZpsylmjHbqeWzjKpUEF8gcLNW.jpg",
                 "release_date": "2024-11-21",
                 "title": "Moana 2",
                 "video": false,
                 "vote_average": 6.9,
-                "vote_count": 477
+                "vote_count": 484
             },
             {
                 "adult": false,
@@ -1593,13 +1590,13 @@
                 "original_language": "en",
                 "original_title": "That Christmas",
                 "overview": "It's an unforgettable Christmas for the townsfolk of Wellington-on-Sea when the worst snowstorm in history alters everyone's plans \u2014 including Santa's.",
-                "popularity": 1274.145,
+                "popularity": 1400.733,
                 "poster_path": "/bX6dx2U4hOk1esI7mYwtD3cEKdC.jpg",
                 "release_date": "2024-11-27",
                 "title": "That Christmas",
                 "video": false,
-                "vote_average": 7.6,
-                "vote_count": 104
+                "vote_average": 7.592,
+                "vote_count": 120
             },
             {
                 "adult": false,
@@ -1614,35 +1611,34 @@
                 "original_language": "en",
                 "original_title": "The Wild Robot",
                 "overview": "After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh environment, Roz bonds with the island's animals and cares for an orphaned baby goose.",
-                "popularity": 973.601,
+                "popularity": 1034.993,
                 "poster_path": "/wTnV3PCVW5O92JMrFvvrRcV39RU.jpg",
                 "release_date": "2024-09-08",
                 "title": "The Wild Robot",
                 "video": false,
-                "vote_average": 8.395,
-                "vote_count": 3408
+                "vote_average": 8.392,
+                "vote_count": 3421
             },
             {
                 "adult": false,
-                "backdrop_path": "/p5ozvmdgsmbWe0H8Xk7Rc8SCwAB.jpg",
+                "backdrop_path": "/c6nouvFYnmNO50WQDLcKMI3p0jA.jpg",
                 "genre_ids": [
-                    16,
                     12,
-                    35,
+                    10751,
                     18,
-                    10751
+                    16
                 ],
-                "id": 1022789,
+                "id": 762509,
                 "original_language": "en",
-                "original_title": "Inside Out 2",
-                "overview": "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who\u2019ve long been running a successful operation by all accounts, aren\u2019t sure how to feel when Anxiety shows up. And it looks like she\u2019s not alone.",
-                "popularity": 620.824,
-                "poster_path": "/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
-                "release_date": "2024-06-11",
-                "title": "Inside Out 2",
+                "original_title": "Mufasa: The Lion King",
+                "overview": "Rafiki relays the legend of Mufasa to lion cub Kiara, daughter of Simba and Nala, with Timon and Pumbaa lending their signature schtick. Told in flashbacks, the story introduces Mufasa as an orphaned cub, lost and alone until he meets a sympathetic lion named Taka\u2014the heir to a royal bloodline. The chance meeting sets in motion a journey of misfits searching for their destiny and working together to evade a threatening and deadly foe.",
+                "popularity": 733.041,
+                "poster_path": "/lurEK87kukWNaHd0zYnsi3yzJrs.jpg",
+                "release_date": "2024-12-18",
+                "title": "Mufasa: The Lion King",
                 "video": false,
-                "vote_average": 7.57,
-                "vote_count": 4969
+                "vote_average": 9.2,
+                "vote_count": 4
             }
         ],
         "trending_fantasy": [
@@ -1650,42 +1646,21 @@
                 "adult": false,
                 "backdrop_path": "/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg",
                 "genre_ids": [
-                    35,
                     28,
-                    14
+                    14,
+                    35
                 ],
                 "id": 845781,
                 "original_language": "en",
                 "original_title": "Red One",
                 "overview": "After Santa Claus (codename: Red One) is kidnapped, the North Pole's Head of Security must team up with the world's most infamous tracker in a globe-trotting, action-packed mission to save Christmas.",
-                "popularity": 1724.397,
+                "popularity": 2414.156,
                 "poster_path": "/cdqLnri3NEGcmfnqwk2TSIYtddg.jpg",
                 "release_date": "2024-10-31",
                 "title": "Red One",
                 "video": false,
-                "vote_average": 7.026,
-                "vote_count": 417
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/cBTwQKMd7Vn6rGTGBtoFLIfj7uM.jpg",
-                "genre_ids": [
-                    16,
-                    12,
-                    28,
-                    14
-                ],
-                "id": 1147416,
-                "original_language": "fr",
-                "original_title": "Miraculous World : Londres, la course contre le temps",
-                "overview": "To save the future from a terrible fate, Marinette becomes Chronobug and teams up with Bunnyx to defeat a mysterious opponent who travels through time. Who is this new supervillain, and why are they obsessed with exposing Marinette's secret superhero identity? Marinette's only hope is to defeat her new opponent to prevent the end of Ladybug and time itself!",
-                "popularity": 1235.591,
-                "poster_path": "/6AtoMpHvs9pxd30KsyK8QmJ9W9M.jpg",
-                "release_date": "2024-11-14",
-                "title": "Miraculous World, London: At the Edge of Time",
-                "video": false,
-                "vote_average": 8.5,
-                "vote_count": 44
+                "vote_average": 6.958,
+                "vote_count": 525
             },
             {
                 "adult": false,
@@ -1701,13 +1676,34 @@
                 "original_language": "en",
                 "original_title": "That Christmas",
                 "overview": "It's an unforgettable Christmas for the townsfolk of Wellington-on-Sea when the worst snowstorm in history alters everyone's plans \u2014 including Santa's.",
-                "popularity": 1274.145,
+                "popularity": 1400.733,
                 "poster_path": "/bX6dx2U4hOk1esI7mYwtD3cEKdC.jpg",
                 "release_date": "2024-11-27",
                 "title": "That Christmas",
                 "video": false,
-                "vote_average": 7.6,
-                "vote_count": 104
+                "vote_average": 7.622,
+                "vote_count": 119
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/cBTwQKMd7Vn6rGTGBtoFLIfj7uM.jpg",
+                "genre_ids": [
+                    16,
+                    12,
+                    28,
+                    14
+                ],
+                "id": 1147416,
+                "original_language": "fr",
+                "original_title": "Miraculous World : Londres, la course contre le temps",
+                "overview": "To save the future from a terrible fate, Marinette becomes Chronobug and teams up with Bunnyx to defeat a mysterious opponent who travels through time. Who is this new supervillain, and why are they obsessed with exposing Marinette's secret superhero identity? Marinette's only hope is to defeat her new opponent to prevent the end of Ladybug and time itself!",
+                "popularity": 1242.364,
+                "poster_path": "/6AtoMpHvs9pxd30KsyK8QmJ9W9M.jpg",
+                "release_date": "2024-11-14",
+                "title": "Miraculous World, London: At the Edge of Time",
+                "video": false,
+                "vote_average": 8.4,
+                "vote_count": 45
             },
             {
                 "adult": false,
@@ -1721,13 +1717,13 @@
                 "original_language": "en",
                 "original_title": "Wicked",
                 "overview": "In the land of Oz, ostracized and misunderstood green-skinned Elphaba is forced to share a room with the popular aristocrat Glinda at Shiz University, and the two's unlikely friendship is tested as they begin to fulfill their respective destinies as Glinda the Good and the Wicked Witch of the West.",
-                "popularity": 766.652,
+                "popularity": 795.796,
                 "poster_path": "/xDGbZ0JJ3mYaGKy4Nzd9Kph6M9L.jpg",
                 "release_date": "2024-11-20",
                 "title": "Wicked",
                 "video": false,
                 "vote_average": 7.595,
-                "vote_count": 528
+                "vote_count": 535
             }
         ],
         "trending_history": [
@@ -1743,13 +1739,13 @@
                 "original_language": "en",
                 "original_title": "Gladiator II",
                 "overview": "Years after witnessing the death of the revered hero Maximus at the hands of his uncle, Lucius is forced to enter the Colosseum after his home is conquered by the tyrannical Emperors who now lead Rome with an iron fist. With rage in his heart and the future of the Empire at stake, Lucius must look to his past to find strength and honor to return the glory of Rome to its people.",
-                "popularity": 960.733,
+                "popularity": 1070.109,
                 "poster_path": "/2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
                 "release_date": "2024-11-05",
                 "title": "Gladiator II",
                 "video": false,
-                "vote_average": 6.681,
-                "vote_count": 1059
+                "vote_average": 6.69,
+                "vote_count": 1073
             },
             {
                 "adult": false,
@@ -1763,13 +1759,13 @@
                 "original_language": "en",
                 "original_title": "Mary",
                 "overview": "A miraculous conception. A merciless king. A murderous pursuit. Mary's journey to give birth to Jesus unfolds in this biblical coming-of-age epic.",
-                "popularity": 413.67,
+                "popularity": 404.811,
                 "poster_path": "/intUJJZ4PzuRITtidCSOVhtB8aO.jpg",
                 "release_date": "2024-12-05",
                 "title": "Mary",
                 "video": false,
-                "vote_average": 6.3,
-                "vote_count": 63
+                "vote_average": 6.145,
+                "vote_count": 69
             },
             {
                 "adult": false,
@@ -1783,39 +1779,38 @@
                 "original_language": "es",
                 "original_title": "La virgen roja",
                 "overview": "Hildegart is conceived and educated by her mother Aurora to be the woman of the future, to become one of the most brilliant minds of Spain in the 1930s and one of the European references on female sexuality.",
-                "popularity": 159.704,
+                "popularity": 186.308,
                 "poster_path": "/rWI9nlFB1bMWlU7xExJ4WmkQUyV.jpg",
                 "release_date": "2024-09-27",
                 "title": "The Red Virgin",
                 "video": false,
-                "vote_average": 7.179,
-                "vote_count": 42
+                "vote_average": 7.144,
+                "vote_count": 45
             },
             {
                 "adult": false,
-                "backdrop_path": "/frs3Xvh6T0wQhtbrvCKyfIJ50Kl.jpg",
+                "backdrop_path": "/fm6KqXpk3M2HVveHwCrBSSBaO0V.jpg",
                 "genre_ids": [
-                    27,
-                    53,
+                    18,
                     36
                 ],
-                "id": 916433,
+                "id": 872585,
                 "original_language": "en",
-                "original_title": "Brooklyn 45",
-                "overview": "Five military veterans, best friends since childhood, gather together in a Brooklyn brownstone several months after the end of World War II, and the metaphoric ghosts of their past become all-too-literal.",
-                "popularity": 117.325,
-                "poster_path": "/dN8IIAvzIW3XX8aOvA9aQubK4hd.jpg",
-                "release_date": "2023-03-12",
-                "title": "Brooklyn 45",
+                "original_title": "Oppenheimer",
+                "overview": "The story of J. Robert Oppenheimer's role in the development of the atomic bomb during World War II.",
+                "popularity": 123.884,
+                "poster_path": "/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+                "release_date": "2023-07-19",
+                "title": "Oppenheimer",
                 "video": false,
-                "vote_average": 6.0,
-                "vote_count": 37
+                "vote_average": 8.079,
+                "vote_count": 9380
             }
         ],
         "trending_horror": [
             {
                 "adult": false,
-                "backdrop_path": "/7h6TqPB3ESmjuVbxCxAeB1c9OB1.jpg",
+                "backdrop_path": "/t98L9uphqBSNn2Mkvdm3xSFCQyi.jpg",
                 "genre_ids": [
                     27,
                     878
@@ -1824,17 +1819,36 @@
                 "original_language": "en",
                 "original_title": "The Substance",
                 "overview": "A fading celebrity decides to use a black market drug, a cell-replicating substance that temporarily creates a younger, better version of herself.",
-                "popularity": 806.876,
+                "popularity": 890.232,
                 "poster_path": "/lqoMzCcZYEFK729d6qzt349fB4o.jpg",
                 "release_date": "2024-09-07",
                 "title": "The Substance",
                 "video": false,
                 "vote_average": 7.2,
-                "vote_count": 2542
+                "vote_count": 2569
             },
             {
                 "adult": false,
-                "backdrop_path": "/ditakJQbOLWVsyYZnKtz054fJhz.jpg",
+                "backdrop_path": "/ag66gJCiZ06q1GSJuQlhGLi3Udx.jpg",
+                "genre_ids": [
+                    27,
+                    53
+                ],
+                "id": 1138194,
+                "original_language": "en",
+                "original_title": "Heretic",
+                "overview": "Two young missionaries are forced to prove their faith when they knock on the wrong door and are greeted by a diabolical Mr. Reed, becoming ensnared in his deadly game of cat-and-mouse.",
+                "popularity": 1079.765,
+                "poster_path": "/5HJqjCTcaE1TFwnNh3Dn21be2es.jpg",
+                "release_date": "2024-10-31",
+                "title": "Heretic",
+                "video": false,
+                "vote_average": 7.094,
+                "vote_count": 267
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/iR79ciqhtaZ9BE7YFA1HpCHQgX4.jpg",
                 "genre_ids": [
                     27,
                     9648
@@ -1843,55 +1857,32 @@
                 "original_language": "en",
                 "original_title": "Smile 2",
                 "overview": "About to embark on a new world tour, global pop sensation Skye Riley begins experiencing increasingly terrifying and inexplicable events. Overwhelmed by the escalating horrors and the pressures of fame, Skye is forced to face her dark past to regain control of her life before it spirals out of control.",
-                "popularity": 746.193,
+                "popularity": 825.762,
                 "poster_path": "/ht8Uv9QPv9y7K0RvUyJIaXOZTfd.jpg",
                 "release_date": "2024-10-16",
                 "title": "Smile 2",
                 "video": false,
-                "vote_average": 6.585,
-                "vote_count": 912
+                "vote_average": 6.6,
+                "vote_count": 919
             },
             {
                 "adult": false,
-                "backdrop_path": "/5O0mkQGfOQM4OktFOCep9YmXK79.jpg",
+                "backdrop_path": "/2ndyL4HjM9JLMqBSgbyCM57aMWl.jpg",
                 "genre_ids": [
-                    28,
-                    878,
-                    53,
-                    35,
-                    27
+                    27,
+                    53
                 ],
-                "id": 995803,
+                "id": 1034541,
                 "original_language": "en",
-                "original_title": "Arena Wars",
-                "overview": "In 2045 convicted criminals are given the opportunity to compete on the world's #1 televised sporting event, Arena Wars. They must survive 7 rooms and 7 of the most vicious killers in the country. If they win, they regain their freedom.",
-                "popularity": 625.702,
-                "poster_path": "/4dRtXjk1rcsZlaMJpBn6Nh9cTfO.jpg",
-                "release_date": "2024-06-25",
-                "title": "Arena Wars",
+                "original_title": "Terrifier 3",
+                "overview": "Five years after surviving Art the Clown's Halloween massacre, Sienna and Jonathan are still struggling to rebuild their shattered lives. As the holiday season approaches, they try to embrace the Christmas spirit and leave the horrors of the past behind. But just when they think they're safe, Art returns, determined to turn their holiday cheer into a new nightmare. The festive season quickly unravels as Art unleashes his twisted brand of terror, proving that no holiday is safe.",
+                "popularity": 757.918,
+                "poster_path": "/ju10W5gl3PPK3b7TjEmVOZap51I.jpg",
+                "release_date": "2024-10-09",
+                "title": "Terrifier 3",
                 "video": false,
-                "vote_average": 5.4,
-                "vote_count": 31
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/2fxnTXr8NwyTFkunkimJkGkhqfy.jpg",
-                "genre_ids": [
-                    18,
-                    28,
-                    27
-                ],
-                "id": 1118031,
-                "original_language": "es",
-                "original_title": "Apocalipsis Z: el principio del fin",
-                "overview": "When a kind of rabies that transforms people into aggressive creatures spreads across the planet, Manel isolates himself at home with his cat, relying on his wits to survive; but soon they must go out in search of food, by land and by sea, dodging many dangers.",
-                "popularity": 678.244,
-                "poster_path": "/wIGJnIFQlESkC2rLpfA8EDHqk4g.jpg",
-                "release_date": "2024-10-04",
-                "title": "Apocalypse Z: The Beginning of the End",
-                "video": false,
-                "vote_average": 6.9,
-                "vote_count": 696
+                "vote_average": 6.846,
+                "vote_count": 1221
             }
         ],
         "trending_music": [
@@ -1910,8 +1901,48 @@
                 "release_date": "2024-12-06",
                 "title": "A Nonsense Christmas with Sabrina Carpenter",
                 "video": false,
-                "vote_average": 7.5,
-                "vote_count": 25
+                "vote_average": 7.4,
+                "vote_count": 26
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/bVx8uZv6rEeT0iJAPJkZnxxxVmN.jpg",
+                "genre_ids": [
+                    18,
+                    10402
+                ],
+                "id": 1038263,
+                "original_language": "en",
+                "original_title": "Maria",
+                "overview": "Maria Callas, the world's greatest opera singer, lives the last days of her life in 1970s Paris, as she confronts her identity and life.",
+                "popularity": 133.631,
+                "poster_path": "/3oQRG0bwPUqE4N4n8z2kAzr7e40.jpg",
+                "release_date": "2024-11-27",
+                "title": "Maria",
+                "video": false,
+                "vote_average": 6.7,
+                "vote_count": 29
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/askg3SMvhqEl4OL52YuvdtY40Yb.jpg",
+                "genre_ids": [
+                    10751,
+                    16,
+                    10402,
+                    12
+                ],
+                "id": 354912,
+                "original_language": "en",
+                "original_title": "Coco",
+                "overview": "Despite his family\u2019s baffling generations-old ban on music, Miguel dreams of becoming an accomplished musician like his idol, Ernesto de la Cruz. Desperate to prove his talent, Miguel finds himself in the stunning and colorful Land of the Dead following a mysterious chain of events. Along the way, he meets charming trickster Hector, and together, they set off on an extraordinary journey to unlock the real story behind Miguel's family history.",
+                "popularity": 120.373,
+                "poster_path": "/gGEsBPAijhVUFoiNpgZXqRVWJt2.jpg",
+                "release_date": "2017-10-27",
+                "title": "Coco",
+                "video": false,
+                "vote_average": 8.208,
+                "vote_count": 19530
             },
             {
                 "adult": false,
@@ -1934,46 +1965,6 @@
                 "video": false,
                 "vote_average": 7.5,
                 "vote_count": 25
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/askg3SMvhqEl4OL52YuvdtY40Yb.jpg",
-                "genre_ids": [
-                    10751,
-                    16,
-                    10402,
-                    12
-                ],
-                "id": 354912,
-                "original_language": "en",
-                "original_title": "Coco",
-                "overview": "Despite his family\u2019s baffling generations-old ban on music, Miguel dreams of becoming an accomplished musician like his idol, Ernesto de la Cruz. Desperate to prove his talent, Miguel finds himself in the stunning and colorful Land of the Dead following a mysterious chain of events. Along the way, he meets charming trickster Hector, and together, they set off on an extraordinary journey to unlock the real story behind Miguel's family history.",
-                "popularity": 120.373,
-                "poster_path": "/gGEsBPAijhVUFoiNpgZXqRVWJt2.jpg",
-                "release_date": "2017-10-27",
-                "title": "Coco",
-                "video": false,
-                "vote_average": 8.208,
-                "vote_count": 19529
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/bVx8uZv6rEeT0iJAPJkZnxxxVmN.jpg",
-                "genre_ids": [
-                    18,
-                    10402
-                ],
-                "id": 1038263,
-                "original_language": "en",
-                "original_title": "Maria",
-                "overview": "Maria Callas, the world's greatest opera singer, lives the last days of her life in 1970s Paris, as she confronts her identity and life.",
-                "popularity": 133.631,
-                "poster_path": "/3oQRG0bwPUqE4N4n8z2kAzr7e40.jpg",
-                "release_date": "2024-11-27",
-                "title": "Maria",
-                "video": false,
-                "vote_average": 6.7,
-                "vote_count": 27
             }
         ],
         "trending_mystery": [
@@ -1995,8 +1986,8 @@
                 "release_date": "2024-11-25",
                 "title": "Watchmen: Chapter II",
                 "video": false,
-                "vote_average": 7.6,
-                "vote_count": 46
+                "vote_average": 7.511,
+                "vote_count": 47
             },
             {
                 "adult": false,
@@ -2017,11 +2008,11 @@
                 "title": "Sikandar Ka Muqaddar",
                 "video": false,
                 "vote_average": 6.0,
-                "vote_count": 9
+                "vote_count": 10
             },
             {
                 "adult": false,
-                "backdrop_path": "/ditakJQbOLWVsyYZnKtz054fJhz.jpg",
+                "backdrop_path": "/iR79ciqhtaZ9BE7YFA1HpCHQgX4.jpg",
                 "genre_ids": [
                     27,
                     9648
@@ -2035,8 +2026,8 @@
                 "release_date": "2024-10-16",
                 "title": "Smile 2",
                 "video": false,
-                "vote_average": 6.585,
-                "vote_count": 912
+                "vote_average": 6.6,
+                "vote_count": 919
             },
             {
                 "adult": false,
@@ -2055,7 +2046,7 @@
                 "release_date": "2024-06-14",
                 "title": "The Moor",
                 "video": false,
-                "vote_average": 4.471,
+                "vote_average": 4.5,
                 "vote_count": 17
             }
         ],
@@ -2077,8 +2068,8 @@
                 "release_date": "2024-11-29",
                 "title": "Sidelined: The QB and Me",
                 "video": false,
-                "vote_average": 6.4,
-                "vote_count": 65
+                "vote_average": 6.424,
+                "vote_count": 66
             },
             {
                 "adult": false,
@@ -2097,8 +2088,8 @@
                 "release_date": "2024-11-20",
                 "title": "Wicked",
                 "video": false,
-                "vote_average": 7.595,
-                "vote_count": 528
+                "vote_average": 7.6,
+                "vote_count": 535
             },
             {
                 "adult": false,
@@ -2116,8 +2107,8 @@
                 "release_date": "2023-06-08",
                 "title": "My Fault",
                 "video": false,
-                "vote_average": 7.917,
-                "vote_count": 3101
+                "vote_average": 7.9,
+                "vote_count": 3102
             },
             {
                 "adult": false,
@@ -2153,13 +2144,13 @@
                 "original_language": "en",
                 "original_title": "Venom: The Last Dance",
                 "overview": "Eddie and Venom are on the run. Hunted by both of their worlds and with the net closing in, the duo are forced into a devastating decision that will bring the curtains down on Venom and Eddie's last dance.",
-                "popularity": 9823.665,
+                "popularity": 9267.92,
                 "poster_path": "/aosm8NMQ3UyoBVpSxyimorCQykC.jpg",
                 "release_date": "2024-10-22",
                 "title": "Venom: The Last Dance",
                 "video": false,
-                "vote_average": 6.8,
-                "vote_count": 1413
+                "vote_average": 6.759,
+                "vote_count": 1468
             },
             {
                 "adult": false,
@@ -2173,13 +2164,13 @@
                 "original_language": "en",
                 "original_title": "Elevation",
                 "overview": "A single father and two women venture from the safety of their homes to face monstrous creatures to save the life of a young boy.",
-                "popularity": 2146.632,
+                "popularity": 2065.521,
                 "poster_path": "/uQhYBxOVFU6s9agD49FnGHwJqG5.jpg",
                 "release_date": "2024-11-07",
                 "title": "Elevation",
                 "video": false,
-                "vote_average": 6.483,
-                "vote_count": 150
+                "vote_average": 6.5,
+                "vote_count": 158
             },
             {
                 "adult": false,
@@ -2194,13 +2185,13 @@
                 "original_language": "en",
                 "original_title": "Watchmen: Chapter II",
                 "overview": "Suspicious of the events ensnaring their former colleagues, Nite Owl and Silk Spectre are spurred out of retirement to investigate. As they grapple with personal ethics, inner demons and a society turned against them, they race the clock to uncover a deepening plot that might trigger global nuclear war.",
-                "popularity": 1199.364,
+                "popularity": 1155.315,
                 "poster_path": "/4rBObJFpiWJOG7aIlRrOUniAkBs.jpg",
                 "release_date": "2024-11-25",
                 "title": "Watchmen: Chapter II",
                 "video": false,
-                "vote_average": 7.6,
-                "vote_count": 46
+                "vote_average": 7.563,
+                "vote_count": 48
             },
             {
                 "adult": false,
@@ -2215,13 +2206,13 @@
                 "original_language": "en",
                 "original_title": "The Wild Robot",
                 "overview": "After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh environment, Roz bonds with the island's animals and cares for an orphaned baby goose.",
-                "popularity": 973.601,
+                "popularity": 1034.993,
                 "poster_path": "/wTnV3PCVW5O92JMrFvvrRcV39RU.jpg",
                 "release_date": "2024-09-08",
                 "title": "The Wild Robot",
                 "video": false,
-                "vote_average": 8.395,
-                "vote_count": 3408
+                "vote_average": 8.392,
+                "vote_count": 3421
             }
         ],
         "trending_thriller": [
@@ -2238,13 +2229,13 @@
                 "original_language": "en",
                 "original_title": "Venom: The Last Dance",
                 "overview": "Eddie and Venom are on the run. Hunted by both of their worlds and with the net closing in, the duo are forced into a devastating decision that will bring the curtains down on Venom and Eddie's last dance.",
-                "popularity": 9823.665,
+                "popularity": 9267.92,
                 "poster_path": "/aosm8NMQ3UyoBVpSxyimorCQykC.jpg",
                 "release_date": "2024-10-22",
                 "title": "Venom: The Last Dance",
                 "video": false,
-                "vote_average": 6.8,
-                "vote_count": 1417
+                "vote_average": 6.767,
+                "vote_count": 1472
             },
             {
                 "adult": false,
@@ -2258,13 +2249,13 @@
                 "original_language": "en",
                 "original_title": "Elevation",
                 "overview": "A single father and two women venture from the safety of their homes to face monstrous creatures to save the life of a young boy.",
-                "popularity": 2146.632,
+                "popularity": 2065.521,
                 "poster_path": "/uQhYBxOVFU6s9agD49FnGHwJqG5.jpg",
                 "release_date": "2024-11-07",
                 "title": "Elevation",
                 "video": false,
-                "vote_average": 6.483,
-                "vote_count": 150
+                "vote_average": 6.5,
+                "vote_count": 158
             },
             {
                 "adult": false,
@@ -2278,12 +2269,12 @@
                 "original_language": "en",
                 "original_title": "Absolution",
                 "overview": "An aging ex-boxer gangster working as muscle for a Boston crime boss receives an upsetting diagnosis.  Despite a faltering memory, he attempts to rectify the sins of his past and reconnect with his estranged children. He is determined to leave a positive legacy for his grandson, but the criminal underworld isn\u2019t done with him and won\u2019t loosen their grip willingly.",
-                "popularity": 1475.937,
+                "popularity": 1518.335,
                 "poster_path": "/cNtAslrDhk1i3IOZ16vF7df6lMy.jpg",
                 "release_date": "2024-10-31",
                 "title": "Absolution",
                 "video": false,
-                "vote_average": 6.1,
+                "vote_average": 6.107,
                 "vote_count": 131
             },
             {
@@ -2298,13 +2289,13 @@
                 "original_language": "en",
                 "original_title": "Armor",
                 "overview": "Armored truck security guard James Brody is working with his son Casey transporting millions of dollars between banks when a team of thieves led by Rook orchestrate a takeover of their truck to seize the riches. Following a violent car chase, Rook soon has the armored truck surrounded and James and Casey find themselves cornered onto a decrepit bridge.",
-                "popularity": 1314.269,
+                "popularity": 1310.864,
                 "poster_path": "/pnXLFioDeftqjlCVlRmXvIdMsdP.jpg",
                 "release_date": "2024-10-30",
                 "title": "Armor",
                 "video": false,
-                "vote_average": 5.546,
-                "vote_count": 65
+                "vote_average": 5.522,
+                "vote_count": 68
             }
         ],
         "trending_war": [
@@ -2318,7 +2309,7 @@
                 "original_language": "en",
                 "original_title": "Battle for the Western Front",
                 "overview": "Inspired by Canuck WWI flying ace Billy Bishop, two young soldiers crash the front lines in August 1918. With the Allies detained, their platoon must desperately hold out alongside legendary Anishinaabe sniper Francis \"Peggy\" Pegahmagabow.",
-                "popularity": 266.406,
+                "popularity": 269.535,
                 "poster_path": "/ooHEL3XyLYu3hus5cMnpjeH4e7A.jpg",
                 "release_date": "2022-10-06",
                 "title": "Battle for the Western Front",
@@ -2338,13 +2329,13 @@
                 "original_language": "en",
                 "original_title": "Civil War",
                 "overview": "In the near future, a group of war journalists attempt to survive while reporting the truth as the United States stands on the brink of civil war.",
-                "popularity": 174.334,
+                "popularity": 172.729,
                 "poster_path": "/sh7Rg8Er3tFcN9BpKIPOMvALgZd.jpg",
                 "release_date": "2024-04-10",
                 "title": "Civil War",
                 "video": false,
-                "vote_average": 6.9,
-                "vote_count": 2879
+                "vote_average": 6.902,
+                "vote_count": 2880
             },
             {
                 "adult": false,
@@ -2363,28 +2354,28 @@
                 "release_date": "2014-10-15",
                 "title": "Fury",
                 "video": false,
-                "vote_average": 7.5,
+                "vote_average": 7.539,
                 "vote_count": 11944
             },
             {
                 "adult": false,
-                "backdrop_path": "/s5znBQmprDJJ553IMQfwEVlfroH.jpg",
+                "backdrop_path": "/w5GX5pzLG1qXLzCWuZapZFj4b7K.jpg",
                 "genre_ids": [
-                    28,
-                    35,
+                    18,
+                    36,
                     10752
                 ],
-                "id": 799583,
+                "id": 324786,
                 "original_language": "en",
-                "original_title": "The Ministry of Ungentlemanly Warfare",
-                "overview": "During World War II, the British Army assigns a group of competent soldiers to carry out a mission against the Nazi forces behind enemy lines... A true story about a secret British WWII organization \u2013 the Special Operations Executive. Founded by Winston Churchill, their irregular warfare against the Germans helped to change the course of the war, and gave birth to modern black operations.",
-                "popularity": 88.391,
-                "poster_path": "/8aF0iAKH9MJMYAZdi0Slg77RYa2.jpg",
-                "release_date": "2024-04-18",
-                "title": "The Ministry of Ungentlemanly Warfare",
+                "original_title": "Hacksaw Ridge",
+                "overview": "WWII American Army Medic Desmond T. Doss, who served during the Battle of Okinawa, refuses to kill people and becomes the first Conscientious Objector in American history to receive the Congressional Medal of Honor.",
+                "popularity": 93.79,
+                "poster_path": "/wuz8TjCIWR2EVVMuEfBnQ1vuGS3.jpg",
+                "release_date": "2016-10-07",
+                "title": "Hacksaw Ridge",
                 "video": false,
-                "vote_average": 7.125,
-                "vote_count": 1209
+                "vote_average": 8.196,
+                "vote_count": 13743
             }
         ],
         "trending_western": [
@@ -2400,7 +2391,7 @@
                 "original_language": "en",
                 "original_title": "Redeeming Love",
                 "overview": "A retelling of the biblical book of Hosea set against the backdrop of the California Gold Rush of 1850.",
-                "popularity": 118.131,
+                "popularity": 90.737,
                 "poster_path": "/mV3vomFNiCQbSowGrp2penDGRqJ.jpg",
                 "release_date": "2022-01-21",
                 "title": "Redeeming Love",
@@ -2419,13 +2410,13 @@
                 "original_language": "en",
                 "original_title": "Django Unchained",
                 "overview": "With the help of a German bounty hunter, a freed slave sets out to rescue his wife from a brutal Mississippi plantation owner.",
-                "popularity": 91.001,
+                "popularity": 76.653,
                 "poster_path": "/7oWY8VDWW7thTzWh3OKYRkWUlD5.jpg",
                 "release_date": "2012-12-25",
                 "title": "Django Unchained",
                 "video": false,
-                "vote_average": 8.2,
-                "vote_count": 26248
+                "vote_average": 8.182,
+                "vote_count": 26252
             },
             {
                 "adult": false,
@@ -2438,13 +2429,13 @@
                 "original_language": "en",
                 "original_title": "Horizon: An American Saga - Chapter 1",
                 "overview": "Follow the story of how the Old West was won\u2014and lost\u2014through the blood, sweat and tears of many. Spanning 15 years before, during and following the Civil War from 1859 to 1874, embark on an emotional journey across a country at war with itself, experienced through the lens of families, friends and foes all attempting to discover what it truly means to be the United States of America.",
-                "popularity": 74.885,
+                "popularity": 89.348,
                 "poster_path": "/hqDkO0W9uk4aiwzn3pTeLO7NPZD.jpg",
                 "release_date": "2024-06-26",
                 "title": "Horizon: An American Saga - Chapter 1",
                 "video": false,
-                "vote_average": 7.011,
-                "vote_count": 373
+                "vote_average": 7.0,
+                "vote_count": 374
             },
             {
                 "adult": false,
@@ -2456,13 +2447,13 @@
                 "original_language": "it",
                 "original_title": "Il buono, il brutto, il cattivo",
                 "overview": "While the Civil War rages on between the Union and the Confederacy, three men \u2013 a quiet loner, a ruthless hitman, and a Mexican bandit \u2013 comb the American Southwest in search of a strongbox containing $200,000 in stolen gold.",
-                "popularity": 74.259,
+                "popularity": 69.39,
                 "poster_path": "/bX2xnavhMYjWDoZp1VM6VnU1xwe.jpg",
                 "release_date": "1966-12-22",
                 "title": "The Good, the Bad and the Ugly",
                 "video": false,
-                "vote_average": 8.5,
-                "vote_count": 8647
+                "vote_average": 8.465,
+                "vote_count": 8650
             }
         ]
     }

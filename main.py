@@ -30,6 +30,10 @@ from assemble_code.forms import SearchMovies, RegistrationForm, Edit, AddMovies
 
 load_dotenv()
 
+# Global data
+
+global homepage_data
+
 db = SQLAlchemy()  # Create an instance of SQLAlchemy without initializing it with app.
 migrate = Migrate()  # Create an instance of Migrate without initializing it with app.
 
@@ -56,6 +60,7 @@ migrate.init_app(app, db)  # Initialize the migration manager with the app and d
 
 API_KEY = os.getenv("API_KEY")
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
+TinyURL_API_KEY = os.getenv("TinyURL_API_KEY")
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -552,6 +557,67 @@ def home():
     }
     return render_template("free_movie_zip/index.html", context=context, form=form)
 
+
+@app.route('/add_critic', methods=['GET', 'POST'])
+def add_critic():
+    form = SearchMovies()
+    homepage_data = asyncio.run(get_homepage_data())
+    movie_id = request.args.get('movie_id')
+    movie = Movie.query.filter_by(id=movie_id).first()
+
+    if request.method == "POST":
+        newCritic = FilmCritic(
+            user_id = current_user.id,
+            movie_id = request.form.get('movie_id'),
+            critic_title = request.form.get('critics_title'),
+            rating = float(request.form.get('rating')),
+            critic_text = request.form.get('critic_content')
+        )
+        db.session.add(newCritic)
+        db.session.commit()
+        flash('Critic added successfully!', 'success')
+        return redirect(url_for('my_critics'))
+        
+    context = {
+        'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
+        'best_movie_video_url': homepage_data.get('best_movie_video_url', None),
+        'TinyURL_API_KEY': TinyURL_API_KEY,
+    }
+    return render_template('free_movie_zip/add_critics.html', form=form, context=context, movie_details=movie.description)
+
+
+@app.route('/my_critics', methods=['GET'])
+def my_critics():
+    homepage_data = asyncio.run(get_homepage_data())
+    form = SearchMovies()
+
+    # Query FilmCritic along with related Movie
+    critics = db.session.query(FilmCritic, Movie.title).join(Movie, FilmCritic.movie_id == Movie.id).filter(FilmCritic.user_id == current_user.id).all()
+
+    # Transform critics into a more usable format
+    critic_data = [
+        {
+            'critic': critic,
+            'movie_title': movie_title,
+        }
+        for critic, movie_title in critics
+    ]
+
+    context = {
+        'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
+        'best_movie_video_url': homepage_data.get('best_movie_video_url', None),
+        'critics': critic_data,
+    }
+    return render_template('free_movie_zip/my_critics.html', form=form, context=context)
+
+@app.route('/delete_critic', methods=['Get', 'POST'])
+def delete_critic():
+    critic_id = request.args.get('id')
+    critic = FilmCritic.query.filter_by(id=critic_id).first()
+    db.session.delete(critic)
+    db.session.commit()
+    return redirect(url_for('my_critics'))
+
 @app.route('/upload-profile-pic', methods=['GET', 'POST'])
 def upload_profile_pic():
     if 'profile_pic' not in request.files:
@@ -567,31 +633,6 @@ def upload_profile_pic():
         current_user.profile_pic = filename
         db.session.commit()
         return redirect(url_for('home'))
-
-
-@app.route("/about")
-def about():
-    return render_template("free_movie_zip/about.html", form = SearchMovies())
-
-@app.route("/contact")
-def contect():
-    return render_template("free_movie_zip/contact.html", form = SearchMovies())
-
-@app.route("/blog")
-def blog():
-    return render_template("free_movie_zip/blog.html", form = SearchMovies())
-
-@app.route("/blog-details")
-def blog_details():
-    return render_template("free_movie_zip/blog_detail.html", form = SearchMovies())
-
-@app.route("/services")
-def services():
-    return render_template("free_movie_zip/services.html", form = SearchMovies())
-
-@app.route("/teams")
-def teams():
-    return render_template("free_movie_zip/team.html", form = SearchMovies())
 
 @app.route("/genre", methods=["GET", "POST"])
 async def genre():
@@ -837,6 +878,31 @@ def add_comment():
         flash(f'Error adding comment: {str(e)}', 'danger')
 
     return redirect(url_for('movie_details', movie=movie_name, id=movie_id))
+
+
+@app.route("/about")
+def about():
+    return render_template("free_movie_zip/about.html", form = SearchMovies())
+
+@app.route("/contact")
+def contect():
+    return render_template("free_movie_zip/contact.html", form = SearchMovies())
+
+@app.route("/blog")
+def blog():
+    return render_template("free_movie_zip/blog.html", form = SearchMovies())
+
+@app.route("/blog-details")
+def blog_details():
+    return render_template("free_movie_zip/blog_detail.html", form = SearchMovies())
+
+@app.route("/services")
+def services():
+    return render_template("free_movie_zip/services.html", form = SearchMovies())
+
+@app.route("/teams")
+def teams():
+    return render_template("free_movie_zip/team.html", form = SearchMovies())
 
 
 @app.route("/data")

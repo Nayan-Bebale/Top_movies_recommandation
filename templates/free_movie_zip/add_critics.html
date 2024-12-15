@@ -1,0 +1,130 @@
+{% include 'free_movie_zip/header.html' %}
+{% block content %}
+
+
+<section id="center" class="center_o pt-2 pb-2">
+  <div class="container-xl">
+   <div class="row center_o1">
+    <div class="col-md-5">
+      <div class="center_o1l">
+     <h2 class="mb-0">Add Critic</h2>
+    </div>
+    </div>
+    <div class="col-md-7">
+      <div class="center_o1r text-end">
+     <h6 class="mb-0 col_red"><a href="#">Home</a> <span class="me-2 ms-2 text-light"><i class="fa fa-caret-right align-middle"></i></span>Add Critic</h6>
+    </div>
+    </div>
+   </div>
+  </div>
+ </section>
+ 
+ <section id="contact" class="pt-4 pb-4 bg_grey">
+  <div class="container-xl">
+   <div class="row contact_1 bg_dark  pt-5 pb-5">
+    <div class="col-md-3">
+    <div class="col-md-10 col-10">
+     <div class="contact_1ir">
+        <figure class="effect-jazz mb-0">
+        <a href="#"><img src="https://image.tmdb.org/t/p/w500{{movie_details.poster_path}}"  class="w-50" alt="{{ movie_details.title}}"></a>
+        </figure>
+     </div>
+    </div>
+
+    </div>   
+    <div class="col-md-9">
+     <div class="contact_1ir">
+      <h5 class="col_red">{{ movie_details.title }}</h5>
+      <p class="mb-0">{{ movie_details.overview }}</p>
+
+     </div>
+    </div>
+   </div>
+   <div class="row contact_2 mt-4">
+    <div class="col-md-3">
+      <div class="contact_2r">
+        <h5 class="mb-3">Movie Details</h5>
+        <p><i class="fa fa-fire col_red me-1"></i> Popularity: {{ movie_details.popularity }}</p>
+        <p><i class="fa fa-clock-o col_red me-1"></i> Runtime: {{ movie_details.runtime or 'N/A' }} minutes</p>
+        <p><i class="fa fa-dollar col_red me-1"></i> Budget: {{ "{:,.0f}".format(movie_details.budget) if movie_details.budget else 'Unknown' }}</p>
+        <p><i class="fa fa-money col_red me-1"></i> Revenue: {{ "{:,.0f}".format(movie_details.revenue) if movie_details.revenue else 'Unknown' }}</p>
+        
+        <h5 class="mb-3 mt-4">Genres</h5>
+        <p>
+         {% for genre in movie_details.genres %}
+             {{ genre.name }}{% if not loop.last %}, {% endif %}
+         {% endfor %}
+        </p>
+        
+        <p>Release Date: <span class="fw-bold text-white">{{ movie_details.release_date }}</span></p>
+        <p>IMDB Rating: <span class="fw-bold text-white">{{ movie_details.vote_average }}</span></p>
+        <p>Type: <span class="fw-bold text-white">{{ 'Adult' if movie_details.adult else 'Family' }}</span></p>
+   </div>
+    </div>
+    <div class="col-md-9">
+     <div class="contact_2l row">
+    <div class="col-md-12">
+     <h4>Write Critic</h4>
+    </div> 
+   </div>
+   <form action="/add_critic" method="post">
+      <div class="contact_2l1 mt-3 row">
+        <div class="col-md-6">
+        <div class="contact_2l1i">
+          <input class="form-control" placeholder="Critic Name" name="critics_title" type="text" required>
+        </div>
+        </div> 
+        <div class="col-md-6">
+        <div class="contact_2l1i">
+          <input class="form-control" placeholder="Rating (1 to 10)" name="rating" type="number" min="1" max="10" required>
+          <input type="hidden" name="movie_id" value="{{ movie_details.id }}">
+        </div>
+        </div>
+        
+      </div>
+      <div class="contact_2l1 mt-3 row">
+        <div class="col-md-12">
+            <div class="contact_2l1i">
+              <textarea id="critic-content" name="critic_content"></textarea>
+                <br>
+                <button type="submit" class="button">Add Critic</button>
+            </div>
+        </div>
+    </div>
+    
+  </form>
+
+    </div>
+   </div>
+  </div>
+ </section>
+
+
+<!-- TinyMCE Editor -->
+<!-- Place the first <script> tag in your HTML's <head> -->
+  <script src="https://cdn.tiny.cloud/1/{{context['TinyURL_API_KEY']}}/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+  <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+  <script>
+    tinymce.init({
+      selector: 'textarea',
+      plugins: [
+        // Core editing features
+        'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+        
+        'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+      ],
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+      tinycomments_mode: 'embedded',
+      tinycomments_author: 'Author name',
+      mergetags_list: [
+        { value: 'First.Name', title: 'First Name' },
+        { value: 'Email', title: 'Email' },
+      ],
+      ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+    });
+  </script>
+
+
+{% endblock %}
+{% include 'free_movie_zip/footer.html' %}

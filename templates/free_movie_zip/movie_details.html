@@ -88,6 +88,14 @@
                     {{ genre.name }}{% if not loop.last %}, {% endif %}{% endfor %}
                 </span>
 
+                {% if current_user.is_authenticated %}
+                  <span class="ms-3">
+                    <a href="{{ url_for('add_critic', movie_id=movie_details.id ) }}">
+                      <i class="fa fa-plus-circle me-1 align-middle col_red"></i>
+                      Add Critic
+                    </a>
+                  </span>
+                {% endif %}
               </h6>
               <p class="mt-3">
                 {{ movie_details.overview }}
