@@ -1,0 +1,76 @@
+{% include 'free_movie_zip/header.html' %}
+
+{% block content %}
+<section id="center" class="center_o pt-2 pb-2">
+    <div class="container-xl">
+     <div class="row center_o1">
+      <div class="col-md-5">
+        <div class="center_o1l">
+         <h2 class="mb-0">Favorite Movies</h2>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="center_o1r text-end">
+         <h6 class="mb-0 col_red"><a href="{{ url_for('home') }}">Home</a> <span class="me-2 ms-2 text-light"><i class="fa fa-caret-right align-middle"></i></span>Your Favorite</h6>
+        </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+
+<section id="blog" class="pt-4 pb-4 bg_grey">
+    <div class="container-xl">
+     <div class="row blog_1">
+      <div class="col-md-8">
+       <div class="blog_1l">
+
+        {% for movie in context.favorites %}
+            <div class="blog_1l4 mt-3">
+            <div class="popular_2i1 row">
+                <div class="col-md-4 col-4">
+                <div class="popular_2i1lm position-relative clearfix">
+                <div class="popular_2i1lm1 clearfix">
+                    <div class="grid">
+                <figure class="effect-jazz mb-0">
+                <a href="#"><img src="https://image.tmdb.org/t/p/w500{{ movie.description['poster_path'] }}" class="w-100" alt="{{ movie.title }}"></a>
+                </figure>
+            </div>
+                </div>
+                <div class="popular_2i1lm2 position-absolute top-0 w-100 text-center clearfix">
+                <ul>
+                    <li class="d-inline-block"><a href="#"><i class="fa fa-link col_red"></i></a></li>
+                    <li class="d-inline-block"><a href="#"><i class="fa fa-search col_red"></i></a></li>
+                </ul>
+                </div>
+                </div>
+                </div>
+                <div class="col-md-8 col-8">
+                <div class="popular_2i1r">
+                <h5><a class="col_red" href="#">{{ movie.description.title }}</a></h5>
+                <h6>
+                    {% for genre_id in movie['description']['genre_ids'] %}
+                        {% if loop.first %}{{ GENRE_IDS[genre_id] }}{% else %}, {{ GENRE_IDS[genre_id]}}{% endif %}
+                    {% endfor %}
+                </h6>
+                <h6> Imdb {{ movie.description.vote_average }}  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Related Date : {{ movie.description.release_date}} </h6>
+                <p>{{ movie.description.overview |truncate(200) }}</p>
+                <h6 class="mb-0"><a class="button" href="{{ url_for('movie_details', movie=movie.description.title, id=movie.description.id ) }}">Watch</a></h6>
+                </div>
+                </div>
+            </div>
+            </div>
+
+            
+        {% endfor %}
+
+       </div>
+      </div>   
+     </div>
+    </div>
+   </section>
+
+
+{% endblock %}
+
+{% include 'free_movie_zip/footer.html' %}

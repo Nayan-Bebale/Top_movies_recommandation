@@ -96,6 +96,16 @@
                     </a>
                   </span>
                 {% endif %}
+
+                {% if current_user.is_authenticated %}
+                  <span class="ms-3">
+                    <a href="{{ url_for('add_favorite', movie_id=movie_details.id, movie_name=movie_details.title ) }}">
+                      <i class="fa fa-heart me-1 align-middle col_red"></i>
+                      Favorite
+                    </a>
+                  </span>
+                {% endif %}
+                
               </h6>
               <p class="mt-3">
                 {{ movie_details.overview }}
@@ -251,7 +261,7 @@
                     <div class="blog_1r1il">
                       <div class="grid clearfix">
                         <figure class="effect-jazz mb-0">
-                          <a href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}""
+                          <a href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}"
                             ><img
                               src="{{ movie['img_url'] }}"
                               class="w-100"

@@ -1,0 +1,70 @@
+{% include 'free_movie_zip/header.html' %}
+{% block content %}
+
+<section id="center" class="center_o pt-2 pb-2">
+  <div class="container-xl">
+   <div class="row center_o1">
+    <div class="col-md-5">
+      <div class="center_o1l">
+     <h2 class="mb-0">Edit Critic</h2>
+    </div>
+    </div>
+    <div class="col-md-7">
+      <div class="center_o1r text-end">
+     <h6 class="mb-0 col_red"><a href="#">Home</a> <span class="me-2 ms-2 text-light"><i class="fa fa-caret-right align-middle"></i></span>Edit Critic</h6>
+    </div>
+    </div>
+   </div>
+  </div>
+</section>
+
+<section id="contact" class="pt-4 pb-4 bg_grey">
+  <div class="container-xl">
+   <div class="row contact_1 bg_dark pt-5 pb-5">
+    <div class="col-md-3">
+     <div class="contact_1ir">
+        <figure class="effect-jazz mb-0">
+        <img src="https://image.tmdb.org/t/p/w500{{ critic.movie.description.poster_path }}"  class="w-50" alt="{{ critic.movie.title }}">
+        </figure>
+     </div>
+    </div>
+    <div class="col-md-9">
+     <div class="contact_1ir">
+      <h5 class="col_red">{{ critic.movie.title }}</h5>
+      <p class="mb-0">{{ critic.movie.description.overview }}</p>
+     </div>
+    </div>
+   </div>
+
+   <form action="/edit_critic?id={{ critic.id }}" method="post">
+    <div class="contact_2l1 mt-3 row">
+      <div class="col-md-6">
+        <input class="form-control" placeholder="Critic Title" name="critics_title" type="text" value="{{ critic.critic_title }}" required>
+      </div>
+      <div class="col-md-6">
+        <input class="form-control" placeholder="Rating (1 to 10)" name="rating" type="number" min="1" max="10" value="{{ critic.rating }}" required>
+      </div>
+    </div>
+    <div class="contact_2l1 mt-3 row">
+      <div class="col-md-12">
+        <textarea id="critic-content" name="critic_content" placeholder="{{ critic.critic_text }}">{{ critic.critic_text }}</textarea>
+        <br>
+        <button type="submit" class="button">Update Critic</button>
+      </div>
+    </div>
+  </form>
+
+ </div>
+</section>
+
+<script src="https://cdn.tiny.cloud/1/{{context['TinyURL_API_KEY']}}/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: 'textarea',
+    plugins: 'lists link image media table wordcount',
+    toolbar: 'undo redo | bold italic underline | link image media | bullist numlist | removeformat',
+  });
+</script>
+
+{% endblock %}
+{% include 'free_movie_zip/footer.html' %}

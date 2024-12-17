@@ -11,7 +11,7 @@ import json
 from datetime import datetime
 from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, url_for, request, flash
-from flask_login import UserMixin, LoginManager, login_user, logout_user, current_user, login_required
+from flask_login import UserMixin, LoginManager, login_user, logout_user, current_user, login_required, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bootstrap import Bootstrap
 from flask_migrate import Migrate
@@ -30,9 +30,6 @@ from assemble_code.forms import SearchMovies, RegistrationForm, Edit, AddMovies
 
 load_dotenv()
 
-# Global data
-
-global homepage_data
 
 db = SQLAlchemy()  # Create an instance of SQLAlchemy without initializing it with app.
 migrate = Migrate()  # Create an instance of Migrate without initializing it with app.
@@ -47,6 +44,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+
 
 DATA_FILE = "homepage_data.json"
 
@@ -74,7 +72,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(150), unique=True, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password_hash = db.Column(db.String(150), nullable=False)
-    profile_pic = db.Column(db.String(150), default='static/img/default.png')
+    profile_pic = db.Column(db.String(150), default='default.png')
     favorites = db.relationship('Favorite', backref='user', lazy=True)
     comments = db.relationship('Comment', backref='user', lazy=True)
     watch_history = db.relationship('WatchHistory', backref='user', lazy=True)
@@ -527,8 +525,14 @@ def logout():
     return redirect(url_for('login'))
 
 
-############################################################ Flask Routes
+############################################################ Call this one
 
+# Use this globally
+homepage_data = asyncio.run(get_homepage_data())
+best_movie_of_month =  homepage_data.get('best_movie_of_month', {})
+best_movie_video_url = homepage_data.get('best_movie_video_url', None)
+
+############################################################ Flask Routes
 @app.route("/")
 def home():
     languages = ['English', 'Hindi', 'Japanese', 'Korean', 'Russian', 'Mandarin (Chaina)', 'German', 'French', 'Spanish']
@@ -536,9 +540,23 @@ def home():
     # Fetch homepage data asynchronously
     global homepage_data
     homepage_data = asyncio.run(get_homepage_data())
-    # Genre mapping for dynamic URL construction
+
+    movie_data = []
+    
+    if current_user.is_authenticated:
+        user_watch_history = db.session.query(Movie).join(WatchHistory).filter(WatchHistory.user_id == current_user.id).order_by(WatchHistory.watched_on.desc()).all()
+
+        movie_data = [
+            {
+                'id': movie.id,
+                'title': movie.title,
+                'poster_path': movie.description['poster_path'],
+            }
+            for movie in user_watch_history
+        ]
 
     # Prepare context for rendering the template
+        # print('User watch history:', movie_data)
     context = {
         'title': 'Home',
         'top_3_movies': homepage_data.get('top_3_movies', []),
@@ -548,6 +566,7 @@ def home():
         'top_10_movies': homepage_data.get('top_10_movies', []),
         'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
         'best_movie_video_url': homepage_data.get('best_movie_video_url', None),
+        'user_watch_history': movie_data[:8],
         'GENRE_IDS':list(GENRE.values()),
         'languages': languages,
         'genre_movies': {
@@ -558,7 +577,79 @@ def home():
     return render_template("free_movie_zip/index.html", context=context, form=form)
 
 
+# Favorite System
+@app.route('/add_favorite', methods=['GET', 'POST'])
+@login_required
+def add_favorite():
+    movie_id = request.args.get('movie_id')
+    movie_name = request.args.get('movie_name')
+    movie = Movie.query.filter_by(id=movie_id).first()
+    if not movie:
+        flash("Movie not found.", "error")
+        return redirect(url_for('home'))
+    
+    new_favorite = Favorite(user_id=current_user.id, movie_id=movie_id)
+    db.session.add(new_favorite)
+    db.session.commit()
+    flash("Movie added to favorites!", "success")
+    return redirect(url_for('movie_details', movie=movie_name, id=movie_id))
+
+# My favorite movies
+@app.route('/my_favorites', methods=['GET'])
+@login_required
+def my_favorite():
+    form = SearchMovies()
+    
+    # Query to get favorite movies with details
+    favorites = db.session.query(Movie).join(Favorite).filter(Favorite.user_id == current_user.id).order_by(Favorite.added_on.desc()).all()
+    
+    # Prepare data for the template
+    favorite_data = [
+        {
+            'id': movie.id,
+            'title': movie.title,
+            'description': movie.description,
+            'video_url': movie.video_url
+        }
+        for movie in favorites
+    ]
+    
+    context = {
+        'best_movie_of_month': best_movie_of_month,
+        'best_movie_video_url': best_movie_video_url,
+        'favorites': favorite_data
+    }
+    return render_template('free_movie_zip/my_favorites.html', form=form, context=context)
+
+# Critics System
+
+@app.route('/my_critics', methods=['GET'])
+@login_required
+def my_critics():
+    form = SearchMovies()
+
+    # Query FilmCritic along with related Movie
+    critics = db.session.query(FilmCritic, Movie.title).join(Movie, FilmCritic.movie_id == Movie.id).filter(FilmCritic.user_id == current_user.id).all()
+
+    # Transform critics into a more usable format
+    critic_data = [
+        {
+            'critic': critic,
+            'movie_title': movie_title,
+        }
+        for critic, movie_title in critics
+    ]
+
+    context = {
+        'best_movie_of_month': best_movie_of_month,
+        'best_movie_video_url': best_movie_video_url,
+        'critics': critic_data,
+    }
+    return render_template('free_movie_zip/my_critics.html', form=form, context=context)
+
+
 @app.route('/add_critic', methods=['GET', 'POST'])
+@login_required
 def add_critic():
     form = SearchMovies()
     homepage_data = asyncio.run(get_homepage_data())
@@ -586,37 +677,80 @@ def add_critic():
     return render_template('free_movie_zip/add_critics.html', form=form, context=context, movie_details=movie.description)
 
 
-@app.route('/my_critics', methods=['GET'])
-def my_critics():
-    homepage_data = asyncio.run(get_homepage_data())
-    form = SearchMovies()
-
-    # Query FilmCritic along with related Movie
-    critics = db.session.query(FilmCritic, Movie.title).join(Movie, FilmCritic.movie_id == Movie.id).filter(FilmCritic.user_id == current_user.id).all()
-
-    # Transform critics into a more usable format
-    critic_data = [
-        {
-            'critic': critic,
-            'movie_title': movie_title,
-        }
-        for critic, movie_title in critics
-    ]
-
-    context = {
-        'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
-        'best_movie_video_url': homepage_data.get('best_movie_video_url', None),
-        'critics': critic_data,
-    }
-    return render_template('free_movie_zip/my_critics.html', form=form, context=context)
-
 @app.route('/delete_critic', methods=['Get', 'POST'])
+@login_required
 def delete_critic():
     critic_id = request.args.get('id')
     critic = FilmCritic.query.filter_by(id=critic_id).first()
     db.session.delete(critic)
     db.session.commit()
     return redirect(url_for('my_critics'))
+
+
+@app.route('/edit_critic', methods=['GET', 'POST'])
+@login_required
+def edit_critic():
+    form = SearchMovies()
+    context = {
+        'best_movie_of_month': best_movie_of_month,
+        'best_movie_video_url': best_movie_video_url,
+        'TinyURL_API_KEY': TinyURL_API_KEY,
+    }
+
+
+    critic_id = request.args.get('id')
+    critic = FilmCritic.query.get_or_404(critic_id)
+
+    if request.method == 'POST':
+        critic_title = request.form['critics_title']
+        rating = request.form['rating']
+        critic_text = request.form['critic_content']
+        if not critic_title or not rating or not critic_text:
+            flash("All fields are required!", "error")
+            return redirect(url_for('edit_critic', id=critic_id))
+
+        try:
+            critic.critic_title = critic_title
+            critic.rating = int(rating)
+            critic.critic_text = critic_text
+
+            db.session.commit()
+            flash("Critic updated successfully!", "success")
+            return redirect(url_for('my_critics', id=critic_id))
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Error updating critic: {e}", "error")
+            return redirect(url_for('edit_critic', id=critic_id))
+
+    return render_template('free_movie_zip/edit_critic.html', critic=critic, form=form, context=context)
+
+
+@app.route('/critics', methods=['GET'])
+def critics():
+    form = SearchMovies()
+    # Fetch all critics in descending order by timestamp
+    critics = db.session.query(
+        FilmCritic, User.username, User.profile_pic, Movie.title.label('movie_title')
+    ).join(User, FilmCritic.user_id == User.id).join(Movie, FilmCritic.movie_id == Movie.id).order_by(FilmCritic.timestamp.desc()).all()
+
+    # Create context for rendering
+    context = {
+        'best_movie_of_month': best_movie_of_month,
+        'best_movie_video_url': best_movie_video_url,
+        'critics': [
+            {
+                'critic': critic,
+                'username': username,
+                'profile_pic': profile_pic,
+                'movie_title': movie_title
+            }
+            for critic, username, profile_pic, movie_title in critics
+        ]
+    }
+
+    return render_template('free_movie_zip/all_critics.html', context=context, form=form)
+
+# End Critics System
 
 @app.route('/upload-profile-pic', methods=['GET', 'POST'])
 def upload_profile_pic():
@@ -656,6 +790,8 @@ async def genre():
             
             # Prepare the context for the template
             context = {
+                'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
+                'best_movie_video_url': homepage_data.get('best_movie_video_url', None),
                 'movie_genre': genre.capitalize(),
                 'genre_movies': genre_movies,
             }
@@ -682,6 +818,7 @@ async def genre():
 @app.route("/language", methods=["GET", "POST"])
 async def go_languages():
     language = request.args.get('language')
+    # print(language)
     country_code, language_code = country_language_map.get(language, ("US", "en-US"))
     original_language = language_code.split('-')[0]  # Extract the language part (e.g., "en" from "en-US")
     
@@ -697,6 +834,8 @@ async def go_languages():
             # Extract movie results
             movies = response.get("results", [])
             context = {
+                'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
+                'best_movie_video_url': homepage_data.get('best_movie_video_url', None),
                 'language': language,
                 'movies': movies[:8],  # Limit to the first 8 movies
             }
@@ -719,12 +858,16 @@ async def movie_details():
     video_url = None
     movie_details = {}
     recommended_movies = []
+
+    if WatchHistory.query.filter_by(user_id=current_user.id, movie_id=movie_id).first() is None:
+        new_watch = WatchHistory(user_id=current_user.id, movie_id=movie_id)
+        db.session.add(new_watch)
+        db.session.commit()
     
     context = {
-        'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
-        'best_movie_video_url': homepage_data.get('best_movie_video_url', None),
+        'best_movie_of_month': best_movie_of_month,
+        'best_movie_video_url': best_movie_video_url,
     }
-
     movie = Movie.query.filter_by(id=movie_id).first()
     if not movie and movie_id:
         async with aiohttp.ClientSession() as session:
@@ -777,6 +920,7 @@ async def movie_details():
                     recommended_movies=recommended_movies,
                     comments=comments,
                     context=context
+                
                 )
             except Exception as e:
                 print(f"Unexpected error: {e}")
@@ -804,9 +948,10 @@ async def movie_details():
 @app.route("/search", methods=["GET", "POST"])
 async def search():
     form = SearchMovies()
+    
     context = {
-        'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
-        'best_movie_video_url': homepage_data.get('best_movie_video_url', None),
+        'best_movie_of_month': best_movie_of_month,
+        'best_movie_video_url': best_movie_video_url,
     }
 
     if form.validate_on_submit():

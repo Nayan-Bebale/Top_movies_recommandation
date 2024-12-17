@@ -92,7 +92,7 @@
   <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
     <div class="container">
       <a class="navbar-brand text-white fw-bold" href="{{ url_for('home') }}">
-        <i class=""></i> <img src="/static/img/finalcal.png" alt="Logo" class="logo" style="max-width: 100px; max-height: 50px;">
+        <i class=""></i> <img src="../../static/img/finalcal.png" alt="Logo" class="logo" style="max-width: 100px; max-height: 50px;">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -102,8 +102,8 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('critics') }}">Critics</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -113,7 +113,7 @@
               <li><a class="dropdown-item" href="{{ url_for('blog') }}">Blog</a></li>
               <li><a class="dropdown-item border-0" href="{{ url_for('blog_details') }}">Blog Detail</a></li>
             </ul>
-          </li> -->
+          </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="{{ url_for('services') }}">Services</a>
           </li> -->
@@ -141,7 +141,7 @@
             <li class="nav-item">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <!-- hi, {{ current_user.username }} -->
+                  <!-- hi, {{ current_user.profile_pic }} -->
                   {% if current_user.profile_pic %}
                     <img src="{{ url_for('static', filename='uploads/' + current_user.profile_pic) }}" 
                         class="img-fluid rounded-circle" 
@@ -162,8 +162,8 @@
                   </form>
                   
                   <li><a class="dropdown-item" href="{{ url_for('about') }}">Add Movies</a></li>
-                  <li><a class="dropdown-item" href="{{ url_for('services') }}">My Favorite</a></li>
-                  <li><a class="dropdown-item" href="{{ url_for('teams') }}">My Preference</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('my_favorite') }}">My Favorite</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('my_critics') }}">My Critics</a></li>
                   <li><a class="dropdown-item border-0" href="{{ url_for('logout') }}">Logout</a></li>
                 </ul>
               </li>
