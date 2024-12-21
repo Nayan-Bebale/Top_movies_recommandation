@@ -24,7 +24,7 @@ from sqlalchemy import ForeignKeyConstraint
 from werkzeug.utils import secure_filename
 
 # Import data from assemble_code
-from assemble_code.parameters import GENRE, GENRE_IDS, country_language_map, stopwords
+from assemble_code.parameters import GENRE, GENRE_IDS, country_language_map, stopwords, sub_country_language_map
 from assemble_code.forms import SearchMovies, RegistrationForm, Edit, AddMovies 
 
 
@@ -168,7 +168,7 @@ def get_country_and_language():
         # print(f'#################---------------------> {country_code}')
         language_code = country_language_map.get(country_code, "en-US")
         # print(f'#################---------------------> {language_code}')
-        return country_code, language_code
+        return language_code
     except Exception as e:
         print(f"Error: {e}")
         return "US", "en-US"
@@ -308,6 +308,45 @@ async def fetch_movie_details(session, movie_id):
         raise
 
 
+async def fetch_country_based_movie():
+    language = get_country_and_language()
+
+    # Find the country and sub-languages
+    for country, languages in sub_country_language_map.items():
+        if language in languages:
+            country_code = country
+            language_code = languages[language]
+            original_language = language_code.split('-')[0]
+            
+            break
+    else:
+        # Default if language not found
+        country_code, language_code, original_language = "US", "en-US", "en"
+
+    # Construct the TMDb API URL
+    url = (f"https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}"
+           f"&language={language_code}&region={country_code}"
+           f"&with_original_language={original_language}&sort_by=popularity.desc&page=1")
+
+    async with aiohttp.ClientSession() as session:
+        try:
+            # Fetch data from the API
+            response = await fetch_movie_data(session, url)
+            movies = response.get("results", [])
+            
+            return movies[:12]
+        
+        except ConnectionError:
+            return {}
+        
+        except RequestException as e:
+            print(f"Request error: {e}")
+            return {}
+        
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return {}
+
 
 async def get_homepage_data():
     current_date = datetime.now().strftime("%Y-%m-%d")
@@ -370,6 +409,7 @@ async def get_homepage_data():
             "director_choice": results_dict["director_choice"][:6],
             "top_10_movies": results_dict["top_10_movies"][:10],
             "best_movie_of_month": best_movie_details,
+            "country_based_movies": await fetch_country_based_movie(),
             "best_movie_video_url": video_url if best_movie_details else None,
             **{key: value[:4] for key, value in results_dict.items() if key.startswith("trending_")},
         }
@@ -540,6 +580,7 @@ def home():
     # Fetch homepage data asynchronously
     global homepage_data
     homepage_data = asyncio.run(get_homepage_data())
+    lang = get_country_and_language()
 
     movie_data = []
     
@@ -567,8 +608,10 @@ def home():
         'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
         'best_movie_video_url': homepage_data.get('best_movie_video_url', None),
         'user_watch_history': movie_data[:8],
+        'country_based_movies': homepage_data.get('country_based_movies', [])[::-1],
         'GENRE_IDS':list(GENRE.values()),
         'languages': languages,
+        'language': lang,
         'genre_movies': {
             genre: homepage_data.get(f"trending_{genre}", [])
             for genre in GENRE_IDS.keys()
@@ -594,7 +637,16 @@ def add_favorite():
     flash("Movie added to favorites!", "success")
     return redirect(url_for('movie_details', movie=movie_name, id=movie_id))
 
-# My favorite movies
+@app.route('/remove_watch_history', methods=['GET', 'POST'])
+@login_required
+def remove_watch_history():
+    movie_id = request.args.get('movie_id')
+    watch_history = WatchHistory.query.filter_by(user_id=current_user.id, movie_id=movie_id).first()
+    db.session.delete(watch_history)
+    db.session.commit()
+    return redirect(url_for('home'))
+
+
 @app.route('/my_favorites', methods=['GET'])
 @login_required
 def my_favorite():
@@ -621,8 +673,19 @@ def my_favorite():
     }
     return render_template('free_movie_zip/my_favorites.html', form=form, context=context)
 
-# Critics System
+@app.route('/remove_favorite', methods=['GET', 'POST']) 
+@login_required
+def remove_favorite():
+    movie_id = request.args.get('movie_id')
+    favorite = Favorite.query.filter_by(user_id=current_user.id, movie_id=movie_id).first()
+    
+    if favorite:  # Check if the favorite exists
+        db.session.delete(favorite)
+        db.session.commit()
+    
+    return redirect(url_for('my_favorite'))
 
+# Critics System
 @app.route('/my_critics', methods=['GET'])
 @login_required
 def my_critics():
@@ -818,36 +881,51 @@ async def genre():
 @app.route("/language", methods=["GET", "POST"])
 async def go_languages():
     language = request.args.get('language')
-    # print(language)
-    country_code, language_code = country_language_map.get(language, ("US", "en-US"))
-    original_language = language_code.split('-')[0]  # Extract the language part (e.g., "en" from "en-US")
-    
+    sub_languages = []
+
+    # Find the country and sub-languages
+    for country, languages in sub_country_language_map.items():
+        if language in languages:
+            country_code = country
+            language_code = languages[language]
+            original_language = language_code.split('-')[0]
+            
+            # Extract sub-languages excluding the selected one
+            sub_languages = [lang for lang in languages if lang != language]
+            
+            break
+    else:
+        # Default if language not found
+        country_code, language_code, original_language = "US", "en-US", "en"
+
     # Construct the TMDb API URL
     url = (f"https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}"
            f"&language={language_code}&region={country_code}"
            f"&with_original_language={original_language}&sort_by=popularity.desc&page=1")
-    
+
     async with aiohttp.ClientSession() as session:
         try:
             # Fetch data from the API
             response = await fetch_movie_data(session, url)
-            # Extract movie results
             movies = response.get("results", [])
+            
             context = {
                 'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
                 'best_movie_video_url': homepage_data.get('best_movie_video_url', None),
                 'language': language,
+                'sub_languages': sub_languages,  # Include sub-languages
                 'movies': movies[:8],  # Limit to the first 8 movies
             }
             return render_template("free_movie_zip/language.html", context=context, form=SearchMovies())
+        
         except ConnectionError:
             return redirect('/#stream')
+        
         except RequestException as e:
-            # Handle any other requests-related exceptions
             print(f"Request error: {e}")
             return redirect('/#stream')
+        
         except Exception as e:
-            # Catch-all for any other exceptions
             print(f"Unexpected error: {e}")
             return redirect('/#stream')
 
@@ -859,10 +937,11 @@ async def movie_details():
     movie_details = {}
     recommended_movies = []
 
-    if WatchHistory.query.filter_by(user_id=current_user.id, movie_id=movie_id).first() is None:
-        new_watch = WatchHistory(user_id=current_user.id, movie_id=movie_id)
-        db.session.add(new_watch)
-        db.session.commit()
+    if current_user.is_authenticated and movie_id:
+        if WatchHistory.query.filter_by(user_id=current_user.id, movie_id=movie_id).first() is None:
+            new_watch = WatchHistory(user_id=current_user.id, movie_id=movie_id)
+            db.session.add(new_watch)
+            db.session.commit()
     
     context = {
         'best_movie_of_month': best_movie_of_month,
@@ -1027,27 +1106,51 @@ def add_comment():
 
 @app.route("/about")
 def about():
-    return render_template("free_movie_zip/about.html", form = SearchMovies())
+    context = {
+        'best_movie_of_month': best_movie_of_month,
+        'best_movie_video_url': best_movie_video_url,
+    }
+    return render_template("free_movie_zip/about.html", form = SearchMovies(), context=context)
 
 @app.route("/contact")
 def contect():
-    return render_template("free_movie_zip/contact.html", form = SearchMovies())
+    context = {
+        'best_movie_of_month': best_movie_of_month,
+        'best_movie_video_url': best_movie_video_url,
+    }
+    return render_template("free_movie_zip/contact.html", form = SearchMovies(), context=context)
 
 @app.route("/blog")
 def blog():
-    return render_template("free_movie_zip/blog.html", form = SearchMovies())
+    context = {
+        'best_movie_of_month': best_movie_of_month,
+        'best_movie_video_url': best_movie_video_url,
+    }
+    return render_template("free_movie_zip/blog.html", form = SearchMovies(), context=context)
 
 @app.route("/blog-details")
 def blog_details():
-    return render_template("free_movie_zip/blog_detail.html", form = SearchMovies())
+    context = {
+        'best_movie_of_month': best_movie_of_month,
+        'best_movie_video_url': best_movie_video_url,
+    }
+    return render_template("free_movie_zip/blog_detail.html", form = SearchMovies(), context=context)
 
 @app.route("/services")
 def services():
-    return render_template("free_movie_zip/services.html", form = SearchMovies())
+    context = {
+        'best_movie_of_month': best_movie_of_month,
+        'best_movie_video_url': best_movie_video_url,
+    }
+    return render_template("free_movie_zip/services.html", form = SearchMovies(), context=context)
 
 @app.route("/teams")
 def teams():
-    return render_template("free_movie_zip/team.html", form = SearchMovies())
+    context = {
+        'best_movie_of_month': best_movie_of_month,
+        'best_movie_video_url': best_movie_video_url,
+    }
+    return render_template("free_movie_zip/team.html", form = SearchMovies(), context=context)
 
 
 @app.route("/data")
@@ -1129,7 +1232,58 @@ def dataset():
 
 
 @app.route('/try')
-def try_it():
-    return render_template("free_movie_zip/try.html", form = SearchMovies())
+async def try_it():
+    language = get_country_and_language()
+    sub_languages = []
+
+    # Find the country and sub-languages
+    for country, languages in sub_country_language_map.items():
+        if language in languages:
+            country_code = country
+            language_code = languages[language]
+            original_language = language_code.split('-')[0]
+            
+            # Extract sub-languages excluding the selected one
+            sub_languages = [lang for lang in languages if lang != language]
+            
+            break
+    else:
+        # Default if language not found
+        country_code, language_code, original_language = "US", "en-US", "en"
+
+    # Construct the TMDb API URL
+    url = (f"https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}"
+           f"&language={language_code}&region={country_code}"
+           f"&with_original_language={original_language}&sort_by=popularity.desc&page=1")
+
+    async with aiohttp.ClientSession() as session:
+        try:
+            # Fetch data from the API
+            response = await fetch_movie_data(session, url)
+            movies = response.get("results", [])
+            # print(movies[:8])
+            
+            context = {
+                'best_movie_of_month': homepage_data.get('best_movie_of_month', {}),
+                'best_movie_video_url': homepage_data.get('best_movie_video_url', None),
+                'language': language,
+                'sub_languages': sub_languages,  # Include sub-languages
+                'movies': movies[:8],  # Limit to the first 8 movies
+            }
+            return render_template("free_movie_zip/try.html", context=context, form=SearchMovies())
+        
+        except ConnectionError:
+            return redirect('/#stream')
+        
+        except RequestException as e:
+            print(f"Request error: {e}")
+            return redirect('/#stream')
+        
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return redirect('/#stream')
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, host="localhost")

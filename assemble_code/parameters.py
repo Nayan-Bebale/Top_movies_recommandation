@@ -46,14 +46,81 @@ GENRE = {
 }
 
 country_language_map = {
-    "English": ("US", "en-US"),  # United States - English
-    "Hindi": ("IN", "hi-IN"),  # India - Hindi
-    "French": ("FR", "fr-FR"),  # France - French
-    "German": ("DE", "de-DE"),  # Germany - German
-    "Japanese": ("JP", "ja-JP"),  # Japan - Japanese
-    "Mandarin": ("CN", "zh-CN"),  # China - Mandarin
-    "Korean": ("KR", "ko-KR"),  # South Korea - Korean
-    "Spanish": ("ES", "es-ES"),  # Spain - Spanish
-    "Russian": ("RU", "ru-RU"),  # Russia - Russian
+    "US":  "English",  # United States - 
+    "IN":  "Hindi",  # India - 
+    "FR":  "French",  # France - 
+    "DE":  "German",  # Germany - 
+    "JP":  "Japanese",  # Japan - 
+    "CN":  "Mandarin",  # China - 
+    "KR":  "Korean",  # South Korea - 
+    "ES":  "Spanish",  # Spain - 
+    "RU":  "Russian",  # Russia - 
+}
+
+sub_country_language_map = {
+    "United States": {
+        "English": "en-US",
+        "Spanish": "es-US",
+        "French": "fr-US",
+        "Chinese": "zh-US",
+        "Tagalog": "tl-US"
+    },
+    "India": {
+        "Hindi": "hi-IN",
+        "Telugu": "te-IN",
+        "Tamil": "ta-IN",
+        "Malayalam": "ml-IN",
+        "Kannada": "kn-IN",
+        "Marathi": "mr-IN",
+        "Bangali": "bn-IN",
+        "Gujarati": "gu-IN",
+        "Panjabi": "pa-IN"
+    },
+    "France": {
+        "French": "fr-FR",
+        "Occitan": "oc-FR",
+        "Breton": "br-FR",
+        "Alsatian": "gsw-FR",
+        "Corsican": "co-FR"
+    },
+    "Germany": {
+        "German": "de-DE",
+        "Sorbian": "wen-DE",
+        "Frisian": "fy-DE",
+        "Danish": "da-DE",
+        "Romani": "rom-DE"
+    },
+    "Japan": {
+        "Japanese": "ja-JP",
+        "Ainu": "ain-JP",
+        "Okinawan": "ryu-JP",
+        "Amami": "ama-JP",
+        "Miyako": "mvi-JP"
+    },
+    "China": {
+        "Mandarin": "zh-CN",
+        "Cantonese": "yue-CN",
+        "Shanghainese": "wuu-CN",
+        "Hokkien": "nan-CN",
+        "Hakka": "hak-CN"
+    },
+    "South Korea": {
+        "Korean": "ko-KR",
+        "Jeju": "jje-KR"
+    },
+    "Spain": {
+        "Spanish": "es-ES",
+        "Catalan": "ca-ES",
+        "Galician": "gl-ES",
+        "Basque": "eu-ES",
+        "Aranese": "oc-ES"
+    },
+    "Russia": {
+        "Russian": "ru-RU",
+        "Tatar": "tt-RU",
+        "Chechen": "ce-RU",
+        "Bashkir": "ba-RU",
+        "Chuvash": "cv-RU"
+    }
 }
 

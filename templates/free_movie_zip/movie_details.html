@@ -104,6 +104,13 @@
                       Favorite
                     </a>
                   </span>
+                {% else %}
+                  <span class="ms-3">
+                    <a href="{{ url_for('login') }}">
+                      <i class="fa fa-heart me-1 align-middle col_red"></i>
+                      Favorite
+                    </a>
+                  </span>
                 {% endif %}
                 
               </h6>
@@ -243,8 +250,8 @@
             
             <h6 class="mb-0">
               <a href="#"
-                ><i class="fa fa-chevron-right me-1 col_red font_12"></i> Adult 
-                <span class="pull-right">{{ movie_details.adult }}
+                ><i class="fa fa-chevron-right me-1 col_red font_12"></i> Type 
+                <span class="pull-right">{{ 'Adult' if movie_details.adult else 'Family' }}
                 </span></a
               >
             </h6>

@@ -1,59 +1,136 @@
-{% include 'free_movie_zip/header.html' %}
+{% include 'free_movie_zip/header.html' %} {% block content %}
 
-{% block content %}
+<style>
+  #stream {
+    background-color: #010102;
+    border-top: 2px solid #de1002;
+  }
 
-<section id="trend" class="pt-4 pb-5">
-	<div class="container">
-		<div class="row trend_1">
-			<div class="col-md-6 col-6">
-				<div class="trend_1l">
-					<h4 class="mb-0"><i class="fa fa-youtube-play align-middle col_red me-1"></i> Top Movies In <span
-							class="col_red">{{context['language']}}</span></h4>
-				</div>
-			</div>
-			<div class="col-md-6 col-6">
-				<div class="trend_1r text-end">
-					<h6 class="mb-0"><a class="button" href="#"> View All</a></h6>
-				</div>
-			</div>
-		</div>
-		<div class="row trend_2 mt-4">
-			<div id="carouselExampleCaptions1" class="carousel slide" data-bs-ride="carousel">
-				<div class="carousel-indicators">
-					{% for idx in range((context['movies']|length) // 4) %}
-					<button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="{{ idx }}"
-						class="{{ 'active' if idx == 0 else '' }}" aria-label="Slide {{ idx + 1 }}"></button>
-					{% endfor %}
-				</div>
-				<div class="carousel-inner">
-					{% for page in context['movies']|batch(4) %}
-					<div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
-						<div class="trend_2i row">
-							{% for movie in page %}
-							<div class="col-md-3 col-6">
-								<div class="trend_2im clearfix position-relative">
-									<div class="trend_2im1 clearfix">
-										<div class="grid">
-											<figure class="effect-jazz mb-0">
-												<a
-													href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}"><img
-														src="https://image.tmdb.org/t/p/w500{{ movie['poster_path'] }}"
-														class="w-100" alt="{{ movie['title'] }}"></a>
-											</figure>
-										</div>
-									</div>
-								</div>
-							</div>
-							{% endfor %}
-						</div>
-					</div>
-					{% endfor %}
-				</div>
-			</div>
-		</div>
-	</div>
+  .text-danger {
+    --bs-text-opacity: 1;
+    color: #de1002 !important;
+  }
+
+  .bg-light {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
+  }
+  
+  #stream h4 {
+    font-weight: bold;
+  }
+  
+  .tag {
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .tag:hover {
+    background-color: #de1002;
+    color: white;
+    transform: translateY(-3px);
+  }
+  
+  @media (max-width: 576px) {
+    #stream h4 {
+      font-size: 1.25rem;
+    }
+  }
+  </style>
+  
+
+  <section id="center" class="center_o pt-2 pb-2">
+    <div class="container-xl">
+     <div class="row center_o1">
+      <div class="col-md-5">
+        <div class="center_o1l">
+       <h2 class="mb-0">{{ context['language'] }}</h2>
+      </div>
+      </div>
+      <div class="col-md-7">
+        <div class="center_o1r text-end">
+       <h6 class="mb-0 col_red"><a href="#">Home</a> <span class="me-2 ms-2 text-light"><i class="fa fa-caret-right align-middle"></i></span> About Us</h6>
+      </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   
+
+  <section id="upcome" class="pt-4 pb-5" style="background: #191a1d;">
+    <div class="container">
+      <div class="row trend_1">
+        <div class="col-md-6 col-6">
+          <div class="trend_1l">
+            <h4 class="mb-0" style="color: #de1002;"><i class="fa fa-youtube-play align-middle col_red me-1"></i> Top Movies In <span
+                class="col_red">{{ context['language'] }}</span></h4>
+          </div>
+        </div>
+      </div>
+      <div class="row trend_2 mt-4">
+        <div id="carouselExampleCaptions7" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            {% for idx in range((context['movies']|length) // 4) %}
+            <button type="button" data-bs-target="#carouselExampleCaptions7" data-bs-slide-to="{{ idx }}"
+              class="{{ 'active' if idx == 0 else '' }}" aria-label="Slide {{ idx + 1 }}"></button>
+            {% endfor %}
+          </div>
+          <div class="carousel-inner">
+            {% for page in context['movies']|batch(4) %}
+            <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+              <div class="trend_2i row">
+                {% for movie in page %}
+                <div class="col-md-3 col-6">
+                  <div class="trend_2im clearfix position-relative">
+                    <div class="trend_2im1 clearfix">
+                      <div class="grid">
+                        <figure class="effect-jazz mb-0">
+                          <a
+                            href="{{ url_for('movie_details', movie=movie.title, id=movie.id ) }}"><img
+                              src="https://image.tmdb.org/t/p/w500{{ movie['poster_path'] }}"
+                              class="w-100" alt="{{ movie['title'] }}"></a>
+                        </figure>
+                      </div>
+                    </div>
+                    
+                  </div>
+                
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+<section id="stream" class="pb-5 pt-4">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h4 class="mb-0">
+          <i class="fa fa-youtube-play align-middle text-danger me-2"></i>
+          You Would<span class="text-danger"> Like!</span>
+        </h4>
+      </div>
+    </div>
+
+    <div id="languageTags" class="mt-4">
+      <div class="row">
+        {% for lang in context['sub_languages'] %}
+        <div class="col-6 col-sm-4 col-md-3 mb-3">
+          <div class="tag text-center p-3 border rounded bg-light">
+            <a href="{{ url_for('go_languages', language=lang) }}" class="text-decoration-none text-danger">{{ lang }}</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 </section>
 
-{% endblock %}
-
-{% include 'free_movie_zip/footer.html' %}
+{% endblock %} {% include 'free_movie_zip/footer.html' %}

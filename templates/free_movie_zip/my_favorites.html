@@ -53,9 +53,12 @@
                         {% if loop.first %}{{ GENRE_IDS[genre_id] }}{% else %}, {{ GENRE_IDS[genre_id]}}{% endif %}
                     {% endfor %}
                 </h6>
-                <h6> Imdb {{ movie.description.vote_average }}  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Related Date : {{ movie.description.release_date}} </h6>
+                <h6> Imdb {{ movie.description.vote_average }}  <span class="ms-2"><i class="fa fa-star col_red me-1"></i></span> Related Date : {{ movie.description.release_date}} <span class="ms-2"> <a href="{{ url_for('remove_favorite', movie_id=movie.description.id) }}" class="col_red">💔</a></i></span></h6>
+                    
+                  </span>
+                 </h6>
                 <p>{{ movie.description.overview |truncate(200) }}</p>
-                <h6 class="mb-0"><a class="button" href="{{ url_for('movie_details', movie=movie.description.title, id=movie.description.id ) }}">Watch</a></h6>
+                <h6 class="mb-0"><a class="button" href="{{ url_for('movie_details', movie=movie.description.title, id=movie.description.id ) }}">Watch</a> </h6>
                 </div>
                 </div>
             </div>
