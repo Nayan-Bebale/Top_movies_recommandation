@@ -7,3 +7,5 @@ movies.pkl
 trial.py
 movie_env
 .hintrc
+migrations
+movie.db
