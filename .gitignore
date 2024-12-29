@@ -9,7 +9,12 @@ movie_env
 .hintrc
 migrations
 movie.db
-.instancemovies.db
-.flask
-..idea
-.compress.py
+instancemovies.db
+flask
+.idea
+compress.py
+__pycache__
+
+
+# Stop tracking files but keep them locally
+# git rm --cached movie.db flask/ .idea/ compress.py migrations/ movie_env/  __pycache__/ -r
