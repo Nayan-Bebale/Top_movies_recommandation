@@ -2,7 +2,6 @@ requests
 pandas
 Flask
 Flask-Login
-Flask-Bootstrap
 Flask-Migrate
 Flask-SQLAlchemy
 Flask-WTF

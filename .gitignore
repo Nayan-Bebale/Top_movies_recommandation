@@ -9,5 +9,7 @@ movie_env
 .hintrc
 migrations
 movie.db
-instancemovies.db
-flask
+.instancemovies.db
+.flask
+..idea
+.compress.py

@@ -13,7 +13,6 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_login import UserMixin, LoginManager, login_user, logout_user, current_user, login_required, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_bootstrap import Bootstrap
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from concurrent.futures import ThreadPoolExecutor
@@ -36,7 +35,7 @@ migrate = Migrate()  # Create an instance of Migrate without initializing it wit
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
-bootstrap = Bootstrap(app)
+
 
 # Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///movies.db'
