@@ -9,3 +9,5 @@ movie_env
 .hintrc
 migrations
 movie.db
+instancemovies.db
+flask
