@@ -14,3 +14,4 @@ tenacity
 gunicorn
 python-dotenv
 Flask[async]
+psycopg2-binary
