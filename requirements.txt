@@ -12,3 +12,4 @@ aiohttp
 fuzzywuzzy
 tenacity
 gunicorn
+python-dotenv
