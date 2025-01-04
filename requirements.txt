@@ -11,3 +11,4 @@ WTForms
 aiohttp
 fuzzywuzzy
 tenacity
+gunicorn
