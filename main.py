@@ -598,7 +598,7 @@ def home():
     top_3_movies = homepage_data.get('top_3_movies', [])
     if top_3_movies == []:
         top_3_movies = homepage_data.get('top_10_movies', [])[:3]
-        print(top_3_movies)
+
     context = {
         'title': 'Home',
         'top_3_movies': top_3_movies,
