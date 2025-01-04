@@ -595,11 +595,13 @@ def home():
             for movie in user_watch_history
         ]
 
-    # Prepare context for rendering the template
-        # print('User watch history:', movie_data)
+    top_3_movies = homepage_data.get('top_3_movies', [])
+    if top_3_movies == []:
+        top_3_movies = homepage_data.get('top_10_movies', [])[:3]
+        print(top_3_movies)
     context = {
         'title': 'Home',
-        'top_3_movies': homepage_data.get('top_3_movies', []),
+        'top_3_movies': top_3_movies,
         'latest_12_movies': homepage_data.get('latest_12_movies', []),
         'upcoming_12_movies': homepage_data.get('upcoming_12_movies', []),
         'director_choice': homepage_data.get('director_choice', []),

@@ -13,3 +13,4 @@ fuzzywuzzy
 tenacity
 gunicorn
 python-dotenv
+Flask[async]
