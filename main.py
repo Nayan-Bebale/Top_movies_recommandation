@@ -161,7 +161,8 @@ app.jinja_env.filters['truncate_words'] = truncate_words
 # Get country code
 def get_country_and_language():
     try:
-        response = requests.get("https://ipinfo.io/json")
+        user_ip = request.remote_addr or "8.8.8.8" 
+        response = requests.get(f"https://ipinfo.io/{user_ip}/json")
         data = response.json()
         country_code = data.get("country", "US")
         # print(f'#################---------------------> {country_code}')
@@ -938,11 +939,6 @@ async def movie_details():
     movie_details = {}
     recommended_movies = []
 
-    if current_user.is_authenticated and movie_id:
-        if WatchHistory.query.filter_by(user_id=current_user.id, movie_id=movie_id).first() is None:
-            new_watch = WatchHistory(user_id=current_user.id, movie_id=movie_id)
-            db.session.add(new_watch)
-            db.session.commit()
     
     context = {
         'best_movie_of_month': best_movie_of_month,
@@ -992,6 +988,13 @@ async def movie_details():
                     recommended_movies = await fetch_genre_based_recommendations(session, genre_ids)
 
                 comments = Comment.query.filter_by(movie_id=movie.id).all()
+
+                if current_user.is_authenticated and movie_id:
+                    if WatchHistory.query.filter_by(user_id=current_user.id, movie_id=movie_id).first() is None:
+                        new_watch = WatchHistory(user_id=current_user.id, movie_id=movie_id)
+                        db.session.add(new_watch)
+                        db.session.commit()
+                
                 return render_template(
                     "free_movie_zip/movie_details.html",
                     form=SearchMovies(),
@@ -1005,6 +1008,12 @@ async def movie_details():
             except Exception as e:
                 print(f"Unexpected error: {e}")
                 return redirect('/')
+
+    if current_user.is_authenticated and movie_id:
+        if WatchHistory.query.filter_by(user_id=current_user.id, movie_id=movie_id).first() is None:
+            new_watch = WatchHistory(user_id=current_user.id, movie_id=movie_id)
+            db.session.add(new_watch)
+            db.session.commit()
 
     comments = Comment.query.filter_by(movie_id=movie.id).all()
     movie_details=movie.description
