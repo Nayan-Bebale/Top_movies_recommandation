@@ -1,5 +1,5 @@
 {
-    "date": "2025-02-11",
+    "date": "2025-02-12",
     "data": {
         "top_3_movies": [
             {
@@ -303,26 +303,6 @@
         "upcoming_12_movies": [
             {
                 "adult": false,
-                "backdrop_path": "/qSOMdbZ6AOdHR999HWwVAh6ALFI.jpg",
-                "genre_ids": [
-                    28,
-                    80,
-                    53
-                ],
-                "id": 1249289,
-                "original_language": "en",
-                "original_title": "Alarum",
-                "overview": "Two married spies caught in the crosshairs of an international intelligence network will stop at nothing to obtain a critical asset. Joe and Lara are agents living off the grid whose quiet retreat at a winter resort is blown to shreds when members of the old guard suspect the two may have joined an elite team of rogue spies, known as Alarum.",
-                "popularity": 1325.673,
-                "poster_path": "/v313aUGmMNj6yNveaiQXysBmjVS.jpg",
-                "release_date": "2025-01-16",
-                "title": "Alarum",
-                "video": false,
-                "vote_average": 5.8,
-                "vote_count": 143
-            },
-            {
-                "adult": false,
                 "backdrop_path": "/u7AZ5CdT2af8buRjmYCPXNyJssd.jpg",
                 "genre_ids": [
                     28,
@@ -337,8 +317,8 @@
                 "release_date": "2024-10-01",
                 "title": "Panda Plan",
                 "video": false,
-                "vote_average": 6.5,
-                "vote_count": 43
+                "vote_average": 6.545,
+                "vote_count": 44
             },
             {
                 "adult": false,
@@ -356,8 +336,28 @@
                 "release_date": "2025-01-15",
                 "title": "Wolf Man",
                 "video": false,
-                "vote_average": 6.398,
-                "vote_count": 275
+                "vote_average": 6.4,
+                "vote_count": 278
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/qSOMdbZ6AOdHR999HWwVAh6ALFI.jpg",
+                "genre_ids": [
+                    28,
+                    80,
+                    53
+                ],
+                "id": 1249289,
+                "original_language": "en",
+                "original_title": "Alarum",
+                "overview": "Two married spies caught in the crosshairs of an international intelligence network will stop at nothing to obtain a critical asset. Joe and Lara are agents living off the grid whose quiet retreat at a winter resort is blown to shreds when members of the old guard suspect the two may have joined an elite team of rogue spies, known as Alarum.",
+                "popularity": 1325.673,
+                "poster_path": "/v313aUGmMNj6yNveaiQXysBmjVS.jpg",
+                "release_date": "2025-01-16",
+                "title": "Alarum",
+                "video": false,
+                "vote_average": 5.8,
+                "vote_count": 144
             },
             {
                 "adult": false,
@@ -376,27 +376,27 @@
                 "title": "Nosferatu",
                 "video": false,
                 "vote_average": 6.7,
-                "vote_count": 1995
+                "vote_count": 2002
             },
             {
                 "adult": false,
-                "backdrop_path": "/i3CAo9UMGsvlU9k3Svd63rRDeZx.jpg",
+                "backdrop_path": "/8eifdha9GQeZAkexgtD45546XKx.jpg",
                 "genre_ids": [
-                    16,
-                    18,
-                    35
+                    878,
+                    28,
+                    53
                 ],
-                "id": 1064486,
+                "id": 822119,
                 "original_language": "en",
-                "original_title": "Memoir of a Snail",
-                "overview": "Forcibly separated from her twin brother when they are orphaned, a melancholic misfit learns how to find confidence within herself amid the clutter of misfortunes and everyday life.",
-                "popularity": 414.785,
-                "poster_path": "/57AgZv1ITeBLShiNdchZ5153evs.jpg",
-                "release_date": "2024-10-17",
-                "title": "Memoir of a Snail",
+                "original_title": "Captain America: Brave New World",
+                "overview": "After meeting with newly elected U.S. President Thaddeus Ross, Sam finds himself in the middle of an international incident. He must discover the reason behind a nefarious global plot before the true mastermind has the entire world seeing red.",
+                "popularity": 545.679,
+                "poster_path": "/pzIddUEMWhWzfvLI3TwxUG2wGoi.jpg",
+                "release_date": "2025-02-12",
+                "title": "Captain America: Brave New World",
                 "video": false,
-                "vote_average": 7.7,
-                "vote_count": 141
+                "vote_average": 7.0,
+                "vote_count": 10
             },
             {
                 "adult": false,
@@ -415,8 +415,48 @@
                 "release_date": "2024-10-14",
                 "title": "Anora",
                 "video": false,
-                "vote_average": 7.073,
-                "vote_count": 986
+                "vote_average": 7.1,
+                "vote_count": 988
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/b3mdmjYTEL70j7nuXATUAD9qgu4.jpg",
+                "genre_ids": [
+                    16,
+                    14,
+                    12
+                ],
+                "id": 823219,
+                "original_language": "lv",
+                "original_title": "Straume",
+                "overview": "A solitary cat, displaced by a great flood, finds refuge on a boat with various species and must navigate the challenges of adapting to a transformed world together.",
+                "popularity": 446.911,
+                "poster_path": "/imKSymKBK7o73sajciEmndJoVkR.jpg",
+                "release_date": "2024-08-29",
+                "title": "Flow",
+                "video": false,
+                "vote_average": 8.3,
+                "vote_count": 1091
+            },
+            {
+                "adult": false,
+                "backdrop_path": "/8btfz81bOJ2lC7cujYBTw03wzg3.jpg",
+                "genre_ids": [
+                    16,
+                    14,
+                    12
+                ],
+                "id": 980477,
+                "original_language": "zh",
+                "original_title": "\u54ea\u5412\u4e4b\u9b54\u7ae5\u95f9\u6d77",
+                "overview": "After the tribulation, although the souls of Ne Zha and Ao Bing were preserved, their physical bodies would soon be completely destroyed.Tai Yi Zhen Ren plans to use the Seven Colored Lotus to reshape their physical bodies. But in the process of reshaping their physical bodies, they encountered numerous difficulties. Where will the fate of Ne Zha and Ao Bing go?",
+                "popularity": 438.326,
+                "poster_path": "/293Mo4GWf7Tl0TfAr5NFghqeMy7.jpg",
+                "release_date": "2025-01-29",
+                "title": "Ne Zha 2",
+                "video": false,
+                "vote_average": 7.875,
+                "vote_count": 48
             },
             {
                 "adult": false,
@@ -440,63 +480,43 @@
             },
             {
                 "adult": false,
-                "backdrop_path": "/8eifdha9GQeZAkexgtD45546XKx.jpg",
+                "backdrop_path": "/i3CAo9UMGsvlU9k3Svd63rRDeZx.jpg",
                 "genre_ids": [
-                    878,
-                    28,
-                    53
+                    16,
+                    18,
+                    35
                 ],
-                "id": 822119,
+                "id": 1064486,
                 "original_language": "en",
-                "original_title": "Captain America: Brave New World",
-                "overview": "After meeting with newly elected U.S. President Thaddeus Ross, Sam finds himself in the middle of an international incident. He must discover the reason behind a nefarious global plot before the true mastermind has the entire world seeing red.",
-                "popularity": 545.679,
-                "poster_path": "/pzIddUEMWhWzfvLI3TwxUG2wGoi.jpg",
-                "release_date": "2025-02-12",
-                "title": "Captain America: Brave New World",
+                "original_title": "Memoir of a Snail",
+                "overview": "Forcibly separated from her twin brother when they are orphaned, a melancholic misfit learns how to find confidence within herself amid the clutter of misfortunes and everyday life.",
+                "popularity": 414.785,
+                "poster_path": "/57AgZv1ITeBLShiNdchZ5153evs.jpg",
+                "release_date": "2024-10-17",
+                "title": "Memoir of a Snail",
                 "video": false,
-                "vote_average": 7.1,
-                "vote_count": 8
+                "vote_average": 7.648,
+                "vote_count": 142
             },
             {
                 "adult": false,
-                "backdrop_path": "/b3mdmjYTEL70j7nuXATUAD9qgu4.jpg",
+                "backdrop_path": "/vgnoBSVzWAV9sNQUORaDGvDp7wx.jpg",
                 "genre_ids": [
-                    16,
-                    14,
-                    12
+                    12,
+                    18,
+                    878
                 ],
-                "id": 823219,
-                "original_language": "lv",
-                "original_title": "Straume",
-                "overview": "A solitary cat, displaced by a great flood, finds refuge on a boat with various species and must navigate the challenges of adapting to a transformed world together.",
-                "popularity": 446.911,
-                "poster_path": "/imKSymKBK7o73sajciEmndJoVkR.jpg",
-                "release_date": "2024-08-29",
-                "title": "Flow",
+                "id": 157336,
+                "original_language": "en",
+                "original_title": "Interstellar",
+                "overview": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
+                "popularity": 342.204,
+                "poster_path": "/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+                "release_date": "2014-11-05",
+                "title": "Interstellar",
                 "video": false,
-                "vote_average": 8.3,
-                "vote_count": 1090
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/8btfz81bOJ2lC7cujYBTw03wzg3.jpg",
-                "genre_ids": [
-                    16,
-                    14,
-                    12
-                ],
-                "id": 980477,
-                "original_language": "zh",
-                "original_title": "\u54ea\u5412\u4e4b\u9b54\u7ae5\u95f9\u6d77",
-                "overview": "After the tribulation, although the souls of Ne Zha and Ao Bing were preserved, their physical bodies would soon be completely destroyed.Tai Yi Zhen Ren plans to use the Seven Colored Lotus to reshape their physical bodies. But in the process of reshaping their physical bodies, they encountered numerous difficulties. Where will the fate of Ne Zha and Ao Bing go?",
-                "popularity": 438.326,
-                "poster_path": "/293Mo4GWf7Tl0TfAr5NFghqeMy7.jpg",
-                "release_date": "2025-01-29",
-                "title": "Ne Zha 2",
-                "video": false,
-                "vote_average": 7.9,
-                "vote_count": 46
+                "vote_average": 8.451,
+                "vote_count": 36433
             },
             {
                 "adult": false,
@@ -516,26 +536,6 @@
                 "video": false,
                 "vote_average": 7.2,
                 "vote_count": 1068
-            },
-            {
-                "adult": false,
-                "backdrop_path": "/mKIxSo3p1QKlsdegcOwapcbiV74.jpg",
-                "genre_ids": [
-                    28,
-                    80,
-                    53
-                ],
-                "id": 604685,
-                "original_language": "en",
-                "original_title": "Den of Thieves 2: Pantera",
-                "overview": "Big Nick is back on the hunt in Europe and closing in on Donnie, who is embroiled in the treacherous and unpredictable world of diamond thieves and the infamous Panther mafia, as they plot a massive heist of the world's largest diamond exchange.",
-                "popularity": 303.006,
-                "poster_path": "/zLHq7fQA3xpck5UIHcRYgip5pQD.jpg",
-                "release_date": "2025-01-08",
-                "title": "Den of Thieves 2: Pantera",
-                "video": false,
-                "vote_average": 6.7,
-                "vote_count": 209
             }
         ],
         "director_choice": [

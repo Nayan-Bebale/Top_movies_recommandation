@@ -129,7 +129,11 @@
                 <div class="col-md-2 col-2 pe-0">
                     <div class="blog_1l5il">
                       {% if comment.user.profile_pic %}
-                        <img src="../../static/uploads/{{ comment.user.profile_pic }}" class="w-50" style="border-radius: 50%;" alt="Profile Image">
+                        <img src="data:image/png;base64,{{ comment.user.profile_pic | b64encode }}" 
+                        class="img-fluid rounded-circle" 
+                        style="max-width: 40px; height: auto;" 
+                        alt="Profile Image">
+                        
                       {% else %}
                         <img src="../../static/img/default.png" class="w-50" style="border-radius: 50%;" alt="Profile Image">
                       {% endif %}  

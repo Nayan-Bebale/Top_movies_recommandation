@@ -16,3 +16,4 @@ python-dotenv
 Flask[async]
 psycopg2-binary
 python-Levenshtein
+Flask-Mail

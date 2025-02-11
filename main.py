@@ -23,6 +23,8 @@ from requests.exceptions import ConnectionError, RequestException
 from sqlalchemy import ForeignKeyConstraint
 from sqlalchemy.pool import NullPool
 from werkzeug.utils import secure_filename
+from flask_mail import Mail, Message
+
 
 # Import data from assemble_code
 from assemble_code.parameters import GENRE, GENRE_IDS, country_language_map, stopwords, sub_country_language_map
@@ -38,6 +40,17 @@ migrate = Migrate()  # Create an instance of Migrate without initializing it wit
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = os.getenv('MAIL')  # Use your actual Gmail address
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')  # Use your generated App Password
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+mail = Mail(app)
+
+
+mail = Mail(app)
 
 # Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
@@ -1011,7 +1024,6 @@ async def movie_details():
                     recommended_movies = await fetch_genre_based_recommendations(session, genre_ids)
 
                 comments = Comment.query.filter_by(movie_id=movie.id).all()
-
                 if current_user.is_authenticated and movie_id:
                     if WatchHistory.query.filter_by(user_id=current_user.id, movie_id=movie_id).first() is None:
                         new_watch = WatchHistory(user_id=current_user.id, movie_id=movie_id)
@@ -1137,21 +1149,66 @@ def add_comment():
     return redirect(url_for('movie_details', movie=movie_name, id=movie_id))
 
 
+
 @app.route("/about")
 def about():
+    languages = ['English', 'Hindi', 'Japanese', 'Korean', 'Russian', 'Mandarin (Chaina)', 'German', 'French', 'Spanish']
+    # Fetch homepage data asynchronously
+    global homepage_data
+    homepage_data = asyncio.run(get_homepage_data())
+    lang = get_country_and_language()
+
     context = {
         'best_movie_of_month': best_movie_of_month,
         'best_movie_video_url': best_movie_video_url,
+        'GENRE_IDS':list(GENRE.values()),
+        'languages': languages,
+        'language': lang,
+        'genre_movies': {
+            genre: homepage_data.get(f"trending_{genre}", [])
+            for genre in GENRE_IDS.keys()
+        },
     }
     return render_template("free_movie_zip/about.html", form = SearchMovies(), context=context)
 
-@app.route("/contact")
-def contect():
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
     context = {
         'best_movie_of_month': best_movie_of_month,
         'best_movie_video_url': best_movie_video_url,
     }
+    if request.method == "POST":
+        name = request.form["name"]
+        email = request.form["email"]
+        message = request.form["message"]
+
+        # Send email to yourself (Admin)
+        msg = Message(
+            subject=f"New Contact Form Submission from {name}",
+            sender=os.getenv('MAIL'),
+            recipients=[os.getenv('MAIL')],  # Change to your email
+            body=f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
+        )
+
+        # Send confirmation email to the user
+        confirm_msg = Message(
+            subject="Thank You for Contacting CineMatch!",
+            sender=os.getenv('MAIL'),  # Use your configured sender
+            recipients=[email],
+            body=f"Hi {name},\n\nThank you for reaching out! I will get back to you soon.\n\nBest,\nNayan Bebale"
+        )
+
+        try:
+            mail.send(msg)  # Send admin notification
+            mail.send(confirm_msg)  # Send user confirmation
+            flash("Message sent successfully! A confirmation email has been sent to you.", "success")
+        except Exception as e:
+            flash(f"Error sending message: {e}", "danger")
+
+        return redirect(url_for("contact"))
+
     return render_template("free_movie_zip/contact.html", form = SearchMovies(), context=context)
+
 
 @app.route("/blog")
 def blog():

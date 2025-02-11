@@ -30,7 +30,10 @@
         <div class="serv_pg1i bg_dark p-4 pt-3 h-100">
           <h1 class="col_light">
             {% if item.profile_pic %}
-                <img src="../../static/uploads/{{ item.profile_pic }}" style="border-radius: 50%; width: 50px;" alt="Profile Image">
+            <img src="data:image/png;base64,{{ item.profile_pic | b64encode }}" 
+              class="img-fluid rounded-circle" 
+              style="max-width: 40px; height: auto;" 
+              alt="Profile Image">
             {% else %}
                 <img src="../../static/img/default.png" class="w-50" style="border-radius: 50%;" alt="Profile Image">
             {% endif %}
