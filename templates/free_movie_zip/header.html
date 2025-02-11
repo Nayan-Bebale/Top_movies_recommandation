@@ -143,16 +143,17 @@
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <!-- hi, {{ current_user.profile_pic }} -->
                   {% if current_user.profile_pic %}
-                    <img src="{{ url_for('static', filename='uploads/' + current_user.profile_pic) }}" 
-                        class="img-fluid rounded-circle" 
-                        style="max-width: 40px; height: auto;" 
-                        alt="Profile Image">
+                      <img src="data:image/png;base64,{{ current_user.profile_pic | b64encode }}" 
+                          class="img-fluid rounded-circle" 
+                          style="max-width: 40px; height: auto;" 
+                          alt="Profile Image">
                   {% else %}
-                    <img src="{{ url_for('static', filename='img/default.png') }}" 
-                        class="img-fluid rounded-circle" 
-                        style="max-width: 40px; height: auto;" 
-                        alt="Profile Image">
+                      <img src="{{ url_for('static', filename='img/default.png') }}" 
+                          class="img-fluid rounded-circle" 
+                          style="max-width: 40px; height: auto;" 
+                          alt="Profile Image">
                   {% endif %}
+
 
                 </a>
                 <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">

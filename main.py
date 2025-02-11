@@ -8,6 +8,7 @@ import asyncio
 import aiohttp
 import gzip
 import json
+import base64
 from datetime import datetime
 from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, url_for, request, flash
@@ -20,6 +21,7 @@ from fuzzywuzzy import process, fuzz
 from tenacity import retry, stop_after_attempt, wait_fixed
 from requests.exceptions import ConnectionError, RequestException
 from sqlalchemy import ForeignKeyConstraint
+from sqlalchemy.pool import NullPool
 from werkzeug.utils import secure_filename
 
 # Import data from assemble_code
@@ -40,9 +42,25 @@ app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 # Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    "pool_pre_ping": True,  # Automatically checks if the connection is alive
+    "pool_recycle": 1800,    # Closes stale connections every 30 minutes
+    "pool_size": 10,         # Maintain a small pool of connections
+    "max_overflow": 20       # Allow some extra temporary connections
+}
+
+
+@app.template_filter('b64encode')
+def b64encode_filter(binary_data):
+    if binary_data:
+        return base64.b64encode(binary_data).decode('utf-8')
+    return None
+
+
 
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+app.jinja_env.filters['b64encode'] = b64encode_filter
 
 
 DATA_FILE = "homepage_data.json"
@@ -71,7 +89,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(150), unique=True, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password_hash = db.Column(db.String(150), nullable=False)
-    profile_pic = db.Column(db.String(150), default='default.png')
+    profile_pic = db.Column(db.LargeBinary)  # Store image as BLOB
     favorites = db.relationship('Favorite', backref='user', lazy=True)
     comments = db.relationship('Comment', backref='user', lazy=True)
     watch_history = db.relationship('WatchHistory', backref='user', lazy=True)
@@ -817,21 +835,26 @@ def critics():
 
 # End Critics System
 
-@app.route('/upload-profile-pic', methods=['GET', 'POST'])
+@app.route('/upload-profile-pic', methods=['POST'])
+@login_required
 def upload_profile_pic():
     if 'profile_pic' not in request.files:
-        print('Data is not store')
+        print('No file part')
         return redirect(request.url)
+    
     file = request.files['profile_pic']
+    
     if file.filename == '' or not allowed_file(file.filename):
-        print('Data is not valid or something')
+        print('Invalid file format')
         return redirect(url_for('home'))
+    
     if file:
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        current_user.profile_pic = filename
+        image_data = file.read()  # Read image as binary
+        current_user.profile_pic = image_data
         db.session.commit()
         return redirect(url_for('home'))
+
+
 
 @app.route("/genre", methods=["GET", "POST"])
 async def genre():
