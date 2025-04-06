@@ -90,5 +90,5 @@ If you have any questions or feedback, feel free to reach out!
 
 ## 📺 YouTube Video
 
-Check out the how project works and walkthrough on YouTube: [Top Movie Recommendation Web App Tutorial](https://www.youtube.com/watch?v=0lxi6SZL3u8)
+Check out the how project works and walkthrough on YouTube: [Top Movie Recommendation Web App Tutorial](https://www.youtube.com/watch?v=sBlVv0sz3U0)
 
